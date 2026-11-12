@@ -1,0 +1,602 @@
+<title>Coconut Pop-up Ideas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Layout: one intro, a two-column wall of live demo cards, then a compare table and the pick. Variation D tokens, single light look on purpose so it previews in context. */
+:root{
+  --bg:#FBF8F1; --paper:#FFFFFF; --green:#002217; --green-2:#0B3A28; --ink-2:#3D5248;
+  --blush:#FFDDE2; --hot:#FF3193; --lime:#DDF985; --lime-2:#E7FDA3; --sand:#F1EADB; --burn:#46230C;
+  --line:rgba(0,34,23,.12);
+  --f-head:"Anton","Impact","Arial Narrow",sans-serif;
+  --f-body:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r1:14px; --r2:24px; --pill:999px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--green);font-family:var(--f-body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);font-weight:400;text-transform:uppercase;line-height:1;margin:0;letter-spacing:.005em;text-wrap:balance}
+p{margin:0}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.hl{background:linear-gradient(var(--hot),var(--hot)) 0 100%/100% 88% no-repeat;padding:0 .12em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl--lime{background-image:linear-gradient(var(--lime),var(--lime))}
+
+/* intro */
+.intro{padding-block:56px 40px;display:grid;gap:22px}
+.intro h1{font-size:clamp(46px,7.4vw,104px)}
+.intro .lead{max-width:58ch;font-size:17px;color:var(--ink-2)}
+.legend{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--pill);font-size:12.5px;font-weight:500;background:var(--paper);border:1px solid var(--line);white-space:nowrap}
+.chip b{font-weight:600}
+.chip--lime{background:var(--lime);border-color:transparent}
+.chip--pink{background:var(--blush);border-color:transparent}
+
+/* idea cards */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;padding-bottom:64px}
+.idea{display:grid;grid-template-rows:auto 1fr;background:var(--paper);border-radius:var(--r2);overflow:hidden;border:1px solid var(--line)}
+.idea__body{display:grid;gap:14px;padding:22px 24px 26px;align-content:start}
+.idea__top{display:flex;align-items:baseline;gap:12px}
+.idea__n{font-family:var(--f-head);font-size:20px;color:var(--hot);min-width:1.4em}
+.idea h2{font-size:clamp(28px,2.6vw,36px)}
+.idea .pitch{font-size:16px;max-width:52ch}
+.spots{display:flex;flex-wrap:wrap;gap:6px}
+.spots .chip{background:var(--bg)}
+.pc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink-2)}
+.pc strong{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:2px}
+.idea__meta{display:flex;flex-wrap:wrap;gap:6px}
+.idea--pick{outline:3px solid var(--hot);outline-offset:-3px}
+.pickflag{margin-left:auto;align-self:center;background:var(--hot);color:#fff;border-radius:var(--pill);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;white-space:nowrap}
+
+/* ---------- demo stages ---------- */
+.stage{position:relative;aspect-ratio:4/3;max-width:100%;overflow:hidden;container-type:inline-size;background:var(--blush);isolation:isolate}
+.stage.paused *, .stage.paused *::before, .stage.paused *::after{animation-play-state:paused!important}
+.tag{position:absolute;left:3cqw;top:3cqw;z-index:6;font-size:max(10px,2.1cqw);font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.88);color:var(--green);padding:.5cqw 1.6cqw;border-radius:var(--pill)}
+
+/* a coconut in a hole: the pit's bottom edge sits on the hole's centre line, so the coconut comes out of the hole */
+.pit{position:absolute;width:var(--w,26cqw);left:var(--x,50%);bottom:var(--y,14%);transform:translateX(-50%)}
+.pit::before{content:"";position:absolute;left:50%;bottom:calc(var(--w,26cqw)*-.13);width:calc(var(--w,26cqw)*1.32);height:calc(var(--w,26cqw)*.26);transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,#000E08 0 64%,#05281B 84%,rgba(0,34,23,0) 100%)}
+.clip{position:relative;clip-path:inset(-500% -300% 0 -300%)}
+.mover{position:relative;will-change:transform;transform:translateY(106%)}
+.mover img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.over{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.wig{transform-origin:50% 100%;animation:wig 2.8s ease-in-out infinite alternate}
+@keyframes wig{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+
+/* 1 · tunnel */
+.s1{background:var(--bg)}
+.t-page{position:absolute;inset:0 0 auto;height:300%;animation:tpage 12s var(--ease) infinite}
+.band{position:relative;height:33.3334%;padding:11cqw 6cqw 6cqw}
+.band h3{font-size:7.4cqw;max-width:62%}
+.band .eyebrow{font-size:max(9px,2cqw);margin-bottom:1.6cqw}
+.band--1{background:var(--bg)}
+.band--2{background:var(--green);color:var(--bg)}
+.band--2 .eyebrow{color:var(--lime)}
+.band--3{background:var(--blush)}
+.band--2 .pit::before,.s3 .pit::before,.s5 .pit::before,.festival .pit::before{background:radial-gradient(closest-side,#000 0 62%,#0E4A33 82%,rgba(221,249,133,0) 100%)}
+.flag{position:absolute;left:58%;bottom:84%;width:1.1cqw;height:13cqw;background:#C9A574;border-radius:2px;transform:rotate(8deg);transform-origin:50% 100%}
+.flag span{position:absolute;left:100%;top:0;font-family:var(--f-head);font-size:3.4cqw;line-height:1;padding:.9cqw 1.6cqw;white-space:nowrap;border-radius:0 1cqw 1cqw 0}
+.flag--lime span{background:var(--lime);color:var(--green)}
+.flag--pink span{background:var(--hot);color:#fff}
+.m1{animation:t1 12s var(--ease) infinite}
+.m2{animation:t2 12s var(--ease) infinite}
+.m3{animation:t3 12s var(--ease) infinite}
+@keyframes tpage{0%,24%{transform:none}30%,58%{transform:translateY(-33.3334%)}64%,92%{transform:translateY(-66.6667%)}98%,100%{transform:none}}
+@keyframes t1{0%{transform:translateY(106%)}5%,17%{transform:none}19.5%{transform:translateY(-9%) rotate(-6deg)}23%,100%{transform:translateY(106%) rotate(12deg)}}
+@keyframes t2{0%,32%{transform:translateY(106%)}37%,51%{transform:none}53.5%{transform:translateY(-9%) rotate(6deg)}57%,100%{transform:translateY(106%) rotate(-12deg)}}
+@keyframes t3{0%,65%{transform:translateY(106%)}70%,86%{transform:none}91%,100%{transform:translateY(106%)}}
+.coast{position:absolute;inset:auto 0 0 0;width:100%;height:70%}
+.mpin{position:absolute;left:30%;top:47%;display:grid;justify-items:center;gap:.6cqw;font-size:max(9px,2.2cqw);font-weight:600}
+.mpin i{width:3cqw;height:3cqw;border-radius:50%;background:var(--hot);box-shadow:0 0 0 1.2cqw rgba(255,49,147,.25)}
+.sbar{position:absolute;right:2cqw;top:6%;bottom:6%;width:1cqw;border-radius:9px;background:rgba(0,34,23,.12);z-index:5}
+.sbar i{position:absolute;left:0;right:0;top:0;height:33%;border-radius:9px;background:var(--green);animation:sbar 12s var(--ease) infinite}
+@keyframes sbar{0%,24%{transform:none}30%,58%{transform:translateY(100%)}64%,92%{transform:translateY(200%)}98%,100%{transform:none}}
+
+/* 2 · mascot */
+.s2{background:var(--blush)}
+.m-mascot{animation:mascot 9s var(--ease) infinite}
+@keyframes mascot{0%{transform:translateY(106%)}8%,24%{transform:translateY(64%)}31%,86%{transform:none}93%,100%{transform:translateY(106%)}}
+.s2.thanks .m-mascot{animation:none;transform:none}
+.eye{fill:#fff;stroke:var(--green);stroke-width:7}
+.lids{transform-box:fill-box;transform-origin:50% 50%;animation:blink 4.2s infinite}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+.arm{fill:none;stroke:var(--green);stroke-width:12;stroke-linecap:round}
+.glove{fill:#fff;stroke:var(--green);stroke-width:7;stroke-linejoin:round}
+.waver{transform-box:view-box;transform-origin:40px 420px;animation:wave 1.1s ease-in-out infinite alternate}
+@keyframes wave{from{transform:rotate(-10deg)}to{transform:rotate(16deg)}}
+.pointer{transform-box:view-box;transform-origin:552px 420px;animation:point 1.6s ease-in-out infinite alternate}
+@keyframes point{from{transform:translateX(0)}to{transform:translateX(18px)}}
+.thumb{display:none}
+.s2.thanks .thumb{display:inline}
+.s2.thanks .pointer > .pt{display:none}
+.quote-btn{position:absolute;right:6%;top:42%;z-index:4;border:0;cursor:pointer;font:600 max(11px,2.9cqw)/1 var(--f-body);padding:2.4cqw 3.6cqw;border-radius:var(--pill);background:var(--lime);color:var(--green);box-shadow:0 .8cqw 0 var(--green)}
+.quote-btn:active{transform:translateY(.6cqw);box-shadow:0 .2cqw 0 var(--green)}
+.quote-btn:focus-visible,.tabs button:focus-visible,.name-in:focus-visible,.again:focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+.bubble{position:absolute;left:8%;top:15%;z-index:4;max-width:42%;background:#fff;border:2px solid var(--green);border-radius:3cqw 3cqw 3cqw .6cqw;padding:1.6cqw 2.4cqw;font-size:max(10px,2.6cqw);font-weight:600;line-height:1.25;animation:bub 9s var(--ease) infinite;opacity:0}
+@keyframes bub{0%,32%{opacity:0;transform:translateY(8px)}36%,84%{opacity:1;transform:none}88%,100%{opacity:0}}
+.s2.thanks .bubble{animation:none;opacity:1;transform:none}
+
+/* 3 · game */
+.s3{background:var(--green);cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'%3E%3Crect x='3' y='3' width='14' height='9' rx='2' fill='%23FF3193' stroke='%23002217' stroke-width='2'/%3E%3Cpath d='M15 10l14 14' stroke='%23002217' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M15 10l14 14' stroke='%23DDF985' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 6 6,pointer}
+.s3 .pit{--w:15cqw}
+.s3 .mover{transition:transform .32s cubic-bezier(.3,1.5,.5,1)}
+.s3 .pit.up .mover{transform:none}
+.s3 .mover > img.b{position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.s3 .pit.hit .mover > img.b{opacity:1}
+.s3 .mover{cursor:inherit}
+.puff{position:absolute;left:50%;top:55%;width:40%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.85);opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.2)}
+.hit .puff{animation:puff .7s ease-out}
+.hit .puff:nth-child(3){animation-delay:.08s;left:30%}
+.hit .puff:nth-child(4){animation-delay:.14s;left:70%}
+@keyframes puff{0%{opacity:.9;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-160%) scale(1.3)}}
+.plus{position:absolute;left:50%;top:-10%;font-family:var(--f-head);font-size:4.4cqw;color:var(--lime);opacity:0;transform:translateX(-50%)}
+.hit .plus{animation:plus .8s ease-out}
+@keyframes plus{0%{opacity:0;transform:translate(-50%,10px)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-30px)}}
+.hud{position:absolute;left:3cqw;right:3cqw;top:3cqw;z-index:6;display:flex;justify-content:space-between;align-items:center;gap:2cqw;color:var(--bg);font-size:max(10px,2.4cqw);font-weight:600}
+.hud .score{background:var(--lime);color:var(--green);border-radius:var(--pill);padding:.8cqw 2.2cqw;font-variant-numeric:tabular-nums}
+.win{position:absolute;inset:0;z-index:7;display:grid;place-content:center;justify-items:center;gap:2.6cqw;text-align:center;background:rgba(0,34,23,.86);color:var(--bg);padding:6cqw}
+.win h3{font-size:7cqw;color:var(--lime)}
+.win p{font-size:max(11px,2.9cqw);max-width:30ch}
+.again{border:0;cursor:pointer;font:600 max(11px,2.7cqw)/1 var(--f-body);padding:2cqw 3.4cqw;border-radius:var(--pill);background:var(--hot);color:#fff}
+
+/* 4 · name */
+.s4{background:var(--sand);display:grid;grid-template-columns:47% 53%}
+.s4 .form{position:relative;z-index:3;display:grid;align-content:center;gap:2.2cqw;padding:5cqw 0 5cqw 6cqw}
+.s4 label{font-family:var(--f-head);font-size:5.2cqw;text-transform:uppercase;line-height:1}
+.name-in{width:100%;font:500 max(12px,3cqw)/1.2 var(--f-body);color:var(--green);background:#fff;border:2px solid var(--green);border-radius:var(--pill);padding:2cqw 3cqw}
+.s4 .quick{display:flex;flex-wrap:wrap;gap:1.2cqw}
+.s4 .quick button{border:1px solid var(--line);background:rgba(255,255,255,.7);color:var(--green);font:500 max(10px,2.3cqw)/1 var(--f-body);padding:1.2cqw 2cqw;border-radius:var(--pill);cursor:pointer}
+.s4 .pit{--w:34cqw;--x:73%;--y:13%}
+.m-name{transform:none}
+.m-name.bump{animation:bump .6s var(--ease)}
+@keyframes bump{0%{transform:none}35%{transform:translateY(-6%)}100%{transform:none}}
+.stamp{position:absolute;left:50%;top:58.8%;width:61%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1.05cqw solid rgba(70,35,12,.86);display:grid;place-items:center;mix-blend-mode:multiply;filter:blur(.25px)}
+.stamp span{width:78%;text-align:center;font-family:var(--f-head);text-transform:uppercase;line-height:1.02;color:rgba(70,35,12,.9);text-wrap:balance;overflow-wrap:normal;text-shadow:0 0 2px rgba(120,60,20,.45)}
+.stamp.hot{animation:burn 1.1s ease-out}
+@keyframes burn{0%{filter:blur(.25px) drop-shadow(0 0 6px #FF7A1A) brightness(1.5)}100%{filter:blur(.25px)}}
+.smoke{position:absolute;left:50%;top:45%;width:18%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.7);opacity:0;pointer-events:none}
+.hot ~ .smoke{animation:smoke 1.2s ease-out}
+.hot ~ .smoke + .smoke{animation-delay:.15s;left:62%}
+@keyframes smoke{0%{opacity:.8;transform:translate(-50%,0) scale(.4)}100%{opacity:0;transform:translate(-50%,-160%) scale(1.6)}}
+
+/* 5 · straw */
+.s5{background:var(--green)}
+.s5 .tag{background:var(--lime)}
+.s5 .pit{--w:27cqw;--y:13%}
+.m-straw{animation:straw 8s var(--ease) infinite}
+.m-straw .straw{display:block;width:34%;margin-left:47%;height:auto;overflow:visible}
+@keyframes straw{0%{transform:translateY(100%)}9%,40%{transform:translateY(61%)}44%{transform:translateY(-6%)}48%,72%{transform:none}77%,100%{transform:translateY(100%)}}
+.tip{transform-box:view-box;transform-origin:30px 46px;animation:look 8s ease-in-out infinite}
+@keyframes look{0%,12%{transform:rotate(0)}15%,20%{transform:rotate(-58deg)}24%,29%{transform:rotate(52deg)}33%,37%{transform:rotate(-58deg)}41%,100%{transform:rotate(0)}}
+.drop{position:absolute;left:50%;bottom:0;width:2.4cqw;aspect-ratio:1;border-radius:50% 50% 50% 0;background:#fff;border:.35cqw solid var(--green);opacity:0;animation:drop 8s ease-out infinite}
+@keyframes drop{0%,42%{opacity:0;transform:translate(-50%,0) scale(.3)}44%{opacity:1}53%{opacity:0;transform:translate(calc(-50% + var(--dx)),var(--dy)) scale(1) rotate(var(--r))}100%{opacity:0}}
+.ripple{position:absolute;left:50%;bottom:-2cqw;width:40cqw;height:9cqw;border:.5cqw solid rgba(221,249,133,.6);border-radius:50%;opacity:0;transform:translateX(-50%) scale(.4);animation:ripple 8s ease-out infinite}
+@keyframes ripple{0%,42%{opacity:0;transform:translateX(-50%) scale(.4)}44%{opacity:1}54%,100%{opacity:0;transform:translateX(-50%) scale(1.15)}}
+
+/* 6 · dressed */
+.s6{transition:background-color .5s}
+.s6.wedding{background:var(--blush)} .s6.hotel{background:var(--sand)} .s6.pool{background:var(--lime-2)} .s6.festival{background:var(--green)}
+.s6 .pit{--w:27cqw;--y:12%}
+.m-dress{transform:none}
+.m-dress.swap{animation:swap .8s var(--ease)}
+@keyframes swap{0%{transform:none}38%,55%{transform:translateY(106%)}100%{transform:none}}
+.acc{display:none}
+.wedding .acc--wedding,.hotel .acc--hotel,.pool .acc--pool,.festival .acc--festival{display:inline}
+.tabs{position:absolute;left:3cqw;right:3cqw;top:3cqw;z-index:6;display:flex;flex-wrap:wrap;gap:1.2cqw}
+.tabs button{border:0;cursor:pointer;font:600 max(10px,2.5cqw)/1 var(--f-body);padding:1.6cqw 2.6cqw;border-radius:var(--pill);background:rgba(255,255,255,.75);color:var(--green)}
+.tabs button[aria-pressed="true"]{background:var(--green);color:var(--bg)}
+.festival .tabs button[aria-pressed="true"]{background:var(--lime);color:var(--green)}
+.occ{position:absolute;left:4cqw;bottom:5cqw;z-index:5;font-family:var(--f-head);font-size:5.4cqw;text-transform:uppercase;line-height:1;max-width:30%}
+.festival .occ{color:var(--lime)}
+.confetti{display:none;position:absolute;inset:0;pointer-events:none;z-index:1}
+.festival .confetti{display:block}
+.confetti i{position:absolute;top:-6%;width:1.4cqw;height:2.4cqw;border-radius:2px;animation:fall 3.4s linear infinite}
+@keyframes fall{from{transform:translateY(0) rotate(0)}to{transform:translateY(120cqw) rotate(540deg)}}
+
+/* compare + pick */
+.sec{padding-block:8px 64px;display:grid;gap:20px}
+.sec h2{font-size:clamp(34px,4vw,54px)}
+.tbl{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--line);background:var(--paper)}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:600;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600;white-space:nowrap}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.e-s{background:#5DBB63}.e-m{background:#F2B33D}.e-l{background:var(--hot)}
+.pick{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--green);color:var(--bg);border-radius:var(--r2);padding:clamp(24px,4vw,48px)}
+.pick h2{font-size:clamp(40px,5.4vw,76px);color:var(--bg)}
+.pick h2 .hl{color:var(--green)}
+.pick p{font-size:16px;color:rgba(251,248,241,.84);max-width:46ch}
+.pick ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.pick li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:baseline;padding:14px 18px;border-radius:var(--r1);background:rgba(255,255,255,.07)}
+.pick li b{font-family:var(--f-head);font-weight:400;font-size:22px;color:var(--lime);white-space:nowrap}
+.pick li span{font-size:14px;color:rgba(251,248,241,.84)}
+.foot{padding-block:0 56px;color:var(--ink-2);font-size:13px}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  .pick{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .pc{grid-template-columns:minmax(0,1fr)}
+  .idea__body{padding:18px 18px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .stage *,.stage *::before,.stage *::after{animation:none!important;transition:none!important}
+  .m1,.m-mascot,.m-straw,.s6 .mover{transform:none}
+  .m-straw{transform:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- cartoon glove, fingers up, drawn around 0,0 -->
+    <symbol id="glove" viewBox="-70 -90 140 170" overflow="visible">
+      <path class="glove" d="M-34 34 C-46 4 -44 -26 -32 -38 L-32 -60 a11 11 0 0 1 22 0 L-10 -42 L-10 -72 a11 11 0 0 1 22 0 L12 -42 L12 -62 a11 11 0 0 1 22 0 L34 -30 C44 -12 42 14 34 34 Z"/>
+      <path class="glove" d="M-36 2 C-60 -2 -70 -24 -56 -30 C-46 -34 -40 -20 -33 -12"/>
+      <rect class="glove" x="-38" y="30" width="76" height="30" rx="12"/>
+      <path d="M-8 -6 V16 M12 -6 V16" fill="none" stroke="#002217" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+    <!-- glove pointing with one finger, fingertip to the right -->
+    <symbol id="point" viewBox="-70 -60 170 120" overflow="visible">
+      <path class="glove" d="M-36 -30 C-10 -40 20 -36 30 -26 L88 -26 a12 12 0 0 1 0 24 L34 -2 C40 12 36 30 22 36 L-30 36 C-44 30 -48 -18 -36 -30 Z"/>
+      <path d="M0 -2 H30 M-2 16 H26" fill="none" stroke="#002217" stroke-width="6" stroke-linecap="round"/>
+      <rect class="glove" x="-66" y="-30" width="32" height="66" rx="12"/>
+    </symbol>
+    <!-- thumbs up -->
+    <symbol id="thumbsup" viewBox="-70 -110 140 190" overflow="visible">
+      <path class="glove" d="M-30 -34 C-26 -64 -12 -96 6 -92 C20 -88 14 -60 10 -36 L34 -36 C50 -36 50 -10 40 -6 C52 0 50 22 38 24 C46 32 42 48 30 50 L-30 50 Z"/>
+      <path d="M-30 -8 H36 M-30 20 H34" fill="none" stroke="#002217" stroke-width="6" stroke-linecap="round"/>
+      <rect class="glove" x="-60" y="-40" width="32" height="96" rx="12"/>
+    </symbol>
+    <pattern id="stripes" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <rect width="22" height="22" fill="#FF3193"/><rect width="9" height="22" fill="#fff"/>
+    </pattern>
+    <pattern id="partyStripes" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+      <rect width="60" height="60" fill="#FF3193"/><rect width="26" height="60" fill="#DDF985"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="wrap intro">
+  <p class="eyebrow">Variation D · Coconut pop-ups · Concepts for review</p>
+  <h1>Give the coconut a <span class="hl">personality</span></h1>
+  <p class="lead">Six ways your coconut could pop up across the Variation D homepage. Every demo below is live and uses your real coconut photo. Pick one, or a pair, and I'll build it into the page.</p>
+  <div class="legend">
+    <span class="chip"><span class="dot e-s"></span>Small build</span>
+    <span class="chip"><span class="dot e-m"></span>Medium build</span>
+    <span class="chip"><span class="dot e-l"></span>Larger build</span>
+    <span class="chip chip--pink">Pink outline = my pick</span>
+  </div>
+</header>
+
+<main class="wrap grid">
+
+  <!-- 1 · tunnel -->
+  <article class="idea idea--pick">
+    <div class="stage s1" aria-label="Demo: a coconut dives into the hero and pops out further down the page">
+      <span class="tag">Scrolls the page</span>
+      <div class="sbar"><i></i></div>
+      <div class="t-page">
+        <section class="band band--1">
+          <p class="eyebrow">For hotels and events</p>
+          <h3>Custom branded <span class="hl">coconuts</span></h3>
+          <div class="pit" style="--w:24cqw;--x:74%;--y:12%"><div class="clip"><div class="mover m1"><img src="img/coco.png" alt=""></div></div></div>
+        </section>
+        <section class="band band--2">
+          <p class="eyebrow">How it works</p>
+          <h3>02 · We brand it</h3>
+          <div class="pit" style="--w:24cqw;--x:70%;--y:12%"><div class="clip"><div class="mover m2"><div class="wig"><img src="img/coco.png" alt=""></div><div class="flag flag--lime"><span>STEP 02</span></div></div></div></div>
+        </section>
+        <section class="band band--3">
+          <p class="eyebrow">We deliver</p>
+          <h3>Miami and beyond</h3>
+          <svg class="coast" viewBox="0 0 400 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 C60 100 90 150 140 130 S230 70 290 110 S370 140 400 120" fill="none" stroke="#002217" stroke-width="2" stroke-dasharray="6 7" opacity=".35"/></svg>
+          <div class="mpin"><i></i>Miami</div>
+          <div class="pit" style="--w:22cqw;--x:66%;--y:10%"><div class="clip"><div class="mover m3"><div class="wig"><img src="img/coco.png" alt=""></div><div class="flag flag--pink"><span>HEY, MIAMI</span></div></div></div></div>
+        </section>
+      </div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">01</span><h2>The coconut that tunnels</h2><span class="pickflag">My pick</span></div>
+      <p class="pitch">One coconut travels down the page. It dives into a hole in the hero and pops out wherever you scroll next, carrying a little flag.</p>
+      <div class="spots"><span class="chip">Hero</span><span class="chip">How it works</span><span class="chip">Deliver map</span><span class="chip">Quote form</span></div>
+      <div class="pc"><p><strong>Good</strong>Ties the whole page into one story. No face, so it stays premium.</p><p><strong>Watch out</strong>Timing has to be tuned so it never covers text on phones.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-m"></span>Medium build</span><span class="chip">No face</span></div>
+    </div>
+  </article>
+
+  <!-- 2 · mascot -->
+  <article class="idea">
+    <div class="stage s2" id="s2" aria-label="Demo: the coconut with cartoon gloves and eyes that follow your cursor">
+      <span class="tag">Eyes follow your cursor</span>
+      <p class="bubble" id="bubble">Psst. Want your logo on me?</p>
+      <button class="quote-btn" type="button" id="quoteBtn">Get a quote</button>
+      <div class="pit" style="--w:28cqw;--x:36%;--y:13%"><div class="clip"><div class="mover m-mascot">
+        <img src="img/coco.png" alt="">
+        <svg class="over" viewBox="0 0 592 680" aria-hidden="true">
+          <g class="waver"><path class="arm" d="M40 420 Q-50 400 -96 300"/><use href="#glove" x="-176" y="160" width="140" height="170" transform="rotate(-14 -106 245)"/></g>
+          <g class="pointer"><path class="arm" d="M552 420 Q640 420 690 392"/>
+            <use class="pt" href="#point" x="660" y="330" width="170" height="120"/>
+            <use class="thumb" href="#thumbsup" x="650" y="250" width="140" height="190"/>
+          </g>
+          <g class="lids">
+            <ellipse class="eye" cx="226" cy="168" rx="46" ry="54"/><ellipse class="eye" cx="366" cy="168" rx="46" ry="54"/>
+            <circle class="pupil" cx="226" cy="172" r="20" fill="#002217"/><circle class="pupil" cx="366" cy="172" r="20" fill="#002217"/>
+            <circle class="glint" cx="232" cy="162" r="6" fill="#fff"/><circle class="glint" cx="372" cy="162" r="6" fill="#fff"/>
+          </g>
+        </svg>
+      </div></div></div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">02</span><h2>Meet Coco</h2></div>
+      <p class="pitch">Your real coconut with cartoon gloves and big eyes that follow the cursor. It peeks, waves, points at the quote button and gives a thumbs up. Try the button.</p>
+      <div class="spots"><span class="chip">Hero</span><span class="chip">Get a quote</span><span class="chip">Form thank-you</span></div>
+      <div class="pc"><p><strong>Good</strong>The most memorable option. Gives the brand a voice for socials too.</p><p><strong>Watch out</strong>Playful tone may feel less premium to luxury hotels.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-m"></span>Medium build</span><span class="chip">Eyes and gloves</span></div>
+    </div>
+  </article>
+
+  <!-- 3 · game -->
+  <article class="idea">
+    <div class="stage s3" id="s3" aria-label="Playable demo: tap coconuts as they pop up to brand them">
+      <div class="hud"><span>Tap to brand them</span><span class="score" id="score">Branded 0 / 5</span></div>
+      <div class="pit" style="--x:22%;--y:52%"></div>
+      <div class="pit" style="--x:50%;--y:52%"></div>
+      <div class="pit" style="--x:78%;--y:52%"></div>
+      <div class="pit" style="--x:36%;--y:14%"></div>
+      <div class="pit" style="--x:64%;--y:14%"></div>
+      <div class="win" id="win" hidden>
+        <h3>You're a natural</h3>
+        <p>Now let's brand yours. Logos, names or a monogram, burned by hand.</p>
+        <button class="again" type="button" id="again">Play again</button>
+      </div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">03</span><h2>Brand-it game</h2></div>
+      <p class="pitch">Coconuts pop out of holes and you tap them with a branding iron. Brand five and the page offers to brand yours. Play it above.</p>
+      <div class="spots"><span class="chip">Hero</span><span class="chip">Or a break between sections</span></div>
+      <div class="pc"><p><strong>Good</strong>People stay and play, and the reward leads straight to a quote.</p><p><strong>Watch out</strong>Competes with the main call to action if it sits in the hero.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-l"></span>Larger build</span><span class="chip">No face</span></div>
+    </div>
+  </article>
+
+  <!-- 4 · name -->
+  <article class="idea">
+    <div class="stage s4" id="s4" aria-label="Demo: type a name and it burns onto the coconut">
+      <div class="form">
+        <label for="nameIn">Type a name</label>
+        <input class="name-in" id="nameIn" type="text" maxlength="28" value="Sofia &amp; Marco" autocomplete="off">
+        <div class="quick" id="quick"><button type="button">Happy 30th, Dani</button><button type="button">Hotel Azul</button><button type="button">Sofia &amp; Marco</button></div>
+      </div>
+      <div class="pit"><div class="clip"><div class="mover m-name" id="nameMover">
+        <img src="img/coco-blank.png" alt="">
+        <div class="stamp" id="stamp"><span id="stampTxt">Sofia &amp; Marco</span></div>
+        <i class="smoke"></i><i class="smoke"></i>
+      </div></div></div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">04</span><h2>Your name, live</h2></div>
+      <p class="pitch">A name field in the hero. Whatever you type burns onto the coconut as you type it. Try your own name above.</p>
+      <div class="spots"><span class="chip">Hero</span><span class="chip">Logo preview section</span></div>
+      <div class="pc"><p><strong>Good</strong>Shows the product in one second, with nothing to learn.</p><p><strong>Watch out</strong>Overlaps the logo upload tool, so one of them should move.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-s"></span>Small build</span><span class="chip">No face</span></div>
+    </div>
+  </article>
+
+  <!-- 5 · straw -->
+  <article class="idea idea--pick">
+    <div class="stage s5" aria-label="Demo: a pink straw rises and looks around, then the coconut pops up with a splash">
+      <span class="tag">Loops every 8 seconds</span>
+      <div class="pit">
+        <span class="ripple"></span>
+        <span class="drop" style="--dx:-15cqw;--dy:-14cqw;--r:-30deg"></span>
+        <span class="drop" style="--dx:-9cqw;--dy:-21cqw;--r:-10deg"></span>
+        <span class="drop" style="--dx:-2cqw;--dy:-25cqw;--r:10deg"></span>
+        <span class="drop" style="--dx:8cqw;--dy:-22cqw;--r:30deg"></span>
+        <span class="drop" style="--dx:15cqw;--dy:-15cqw;--r:50deg"></span>
+        <span class="drop" style="--dx:19cqw;--dy:-6cqw;--r:70deg"></span>
+        <div class="clip"><div class="mover m-straw">
+          <svg class="straw" viewBox="0 0 60 150" aria-hidden="true">
+            <rect x="21" y="44" width="18" height="110" fill="url(#stripes)" stroke="#002217" stroke-width="3"/>
+            <rect x="19" y="40" width="22" height="12" rx="3" fill="#FFDDE2" stroke="#002217" stroke-width="3"/>
+            <g class="tip"><rect x="21" y="2" width="18" height="44" fill="url(#stripes)" stroke="#002217" stroke-width="3"/><ellipse cx="30" cy="3" rx="9" ry="3" fill="#002217"/></g>
+          </svg>
+          <img src="img/coco.png" alt="">
+        </div></div>
+      </div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">05</span><h2>Straw periscope</h2><span class="pickflag">My pick</span></div>
+      <p class="pitch">A pink straw rises first and looks around like a periscope. Then the coconut pops up with a splash and ducks back down.</p>
+      <div class="spots"><span class="chip">Every pop-up spot</span><span class="chip">Loading moment</span></div>
+      <div class="pc"><p><strong>Good</strong>Charming without a face, and it reuses the pop-ups you already have.</p><p><strong>Watch out</strong>Subtle on small screens, so the straw needs to stay bold.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-s"></span>Small build</span><span class="chip">No face</span></div>
+    </div>
+  </article>
+
+  <!-- 6 · dressed -->
+  <article class="idea">
+    <div class="stage s6 wedding" id="s6" aria-label="Demo: the coconut wears an accessory for each kind of client">
+      <div class="tabs" id="dressTabs">
+        <button type="button" data-o="wedding" aria-pressed="true">Weddings</button>
+        <button type="button" data-o="hotel" aria-pressed="false">Hotels</button>
+        <button type="button" data-o="pool" aria-pressed="false">Pool clubs</button>
+        <button type="button" data-o="festival" aria-pressed="false">Festivals</button>
+      </div>
+      <p class="occ" id="occ">Planning the big day</p>
+      <div class="confetti" aria-hidden="true">
+        <i style="left:12%;background:#FF3193;animation-delay:-.4s"></i><i style="left:24%;background:#DDF985;animation-delay:-1.6s"></i><i style="left:38%;background:#fff;animation-delay:-2.4s"></i>
+        <i style="left:57%;background:#FF3193;animation-delay:-1s"></i><i style="left:70%;background:#DDF985;animation-delay:-2.9s"></i><i style="left:84%;background:#fff;animation-delay:-.2s"></i><i style="left:92%;background:#FF3193;animation-delay:-1.9s"></i>
+      </div>
+      <div class="pit" style="--x:62%"><div class="clip"><div class="mover m-dress" id="dressMover">
+        <img src="img/coco.png" alt="">
+        <svg class="over" viewBox="0 0 592 680" aria-hidden="true">
+          <g class="acc acc--wedding">
+            <path d="M296 -6 C170 40 52 190 6 560 L86 560 C116 360 196 170 296 70 C396 170 476 360 506 560 L586 560 C540 190 422 40 296 -6 Z" fill="#fff" fill-opacity=".72" stroke="#fff" stroke-width="4"/>
+            <g stroke="#002217" stroke-width="5"><circle cx="232" cy="58" r="22" fill="#FF3193"/><circle cx="296" cy="36" r="26" fill="#FFDDE2"/><circle cx="360" cy="58" r="22" fill="#FF3193"/></g>
+            <g fill="#DDF985" stroke="#002217" stroke-width="4"><circle cx="232" cy="58" r="8"/><circle cx="296" cy="36" r="9"/><circle cx="360" cy="58" r="8"/></g>
+          </g>
+          <g class="acc acc--hotel" transform="rotate(-10 296 40)">
+            <path d="M206 -36 L206 52 Q296 74 386 52 L386 -36 Z" fill="#002217" stroke="#002217" stroke-width="6"/>
+            <rect x="204" y="22" width="184" height="22" fill="#DDF985" stroke="#002217" stroke-width="5"/>
+            <ellipse cx="296" cy="-36" rx="90" ry="22" fill="#0B3A28" stroke="#002217" stroke-width="6"/>
+            <circle cx="296" cy="-6" r="10" fill="#DDF985"/>
+            <path d="M210 52 Q220 130 250 190" fill="none" stroke="#002217" stroke-width="6" stroke-linecap="round"/>
+          </g>
+          <g class="acc acc--pool">
+            <path d="M18 250 L120 236 M574 250 L472 236" stroke="#002217" stroke-width="12" stroke-linecap="round"/>
+            <path d="M262 244 Q296 222 330 244" fill="none" stroke="#FF3193" stroke-width="16"/>
+            <rect x="110" y="200" width="160" height="104" rx="46" fill="#002217" stroke="#FF3193" stroke-width="16"/>
+            <rect x="322" y="200" width="160" height="104" rx="46" fill="#002217" stroke="#FF3193" stroke-width="16"/>
+            <path d="M140 266 L196 214 M164 284 L222 230 M352 266 L408 214 M376 284 L434 230" stroke="#fff" stroke-opacity=".5" stroke-width="9" stroke-linecap="round"/>
+          </g>
+          <g class="acc acc--festival" transform="rotate(12 296 40)">
+            <path d="M296 -210 L216 60 Q296 84 376 60 Z" fill="url(#partyStripes)" stroke="#002217" stroke-width="6" stroke-linejoin="round"/>
+            <circle cx="296" cy="-214" r="26" fill="#fff" stroke="#002217" stroke-width="6"/>
+            <path d="M216 60 Q296 84 376 60" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div></div></div>
+    </div>
+    <div class="idea__body">
+      <div class="idea__top"><span class="idea__n">06</span><h2>Dressed for the occasion</h2></div>
+      <p class="pitch">The coconut wears something for each crowd: a veil, a bellhop cap, sunglasses or a party hat. Tap the tabs above.</p>
+      <div class="spots"><span class="chip">Two ways cards</span><span class="chip">Services</span><span class="chip">Our work</span></div>
+      <div class="pc"><p><strong>Good</strong>Speaks to each audience at a glance, with no copy needed.</p><p><strong>Watch out</strong>Four accessories to draw and keep on-brand.</p></div>
+      <div class="idea__meta"><span class="chip"><span class="dot e-m"></span>Medium build</span><span class="chip">No face</span></div>
+    </div>
+  </article>
+
+</main>
+
+<section class="wrap sec" aria-labelledby="cmpH">
+  <h2 id="cmpH">Side by side</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Idea</th><th>Face</th><th>Visitor does</th><th>Build</th><th>Best spot on D</th></tr></thead>
+      <tbody>
+        <tr><td>01 Tunnel</td><td>None</td><td>Scrolls</td><td><span class="dot e-m"></span>Medium</td><td>Whole page, hero to quote</td></tr>
+        <tr><td>02 Coco</td><td>Eyes and gloves</td><td>Moves cursor, clicks</td><td><span class="dot e-m"></span>Medium</td><td>Hero and quote button</td></tr>
+        <tr><td>03 Brand-it game</td><td>None</td><td>Taps to play</td><td><span class="dot e-l"></span>Larger</td><td>Break between sections</td></tr>
+        <tr><td>04 Your name</td><td>None</td><td>Types</td><td><span class="dot e-s"></span>Small</td><td>Hero or logo preview</td></tr>
+        <tr><td>05 Straw periscope</td><td>None</td><td>Watches</td><td><span class="dot e-s"></span>Small</td><td>Every pop-up</td></tr>
+        <tr><td>06 Dressed up</td><td>None</td><td>Taps tabs</td><td><span class="dot e-m"></span>Medium</td><td>Two ways and services</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap sec">
+  <div class="pick">
+    <div style="display:grid;gap:16px">
+      <p class="eyebrow" style="color:var(--lime)">My recommendation</p>
+      <h2>Build <span class="hl">01 + 05</span> together</h2>
+      <p>The coconut tunnels down the page, and every time it surfaces the straw peeks out first. It reads as one character with one habit, and there's no face to debate.</p>
+    </div>
+    <ul>
+      <li><b>01 + 05</b><span>Main pairing. Hero, How it works, Deliver map and quote form.</span></li>
+      <li><b>+ 04</b><span>Optional. Put the live name burn inside the logo preview section.</span></li>
+      <li><b>+ 06</b><span>Optional. Accessories on the Two ways cards (veil for events, cap for venues).</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap foot"><p>Reply with the numbers you like, for example "01 + 05" or "02 only", and I'll build it into Variation D.</p></footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const visible = new Set();
+
+  /* pause each demo while it is off screen */
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => { e.target.classList.toggle('paused', !e.isIntersecting); e.isIntersecting ? visible.add(e.target) : visible.delete(e.target); }), { threshold: 0.05 });
+    $$('.stage').forEach(s => io.observe(s));
+  } else $$('.stage').forEach(s => visible.add(s));
+
+  /* 2 · eyes follow the pointer; the quote button gets a thumbs up */
+  const s2 = $('#s2'), pupils = $$('.pupil', s2), glints = $$('.glint', s2);
+  const base = pupils.map(p => ({ x: +p.getAttribute('cx'), y: +p.getAttribute('cy') }));
+  const svg2 = $('.over', s2);
+  addEventListener('pointermove', e => {
+    const r = svg2.getBoundingClientRect(); if (!r.width) return;
+    const k = 592 / r.width;
+    pupils.forEach((p, i) => {
+      const ex = r.left + base[i].x / k, ey = r.top + base[i].y / k;
+      const a = Math.atan2(e.clientY - ey, e.clientX - ex), d = Math.min(1, Math.hypot(e.clientX - ex, e.clientY - ey) / 120);
+      const dx = Math.cos(a) * 22 * d, dy = Math.sin(a) * 26 * d;
+      p.setAttribute('cx', base[i].x + dx); p.setAttribute('cy', base[i].y + dy);
+      glints[i].setAttribute('cx', base[i].x + 6 + dx); glints[i].setAttribute('cy', base[i].y - 10 + dy);
+    });
+  }, { passive: true });
+  let tTimer;
+  $('#quoteBtn').addEventListener('click', () => {
+    s2.classList.add('thanks'); $('#bubble').textContent = 'Yay! See you at the form.';
+    clearTimeout(tTimer); tTimer = setTimeout(() => { s2.classList.remove('thanks'); $('#bubble').textContent = 'Psst. Want your logo on me?'; }, 2800);
+  });
+
+  /* 3 · brand-it game */
+  const s3 = $('#s3'), pits3 = $$('.pit', s3), scoreEl = $('#score'), win = $('#win');
+  pits3.forEach(p => {
+    p.innerHTML = '<div class="clip"><div class="mover"><img src="img/coco-blank.png" alt=""><img class="b" src="img/coco.png" alt=""><i class="puff"></i><i class="puff"></i><i class="puff"></i><span class="plus">+1</span></div></div>';
+    $('.mover', p).addEventListener('pointerdown', () => {
+      if (!p.classList.contains('up') || p.classList.contains('hit') || !win.hidden) return;
+      p.classList.add('hit'); score++; scoreEl.textContent = `Branded ${score} / 5`;
+      clearTimeout(p._t); p._t = setTimeout(() => { p.classList.remove('up'); setTimeout(() => p.classList.remove('hit'), 350); }, 650);
+      if (score >= 5) setTimeout(() => { win.hidden = false; }, 700);
+    });
+  });
+  let score = 0;
+  function popOne() {
+    if (!visible.has(s3) || !win.hidden || document.hidden) return;
+    const free = pits3.filter(p => !p.classList.contains('up'));
+    if (!free.length) return;
+    const p = free[Math.floor(Math.random() * free.length)];
+    p.classList.add('up');
+    p._t = setTimeout(() => { if (!p.classList.contains('hit')) p.classList.remove('up'); }, 1500);
+  }
+  if (reduce) pits3.slice(0, 3).forEach(p => p.classList.add('up'));
+  else setInterval(popOne, 720);
+  $('#again').addEventListener('click', () => { score = 0; scoreEl.textContent = 'Branded 0 / 5'; win.hidden = true; });
+
+  /* 4 · your name, burned live */
+  const nameIn = $('#nameIn'), stamp = $('#stamp'), stampTxt = $('#stampTxt'), nameMover = $('#nameMover');
+  function fit() {
+    const s = stamp.clientWidth; if (!s) return;
+    let fs = s * 0.2; stampTxt.style.fontSize = fs + 'px';
+    while ((stampTxt.scrollWidth > stampTxt.clientWidth + 1 || stampTxt.scrollHeight > s * 0.62) && fs > 6) { fs -= 0.5; stampTxt.style.fontSize = fs + 'px'; }
+  }
+  function burn() {
+    stampTxt.textContent = nameIn.value.trim() || 'Your name';
+    fit();
+    if (reduce) return;
+    stamp.classList.remove('hot'); nameMover.classList.remove('bump'); void stamp.offsetWidth;
+    stamp.classList.add('hot'); nameMover.classList.add('bump');
+  }
+  nameIn.addEventListener('input', burn);
+  $('#quick').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; nameIn.value = b.textContent; burn(); });
+  addEventListener('resize', fit);
+  if (document.fonts) document.fonts.ready.then(fit); fit();
+
+  /* 6 · dressed for the occasion */
+  const s6 = $('#s6'), dTabs = $$('#dressTabs button'), dm = $('#dressMover'), occ = $('#occ');
+  const lines = { wedding: 'Planning the big day', hotel: 'Checking in guests', pool: 'Day at the pool club', festival: 'Main stage energy' };
+  const order = ['wedding', 'hotel', 'pool', 'festival'];
+  let cur = 'wedding', picked = false, sw;
+  function dress(o) {
+    if (o === cur) return; cur = o;
+    dTabs.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.o === o)));
+    if (reduce) { s6.className = 'stage s6 ' + o; occ.textContent = lines[o]; return; }
+    dm.classList.remove('swap'); void dm.offsetWidth; dm.classList.add('swap');
+    clearTimeout(sw); sw = setTimeout(() => { s6.className = 'stage s6 ' + o + (visible.has(s6) ? '' : ' paused'); occ.textContent = lines[o]; }, 340);
+  }
+  dTabs.forEach(b => b.addEventListener('click', () => { picked = true; dress(b.dataset.o); }));
+  if (!reduce) setInterval(() => { if (!picked && visible.has(s6) && !document.hidden) dress(order[(order.indexOf(cur) + 1) % order.length]); }, 3200);
+})();
+</script>

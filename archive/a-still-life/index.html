@@ -1,0 +1,664 @@
+<title>Coconut Stock A Elegant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>document.documentElement.classList.toggle('rm', matchMedia('(prefers-reduced-motion: reduce)').matches && !/motion/.test(location.search))</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..600&family=Jost:wght@300..600&family=Pinyon+Script&display=swap">
+<style>
+/* STILL LIFE — the coconut as a luxury object.
+   Grid: 12 col, 1200 content, 24 gutter. Rhythm: sections 160 / 112 / 80. One header pattern: eyebrow → 24 → H2.
+   Type: Bodoni Moda (display, used large and sparingly) + Jost (text, labels tracked uppercase). 7 sizes.
+   Colour: warm stone ground taken from the photography, deep coconut green for type and the footer. No accent colour: emphasis is scale and italic.
+   Radius: none. Motion: smooth inertial scroll, one scroll-scene (logo burns onto the coconut), masked image unveils, word-by-word statement. */
+:root{
+  color-scheme: light;
+  --stone:#E6D8C6;       /* page ground, sampled from the still-life backdrop */
+  --stone-2:#EDE3D5;     /* lifted panels */
+  --ivory:#F6F0E7;       /* form + cards */
+  --ink:#002217;         /* deep coconut green */
+  --ink-2:rgba(0,34,23,.72);
+  --ink-3:rgba(0,34,23,.52);
+  --line:rgba(0,34,23,.18);
+  --on-ink:#EDE3D5; --on-ink-2:rgba(237,227,213,.66); --line-ink:rgba(237,227,213,.18);
+  --burn:#6B3A1C;
+  --f-serif:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-sans:"Jost", "Futura", "Century Gothic", Arial, sans-serif;
+  --t-hero:clamp(56px, 8vw, 152px);
+  --t-h2:clamp(36px, 4.2vw, 64px);
+  --t-h3:clamp(24px, 2.2vw, 32px);
+  --t-lead:clamp(18px, 1.5vw, 21px);
+  --t-body:17px; --t-small:14px; --t-label:11.5px;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px; --s8:96px; --s9:160px;
+  --maxw:1200px; --gutter:24px; --margin:64px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --icon-stroke:1.25;
+  --coco-script:"Pinyon Script", cursive; --coco-bold:"Jost", sans-serif;
+}
+@media (max-width:1023px){:root{--margin:40px;--s9:112px}}
+@media (max-width:599px){:root{--margin:20px;--gutter:16px;--s9:80px;--s8:64px;--t-body:16px}}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--stone);color:var(--ink);font-family:var(--f-sans);font-weight:400;font-size:var(--t-body);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--stone)}
+/* film grain over everything, very quiet */
+body::after{content:"";position:fixed;inset:-50%;z-index:100;pointer-events:none;opacity:.07;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h2{font-family:var(--f-serif);font-weight:400;font-size:var(--t-h2);line-height:1.04;letter-spacing:-.015em;text-wrap:balance}
+h2 em,h3 em{font-style:italic}
+h3{font-family:var(--f-serif);font-weight:400;font-size:var(--t-h3);line-height:1.15}
+.lead{font-size:var(--t-lead);line-height:1.6;color:var(--ink-2);max-width:46ch;font-weight:300}
+.small{font-size:var(--t-small);line-height:1.6;color:var(--ink-3)}
+.label{font-size:var(--t-label);line-height:1.2;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
+.label--muted{color:var(--ink-3)}
+.serif-i{font-family:var(--f-serif);font-style:italic}
+.grade{filter:saturate(.8) sepia(.12) contrast(1.03)}
+
+.container{max-width:calc(var(--maxw) + 2 * var(--margin));margin-inline:auto;padding-left:max(var(--margin), env(safe-area-inset-left,0px));padding-right:max(var(--margin), env(safe-area-inset-right,0px))}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.section{padding-block:var(--s9)}
+.head{display:grid;gap:var(--s4);margin-bottom:var(--s8)}
+.head--split{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:end}
+.head--split > :first-child{grid-column:span 7;display:grid;gap:var(--s4)}
+.head--split > :last-child{grid-column:9 / span 4;justify-self:end}
+
+.i{width:18px;height:18px;flex:none}
+.i-16{width:16px;height:16px}
+
+/* buttons: quiet, rectangular, text-led */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s3);height:52px;padding:0 var(--s5);border:1px solid var(--ink);background:var(--ink);color:var(--on-ink);font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .5s var(--ease),color .5s var(--ease)}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--on-ink)}
+.tlink{position:relative;display:inline-flex;align-items:center;gap:var(--s2);font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding-bottom:6px;white-space:nowrap}
+.tlink::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:right;transition:transform .7s var(--ease)}
+.tlink:hover::after{transform:scaleX(0)}
+.tlink .i{transition:transform .5s var(--ease)}
+.tlink:hover .i{transform:translateX(6px)}
+
+/* 01 header */
+.hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:60;transition:transform .7s var(--ease),background .5s}
+.hdr.is-solid{background:rgba(230,216,198,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hdr.is-hidden{transform:translateY(-110%)}
+.hdr__in{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:88px}
+.brand-mark{display:inline-flex;align-items:center;gap:var(--s3);text-decoration:none;justify-self:start}
+.brand-mark img{width:40px;height:40px;border-radius:50%}
+.brand-mark span{font-size:12.5px;font-weight:500;letter-spacing:.32em;text-transform:uppercase}
+.nav{display:flex;gap:var(--s5)}
+.nav__item{position:relative}
+.nav__btn{display:flex;align-items:center;gap:6px;height:44px;padding:0;border:0;background:none;font-size:13px;font-weight:400;letter-spacing:.08em;text-decoration:none;cursor:pointer;color:var(--ink)}
+.nav__btn .i{width:14px;height:14px;transition:transform .4s var(--ease)}
+.nav__item:hover .nav__btn .i,.nav__item:focus-within .nav__btn .i{transform:rotate(180deg)}
+.menu{position:absolute;top:100%;left:-24px;min-width:260px;padding:var(--s3) 0;background:var(--ivory);opacity:0;visibility:hidden;transform:translateY(6px);transition:.5s var(--ease)}
+.menu a{display:block;padding:10px var(--s4);font-size:14px;text-decoration:none;color:var(--ink-2);transition:color .3s,padding .5s var(--ease)}
+.menu a:hover{color:var(--ink);padding-left:calc(var(--s4) + 6px)}
+.nav__item:hover .menu,.nav__item:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.hdr__r{display:flex;align-items:center;gap:var(--s5);justify-self:end}
+.burger{display:none;border:0;background:none;cursor:pointer;height:44px;padding:0;align-items:center;gap:var(--s2);font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.mnav{position:fixed;inset:0;z-index:55;background:var(--stone);padding:calc(88px + var(--s6)) max(var(--margin), env(safe-area-inset-right,0px)) var(--s6) max(var(--margin), env(safe-area-inset-left,0px));display:flex;flex-direction:column;justify-content:space-between;overflow:auto}
+.mnav nav{display:grid}
+.mnav a.m{font-family:var(--f-serif);font-size:44px;line-height:1.25;text-decoration:none}
+.mnav a.m em{font-style:italic}
+.mnav .foot{display:grid;gap:var(--s3);margin-top:var(--s6)}
+
+/* 02 hero — the scroll scene */
+.scene{position:relative;height:420vh}
+.scene__pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stage{position:absolute;left:50%;top:50%;width:max(100vw, 106vh);aspect-ratio:16/9;transform:translate(-50%,-48%) scale(var(--zoom,1));transform-origin:49.9% 59%;will-change:transform}
+.stage .photo{width:100%;height:100%;object-fit:cover;-webkit-mask-image:radial-gradient(ellipse 58% 66% at 50% 54%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 58% 66% at 50% 54%,#000 58%,transparent 100%)}
+.burnzone{position:absolute;left:42.27%;top:49.1%;width:15.2%;height:19.9%;container-type:inline-size}
+.mk{position:absolute;inset:14% 10%;background:var(--burn);mix-blend-mode:multiply;opacity:0;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat;clip-path:inset(0 100% 0 0);filter:blur(.35px)}
+.mk--text{-webkit-mask:none;mask:none;background:none;display:grid;place-items:center;color:var(--burn);font-family:"Pinyon Script",cursive;font-size:20cqw;line-height:1;text-align:center;inset:0}
+.words{position:absolute;inset:0;display:grid;grid-template-columns:1fr calc(max(100vw, 106vh) * .29) 1fr;align-items:center;pointer-events:none;padding-top:6vh}
+.words span{font-family:var(--f-serif);font-weight:400;font-size:var(--t-hero);line-height:.9;letter-spacing:-.025em;white-space:nowrap;will-change:transform,opacity}
+.words .w-l{justify-self:end;padding-right:2vw}
+.words .w-r{justify-self:start;font-style:italic;padding-left:2vw}
+.hero-ui{position:absolute;left:0;right:0;bottom:var(--s6);will-change:opacity}
+.hero-ui .grid{align-items:end}
+.hero-ui h1{grid-column:span 5;font-family:var(--f-sans);font-weight:300;font-size:var(--t-lead);line-height:1.5;letter-spacing:0;max-width:30ch}
+.hero-ui .meta{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s3);font-size:var(--t-small);color:var(--ink-3)}
+.hero-ui .ctas{grid-column:8 / span 5;justify-self:end;display:flex;gap:var(--s3)}
+.scrollcue{position:absolute;left:50%;bottom:var(--s5);transform:translateX(-50%);display:grid;justify-items:center;gap:var(--s2);will-change:opacity}
+.scrollcue i{display:block;width:1px;height:48px;background:var(--line);position:relative;overflow:hidden}
+.scrollcue i::after{content:"";position:absolute;left:0;top:-50%;width:1px;height:50%;background:var(--ink);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{to{top:100%}}
+.caption{position:absolute;left:0;right:0;bottom:var(--s6);display:grid;justify-items:center;gap:var(--s2);text-align:center;opacity:0;will-change:opacity}
+.caption .serif-i{font-size:clamp(22px,2vw,30px);line-height:1.2}
+.caption .tlink{margin-top:var(--s2)}
+.progress{position:absolute;right:max(var(--margin), env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:grid;gap:var(--s2);opacity:0}
+.progress span{width:1px;height:28px;background:var(--line)}
+.progress span.on{background:var(--ink)}
+/* hero intro */
+.intro .words span,.intro .hero-ui,.intro .stage{animation:none}
+.ready .w-l{animation:inL 1.6s var(--ease) both}
+.ready .w-r{animation:inR 1.6s var(--ease) both}
+.ready .stage .photo{animation:fade 1.8s var(--ease) both}
+@keyframes inL{from{opacity:0;transform:translateX(-4vw)}}
+@keyframes inR{from{opacity:0;transform:translateX(4vw)}}
+@keyframes fade{from{opacity:0;transform:scale(1.04)}}
+
+/* 03 statement + clients */
+.statement p{font-family:var(--f-serif);font-size:clamp(28px,3.4vw,52px);line-height:1.22;letter-spacing:-.01em;grid-column:2 / span 10;text-align:center;text-wrap:balance}
+.statement p em{font-style:italic}
+.statement .wd{transition:opacity .4s linear}
+.statement .label{grid-column:1/-1;justify-self:center;margin-bottom:var(--s6)}
+.clients{margin-top:var(--s8);display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:var(--s6) var(--gutter);align-items:center;justify-items:center;padding-top:var(--s6);border-top:1px solid var(--line)}
+.clients img{max-height:34px;width:auto;max-width:100%;filter:grayscale(1) brightness(.3);opacity:.55;transition:opacity .6s var(--ease)}
+.clients img.tall{max-height:52px}
+.clients img:hover{opacity:1}
+
+/* 04 paths */
+.paths .grid{row-gap:var(--s8)}
+.path{grid-column:span 6;display:grid;gap:var(--s4);text-decoration:none}
+.path:nth-child(1){grid-column:1 / span 5}
+.path:nth-child(2){grid-column:7 / span 6;margin-top:var(--s9)}
+.frame{position:relative;overflow:hidden;background:var(--stone-2)}
+.frame img{width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1.6s var(--ease)}
+.path .frame{aspect-ratio:3/4}
+.path:hover .frame img{transform:scale(1.05)}
+.path__meta{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4);padding-top:var(--s3);border-top:1px solid var(--line)}
+.path__meta h3{font-size:clamp(40px,4vw,64px);line-height:1}
+.path__meta .serif-i{font-size:var(--t-small);color:var(--ink-3)}
+.path p{color:var(--ink-2);font-weight:300}
+.paths__foot{margin-top:var(--s8);display:flex;justify-content:center;gap:var(--s3);align-items:baseline;font-weight:300;color:var(--ink-2)}
+
+/* 05 work — draggable gallery */
+.gallery{display:flex;gap:var(--gutter);overflow-x:auto;padding:0 max(var(--margin), calc((100vw - var(--maxw)) / 2)) var(--s4);scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+.gallery::-webkit-scrollbar{display:none}
+.gallery.dragging{cursor:grabbing}
+.gallery.dragging a{pointer-events:none}
+.gal{flex:none;display:grid;gap:var(--s3);text-decoration:none}
+.gal .frame{height:min(64vh,620px)}
+.gal .frame img{height:100%;width:auto;max-width:none}
+.gal__cap{display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline}
+.gal__cap .serif-i{font-size:20px}
+.gal__cap .label{color:var(--ink-3)}
+.work__foot{margin-top:var(--s6);display:flex;justify-content:space-between;align-items:center;gap:var(--s4)}
+.work__hint{display:flex;align-items:center;gap:var(--s3);color:var(--ink-3)}
+.work__hint i{display:block;width:64px;height:1px;background:var(--line)}
+
+/* 06 logo preview */
+.tool{background:var(--stone-2)}
+.tool .grid{align-items:start}
+.tool__stage{grid-column:1 / span 7;position:relative;background:#E7D6C4}
+.tool__stage canvas{display:block;width:100%;height:auto;aspect-ratio:1}
+.tool__dim{position:absolute;left:var(--s4);bottom:var(--s4);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.tool__ctl{grid-column:9 / span 4;display:grid;gap:var(--s6)}
+.stepb{display:grid;gap:var(--s3);padding-top:var(--s4);border-top:1px solid var(--line)}
+.stepb .label{display:flex;gap:var(--s3);align-items:baseline}
+.stepb .label b{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:18px;letter-spacing:0;text-transform:none}
+.drop{display:grid;place-items:center;text-align:center;gap:var(--s2);min-height:136px;padding:var(--s4);border:1px dashed var(--ink-3);cursor:pointer;transition:background .4s}
+.drop:hover,.drop.is-over{background:var(--ivory)}
+.drop [data-drop-title]{display:block;font-weight:500}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.field{display:grid;gap:var(--s2);min-width:0}
+.field label{font-size:var(--t-label);font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3)}
+.input{width:100%;height:48px;padding:0;border:0;border-bottom:1px solid var(--line);background:transparent;font-size:17px;font-weight:300;min-width:0;border-radius:0;transition:border-color .3s}
+.input:focus{outline:none;border-bottom-color:var(--ink)}
+textarea.input{height:auto;padding-top:var(--s2);resize:vertical}
+select.input{appearance:none;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23002217' stroke-width='1.2'><path d='M2 4l4 4 4-4'/></svg>") right center no-repeat}
+.input[aria-invalid="true"]{border-bottom-color:#9B2C1F}
+.opts{display:flex;gap:var(--s4)}
+.opts button{border:0;background:none;padding:0 0 4px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);cursor:pointer;border-bottom:1px solid transparent}
+.opts button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.textlink{border:0;background:none;padding:0;font-family:var(--f-serif);font-style:italic;font-size:16px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.sizes{display:flex;gap:var(--s2)}
+.sbtn{display:inline-grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);background:none;cursor:pointer;transition:border-color .3s}
+.sbtn:hover{border-color:var(--ink)}
+.sbtn:disabled{opacity:.35;cursor:not-allowed}
+.sizes .tlink{margin-left:auto;align-self:center}
+.next{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--s3);align-items:center}
+.next img{width:72px;height:72px;object-fit:cover}
+.toast{font-size:var(--t-small);color:var(--ink-2)}
+
+/* 07 how */
+.steps{counter-reset:s}
+.step{grid-column:span 4;display:grid;gap:var(--s3);padding-top:var(--s4);border-top:1px solid var(--ink);align-content:start}
+.step .num{font-family:var(--f-serif);font-style:italic;font-size:var(--t-h2);line-height:1}
+.step p{color:var(--ink-2);font-weight:300;max-width:34ch}
+
+/* 08 services */
+.svc{align-items:start}
+.svc__frame{grid-column:1 / span 5;position:sticky;top:120px;aspect-ratio:4/5}
+.svc__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s var(--ease),transform 1.6s var(--ease);transform:scale(1.04)}
+.svc__frame img.on{opacity:1;transform:none}
+.svc__list{grid-column:7 / span 6;border-top:1px solid var(--line)}
+.srow{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:var(--s4);align-items:baseline;padding-block:var(--s5);border-bottom:1px solid var(--line);text-decoration:none;cursor:default}
+.srow .n{font-family:var(--f-serif);font-style:italic;color:var(--ink-3)}
+.srow h3{font-size:clamp(28px,2.8vw,40px);line-height:1.1;transition:transform .7s var(--ease)}
+.srow p{grid-column:2;color:var(--ink-2);font-weight:300;max-height:0;opacity:0;overflow:hidden;transition:max-height .7s var(--ease),opacity .5s}
+.srow .i{color:var(--ink-3);transition:transform .5s var(--ease),color .3s}
+.srow.on h3{transform:translateX(12px)}
+.srow.on p{max-height:80px;opacity:1}
+.srow.on .i{transform:rotate(-45deg);color:var(--ink)}
+.srow__thumb{display:none}
+.svc__foot{margin-top:var(--s5)}
+
+/* 09 deliver */
+.deliver{text-align:center}
+.deliver .label{margin-bottom:var(--s5);display:block}
+.cities{font-family:var(--f-serif);font-size:clamp(28px,3.4vw,52px);line-height:1.35;text-wrap:balance}
+.cities a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .7s var(--ease)}
+.cities a:hover{background-size:100% 1px}
+.cities .dot{color:var(--ink-3)}
+.deliver .small{margin-top:var(--s5)}
+.deliver .tlink{margin-top:var(--s4)}
+
+/* 10 reviews */
+.reviews{background:var(--ink);color:var(--on-ink)}
+.reviews .label--muted{color:var(--on-ink-2)}
+.rv-wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:center}
+.rv-score{grid-column:span 3;display:grid;gap:var(--s2);align-self:start}
+.rv-score strong{font-family:var(--f-serif);font-weight:400;font-size:clamp(72px,8vw,128px);line-height:.9}
+.rv-score span{color:var(--on-ink-2);font-size:var(--t-small)}
+.rv-quotes{grid-column:5 / span 8;position:relative;min-height:300px}
+.quote{position:absolute;inset:0;display:grid;gap:var(--s5);align-content:start;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease),transform .9s var(--ease);margin:0}
+.quote.on{opacity:1;transform:none}
+.quote .tag{justify-self:start;font-size:var(--t-label);letter-spacing:.22em;text-transform:uppercase;border:1px dashed var(--on-ink-2);padding:var(--s1) var(--s2);color:var(--on-ink-2)}
+.quote blockquote{margin:0;font-family:var(--f-serif);font-style:italic;font-size:clamp(26px,2.8vw,42px);line-height:1.25}
+.quote footer{font-size:var(--t-small);color:var(--on-ink-2);letter-spacing:.06em}
+.rv-nav{grid-column:5 / span 8;display:flex;align-items:center;gap:var(--s3);margin-top:var(--s6)}
+.rv-nav button{display:inline-grid;place-items:center;width:48px;height:48px;border:1px solid var(--line-ink);background:none;color:var(--on-ink);cursor:pointer;transition:border-color .3s}
+.rv-nav button:hover{border-color:var(--on-ink)}
+.rv-nav span{font-size:13px;letter-spacing:.18em;color:var(--on-ink-2);font-variant-numeric:tabular-nums}
+.reviews :focus-visible{outline-color:var(--on-ink)}
+
+/* 11 faq */
+.faq .grid{align-items:start}
+.faq__side{grid-column:1 / span 4;display:grid;gap:var(--s4)}
+.faq__list{grid-column:6 / span 7;border-top:1px solid var(--ink)}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{display:flex;justify-content:space-between;align-items:center;gap:var(--s4);min-height:80px;padding-block:var(--s4);list-style:none;cursor:pointer;font-family:var(--f-serif);font-size:clamp(20px,1.8vw,24px);line-height:1.3}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .i{transition:transform .6s var(--ease)}
+.qa[open] summary .i{transform:rotate(45deg)}
+.qa p{padding-bottom:var(--s5);max-width:58ch;color:var(--ink-2);font-weight:300}
+.todo{font-size:var(--t-label);letter-spacing:.14em;text-transform:uppercase;border:1px dashed var(--ink-3);padding:2px var(--s2);margin-right:var(--s2)}
+
+/* 12 quote */
+.quotes .grid{align-items:start;row-gap:var(--s7)}
+.q-side{grid-column:1 / span 5;display:grid;gap:var(--s5)}
+.q-side h2{font-size:clamp(48px,6vw,96px);line-height:.95}
+.q-side .frame{aspect-ratio:4/5;max-width:360px}
+.contact{display:grid;gap:var(--s2);font-weight:300}
+.contact span{display:flex;gap:var(--s3);align-items:center}
+.form{grid-column:7 / span 6;display:grid;gap:var(--s6);background:var(--ivory);padding:var(--s7)}
+.tabs{display:flex;flex-wrap:wrap;gap:var(--s5)}
+.tabs button{border:0;background:none;padding:0 0 6px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);cursor:pointer;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5) var(--s5)}
+.field--full{grid-column:1/-1}
+.file{display:flex;align-items:center;gap:var(--s3);height:48px;border-bottom:1px solid var(--line);cursor:pointer;font-weight:300;min-width:0}
+.file span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-2)}
+.form .btn{width:100%}
+.done{display:grid;gap:var(--s4)}
+.done h3{font-size:clamp(32px,3vw,44px)}
+
+/* 13 footer */
+.ftr{background:var(--ink);color:var(--on-ink);padding-block:var(--s9) var(--s5);overflow:hidden}
+.ftr__big{font-family:var(--f-serif);font-style:italic;font-size:clamp(40px,13vw,220px);line-height:.9;letter-spacing:-.03em;text-align:center;white-space:nowrap;margin-bottom:var(--s8)}
+.ftr .grid{row-gap:var(--s6)}
+.ftr__brand{grid-column:span 4;display:grid;gap:var(--s3);align-content:start}
+.ftr__brand img{width:56px;height:56px;border-radius:50%}
+.ftr__brand p{color:var(--on-ink-2);font-weight:300;font-size:var(--t-small);max-width:30ch}
+.ftr__col{grid-column:span 2}
+.ftr h4{margin:0 0 var(--s3);font-size:var(--t-label);font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--on-ink-2)}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.ftr ul a{font-size:var(--t-small);font-weight:300;text-decoration:none;color:var(--on-ink)}
+.ftr ul a:hover{text-decoration:underline;text-underline-offset:4px}
+.ftr__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s3);margin-top:var(--s8);padding-top:var(--s4);border-top:1px solid var(--line-ink);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-ink-2)}
+.ftr__bottom .soc{display:flex;gap:var(--s4)}
+.ftr__bottom .soc a{text-decoration:none}
+.ftr__bottom .soc a:hover{color:var(--on-ink)}
+.ftr :focus-visible{outline-color:var(--on-ink)}
+
+/* reveal states — applied by script only to content below the first screen */
+.pre-up{opacity:0;transform:translateY(40px)}
+.pre-img{clip-path:inset(0 0 100% 0)}
+.pre-img img{transform:scale(1.18)}
+.go-up{transition:opacity 1.2s var(--ease),transform 1.2s var(--ease)}
+.go-img{transition:clip-path 1.6s var(--ease)}
+.go-img img{transition:transform 2s var(--ease)}
+
+/* cursor */
+.cursor{position:fixed;left:0;top:0;z-index:120;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--ink);pointer-events:none;display:grid;place-items:center;transition:width .5s var(--ease),height .5s var(--ease),margin .5s var(--ease),background .4s;color:var(--on-ink);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.cursor span{opacity:0;transition:opacity .3s}
+.cursor.big{width:88px;height:88px;margin:-44px 0 0 -44px}
+.cursor.big span{opacity:1}
+@media (hover:none),(pointer:coarse){.cursor{display:none}}
+
+/* reduced motion (class set before paint; ?motion in the URL overrides it for review) */
+.rm *,.rm *::before,.rm *::after{animation:none!important;transition:none!important}
+.rm .scene{height:auto}
+.rm .scene__pin{position:relative}
+.rm .mk.static{opacity:.88;clip-path:none}
+.rm .cursor{display:none}
+
+/* responsive */
+@media (max-width:1023px){
+  .nav{display:none}
+  .hdr__in{grid-template-columns:1fr auto}
+  .hdr__r .tlink{display:none}
+  .burger{display:inline-flex}
+  .grid > *,.head--split > *,.rv-wrap > *{grid-column:1/-1!important}
+  .head--split > :last-child{justify-self:start}
+  .path:nth-child(2){margin-top:0}
+  .clients{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .svc__frame{display:none}
+  .srow{grid-template-columns:48px minmax(0,1fr) 88px}
+  .srow__thumb{display:block;grid-row:span 2;grid-column:3;width:88px;height:110px;object-fit:cover}
+  .srow .i{display:none}
+  .srow p{max-height:none;opacity:1}
+  .rv-quotes{min-height:340px;margin-top:var(--s6)}
+  .tool__stage{margin-bottom:var(--s6)}
+  .q-side .frame{display:none}
+  .step{margin-bottom:var(--s6)}
+}
+@media (max-width:599px){
+  .hdr__in{height:72px}
+  .brand-mark span{display:none}
+  .mnav{padding-top:calc(72px + var(--s5))}
+  .scene{height:320vh}
+  .words{grid-template-columns:1fr;grid-template-rows:auto calc(max(100vw, 106vh) * .3) auto;justify-items:center;align-content:center;padding-top:0}
+  .words .w-l,.words .w-r{justify-self:center;padding:0}
+  .words span{font-size:clamp(48px,15vw,72px)}
+  .words{transform:translateY(-7vh)}
+  .stage{transform:translate(-50%,calc(-48% - 7vh)) scale(var(--zoom,1))}
+  .hero-ui{bottom:var(--s4)}
+  .hero-ui h1{font-size:16px}
+  .hero-ui .meta{display:none}
+  .hero-ui .ctas{justify-self:stretch;margin-top:var(--s4);flex-direction:column;gap:var(--s2)}
+  .hero-ui .ctas .btn{height:48px}
+  .scrollcue{display:none}
+  .caption{bottom:var(--s5)}
+  .clients{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s5)}
+  .gal .frame{height:52vh}
+  .form{padding:var(--s4)}
+  .fields{grid-template-columns:1fr}
+  .ftr__col{grid-column:span 6!important}
+  .ftr .grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .work__foot{flex-direction:column;align-items:flex-start}
+}
+</style>
+
+<!-- 01 HEADER -->
+<header class="hdr" id="top">
+  <div class="container hdr__in">
+    <a class="brand-mark" href="#top" aria-label="Coconut Stock home"><img src="assets/logo-icon.png" alt=""><span>Coconut Stock</span></a>
+    <nav class="nav" aria-label="Main">
+      <div class="nav__item"><button class="nav__btn" type="button">Events <i data-lucide="chevron-down" class="i"></i></button>
+        <div class="menu"><a href="#paths">Events overview</a><a href="#work">Weddings</a><a href="#work">Corporate and brand events</a><a href="#services">Private parties</a></div></div>
+      <div class="nav__item"><button class="nav__btn" type="button">Hospitality <i data-lucide="chevron-down" class="i"></i></button>
+        <div class="menu"><a href="#paths">Hotels, restaurants and clubs</a><a href="#paths">Wholesale</a></div></div>
+      <div class="nav__item"><a class="nav__btn" href="#how">How it works</a></div>
+      <div class="nav__item"><a class="nav__btn" href="#work">Our work</a></div>
+      <div class="nav__item"><button class="nav__btn" type="button">Locations <i data-lucide="chevron-down" class="i"></i></button>
+        <div class="menu"><a href="#deliver">Miami and South Florida</a><a href="#deliver">Orlando</a><a href="#deliver">Tampa</a><a href="#deliver">Houston</a><a href="#deliver">The Bahamas</a></div></div>
+      <div class="nav__item"><button class="nav__btn" type="button">About <i data-lucide="chevron-down" class="i"></i></button>
+        <div class="menu"><a href="#top">Our story</a><a href="#faq">FAQ</a><a href="#top">Blog</a><a href="#top">Franchise</a><a href="#quote">Contact</a></div></div>
+    </nav>
+    <div class="hdr__r">
+      <a class="tlink" href="#quote">Call</a>
+      <a class="tlink" href="#quote">Get a quote</a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="mnav">Menu <i data-lucide="plus" class="i i-16"></i></button>
+    </div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Mobile">
+    <a class="m" href="#paths">Events</a><a class="m" href="#paths"><em>Hospitality</em></a><a class="m" href="#how">How it works</a><a class="m" href="#work">Our work</a><a class="m" href="#deliver">Locations</a><a class="m" href="#faq">About</a>
+  </nav>
+  <div class="foot"><a class="btn" href="#quote">Get a quote</a><a class="btn btn--ghost" href="#quote">Call</a></div>
+</div>
+
+<main>
+<!-- 02 HERO: still life, scroll to brand -->
+<section class="scene" id="scene" aria-label="Introduction">
+  <div class="scene__pin">
+    <div class="stage" id="stage">
+      <img class="photo" src="assets/gen/hero-still.jpg" alt="A single diamond-cut Thai coconut on a warm sand backdrop">
+      <div class="burnzone" aria-hidden="true">
+        <div class="mk static" style="--logo:url(assets/logos/setai.png)"></div>
+        <div class="mk" style="--logo:url(assets/logos/ritz.png)"></div>
+        <div class="mk" style="--logo:url(assets/logos/edition.png)"></div>
+        <div class="mk mk--text">Your name</div>
+      </div>
+    </div>
+    <div class="words" aria-hidden="true"><span class="w-l">Brand</span><span></span><span class="w-r">in a nut.</span></div>
+    <div class="hero-ui" id="heroUi">
+      <div class="container grid">
+        <div style="grid-column:span 5"><h1>Custom branded coconuts for events, hotels and restaurants. The original, since 2015.</h1><p class="meta"><i data-lucide="star" class="i i-16"></i>4.9 Google rating · 100+ clients</p></div>
+        <div class="ctas"><a class="btn" href="#quote" data-tab="event">Plan an event</a><a class="btn btn--ghost" href="#quote" data-tab="hospitality">Supply my venue</a></div>
+      </div>
+    </div>
+    <div class="scrollcue" id="cue"><span class="label label--muted">Scroll</span><i></i></div>
+    <div class="caption" id="caption" aria-live="polite"><span class="label label--muted" id="capLabel">Served at</span><span class="serif-i" id="capName">The Setai, Miami Beach</span><a class="tlink" href="#preview" id="capLink" hidden>Try your logo <i data-lucide="arrow-down" class="i i-16"></i></a></div>
+    <div class="progress" id="prog" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  </div>
+</section>
+
+<!-- 03 STATEMENT + CLIENTS -->
+<section class="section statement" aria-label="About Coconut Stock">
+  <div class="container">
+    <div class="grid">
+      <span class="label label--muted">The original branded coconut company</span>
+      <p id="statement">Since 2015 we have put names on coconuts for more than one hundred hotels, brands and couples. <em>Only coconuts.</em> Only Thai Nam Hom, diamond cut by hand, heat-branded to last. Delivered in five markets and shipped across the country.</p>
+    </div>
+    <div class="clients" data-reveal>
+      <img src="assets/logos/setai.png" alt="The Setai" class="tall"><img src="assets/logos/st_regis.png" alt="St. Regis"><img src="assets/logos/ritz.png" alt="The Ritz-Carlton"><img src="assets/logos/edition.png" alt="The Miami Beach Edition"><img src="assets/logos/mandarin.png" alt="Mandarin Oriental" class="tall"><img src="assets/logos/jw_marriot.png" alt="JW Marriott"><img src="assets/logos/hilton.png" alt="Hilton" class="tall"><img src="assets/logos/lowes.png" alt="Loews Hotels">
+      <img src="assets/logos/sls.png" alt="SLS Hotels" class="tall"><img src="assets/logos/aqualine.png" alt="Acqualina"><img src="assets/logos/eau.png" alt="Eau Palm Beach" class="tall"><img src="assets/logos/confidante.png" alt="The Confidante"><img src="assets/logos/carillone.png" alt="Carillon Miami"><img src="assets/logos/hyde.png" alt="Hyde Beach" class="tall"><img src="assets/logos/nusret.png" alt="Nusr-Et"><img src="assets/logos/strawberry.png" alt="Strawberry Moon">
+    </div>
+  </div>
+</section>
+
+<!-- 04 PATHS -->
+<section class="section paths" id="paths" style="padding-top:0">
+  <div class="container">
+    <div class="head" data-reveal><span class="label label--muted">Choose your path</span><h2>Two ways to bring <em>Coconut Stock</em> to your table</h2></div>
+    <div class="grid">
+      <a class="path" href="#quote" data-tab="event" data-cursor="Events">
+        <div class="frame" data-reveal="img"><img src="assets/gen/wedding-table.jpg" alt="Wedding reception table at sunset with a coconut at every place setting" data-speed="-0.06"></div>
+        <div class="path__meta"><h3>Events</h3><span class="serif-i">One-off occasions</span></div>
+        <p>Weddings, corporate and brand events, private parties.</p>
+        <span class="tlink">Explore events <i data-lucide="arrow-right" class="i i-16"></i></span>
+      </a>
+      <a class="path" href="#quote" data-tab="hospitality" data-cursor="Venues">
+        <div class="frame" data-reveal="img"><img src="assets/gen/pool.jpg" alt="A coconut on a travertine table beside a hotel infinity pool" data-speed="-0.06"></div>
+        <div class="path__meta"><h3><em>Hospitality</em></h3><span class="serif-i">Recurring delivery</span></div>
+        <p>A standing supply for hotels, restaurants and clubs, branded with your name.</p>
+        <span class="tlink">See the program <i data-lucide="arrow-right" class="i i-16"></i></span>
+      </a>
+    </div>
+    <p class="paths__foot">Ordering by the pallet? <a class="tlink" href="#quote">Wholesale</a></p>
+  </div>
+</section>
+
+<!-- 05 WORK -->
+<section class="section" id="work" style="padding-top:0">
+  <div class="container">
+    <div class="head head--split" data-reveal><div><span class="label label--muted">Featured work</span><h2>Recent <em>commissions</em></h2></div><a class="tlink" href="#work">See our work <i data-lucide="arrow-right" class="i i-16"></i></a></div>
+  </div>
+  <div class="gallery" id="gallery" data-cursor="Drag">
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/el-3.jpg" alt="Coconut branded Kaitlin and Joseph, held at a wedding" draggable="false"></div><div class="gal__cap"><span class="serif-i">Kaitlin &amp; Joseph</span><span class="label">Wedding</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/el-2.jpg" alt="Loews Hotels branded coconut" draggable="false"></div><div class="gal__cap"><span class="serif-i">Loews Hotels</span><span class="label">Hospitality</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/work-featured-45.jpg" alt="Rows of branded coconuts on a welcome table" draggable="false"></div><div class="gal__cap"><span class="serif-i">Welcome table</span><span class="label">Event</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/sq-strawberry.jpg" alt="Close-up of Strawberry Moon branded coconuts" draggable="false"></div><div class="gal__cap"><span class="serif-i">Strawberry Moon</span><span class="label">Branding close-up</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/el-4.jpg" alt="Monogrammed wedding favour coconuts" draggable="false"></div><div class="gal__cap"><span class="serif-i">Monogram favours</span><span class="label">Wedding</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/work-pool.jpg" alt="W-branded coconut at a hotel pool" draggable="false"></div><div class="gal__cap"><span class="serif-i">Pool service</span><span class="label">Hotel</span></div></a>
+    <a class="gal" href="#work"><div class="frame"><img class="grade" src="assets/work-activation.jpg" alt="Malibu Rum Day coconuts on ice" draggable="false"></div><div class="gal__cap"><span class="serif-i">Malibu Rum Day</span><span class="label">Brand activation</span></div></a>
+  </div>
+  <div class="container work__foot"><span class="work__hint label"><i></i>Drag to explore</span></div>
+</section>
+
+<!-- 06 LOGO PREVIEW -->
+<section class="section tool" id="preview">
+  <div class="container">
+    <div class="head head--split" data-reveal><div><span class="label label--muted">Logo preview</span><h2>How will my logo look <em>on a coconut?</em></h2></div><p class="lead" style="max-width:32ch">Upload your logo and see it burned in. Nothing leaves your browser.</p></div>
+    <div class="grid">
+      <div class="tool__stage" data-reveal="img"><canvas id="coco" width="1024" height="1024" data-photo="assets/gen/coconut-square.jpg" data-area="0.5,0.5615,0.1123" role="img" aria-label="Your logo previewed on a coconut"></canvas><span class="tool__dim" id="dim"></span></div>
+      <div class="tool__ctl">
+        <div class="stepb">
+          <span class="label"><b>i.</b> Upload</span>
+          <label class="drop" id="drop" for="logoFile"><span><span data-drop-title>Drop your logo here</span><span class="small" data-drop-hint>or click to choose · PNG, JPG, SVG or PDF</span></span></label>
+          <input class="sr" type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml,application/pdf">
+          <p class="small">No logo? <button class="textlink" type="button" id="txtToggle">Try initials or names</button></p>
+          <div class="field" id="txtMode"><label for="txtInput">Names or initials</label><input class="input" id="txtInput" value="Sofia &amp; Marco" maxlength="28" autocomplete="off"><div class="opts" role="group" aria-label="Lettering style"><button type="button" data-style="script" aria-pressed="true">Script</button><button type="button" data-style="bold" aria-pressed="false">Block</button></div></div>
+        </div>
+        <div class="stepb">
+          <span class="label"><b>ii.</b> Adjust</span>
+          <div class="sizes"><button class="sbtn" type="button" id="smaller" aria-label="Smaller"><i data-lucide="minus" class="i i-16"></i></button><button class="sbtn" type="button" id="larger" aria-label="Larger"><i data-lucide="plus" class="i i-16"></i></button><button class="tlink" type="button" id="another" style="border:0;background:none;cursor:pointer">Try another</button></div>
+          <p class="small">Preview only. Our design team reviews every logo.</p>
+        </div>
+        <div class="stepb">
+          <span class="label"><b>iii.</b> Next</span>
+          <div class="next"><img id="thumb" alt="Your coconut preview"><span class="small">The quote form opens with this design attached. Ordering needs a vector file (EPS, SVG, AI).</span></div>
+          <a class="btn" href="#quote" id="useDesign">Get a quote with this design</a>
+          <button class="tlink" type="button" id="mailToggle" style="border:0;background:none;cursor:pointer;justify-self:start">Email me this preview</button>
+          <form class="field" id="mailbox" hidden><label for="mailInput">Your email</label><input class="input" id="mailInput" type="email" placeholder="you@company.com" required><button class="btn btn--ghost" type="submit">Send preview</button></form>
+          <p class="toast" id="mailToast" hidden></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="head head--split" data-reveal><div><span class="label label--muted">How it works</span><h2>From your logo to <em>their hands</em></h2></div><a class="tlink" href="#how">How it works <i data-lucide="arrow-right" class="i i-16"></i></a></div>
+    <div class="grid steps">
+      <div class="step" data-reveal><span class="num">i.</span><h3>Share your details and logo</h3><p>Tell us the date, the place and how many coconuts, and send your artwork.</p></div>
+      <div class="step" data-reveal><span class="num">ii.</span><h3>We brand and prepare</h3><p>CNC machinery and a heat-burn method give a clean, permanent finish.</p></div>
+      <div class="step" data-reveal><span class="num">iii.</span><h3>Delivered or shipped</h3><p>Local delivery in our five markets, or nationwide shipping across the US.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 EVENT SERVICES -->
+<section class="section" id="services" style="padding-top:0">
+  <div class="container">
+    <div class="head head--split" data-reveal><div><span class="label label--muted">Event services</span><h2>Everything around <em>the coconut</em></h2></div><a class="tlink" href="#services">All event services <i data-lucide="arrow-right" class="i i-16"></i></a></div>
+    <div class="grid svc">
+      <div class="svc__frame" aria-hidden="true">
+        <img class="grade on" src="assets/svc-cart.jpg" alt="">
+        <img class="grade" src="assets/svc-serving.jpg" alt="">
+        <img class="grade" src="assets/svc-cups.jpg" alt="">
+        <img class="grade" src="assets/svc-delivery.jpg" alt="">
+      </div>
+      <div class="svc__list" id="svcList">
+        <div class="srow on" tabindex="0"><span class="n">01</span><h3>Coconut cart</h3><i data-lucide="arrow-right" class="i"></i><p>A styled coconut station, set up on site for your guests.</p><img class="srow__thumb grade" src="assets/svc-cart.jpg" alt=""></div>
+        <div class="srow" tabindex="0"><span class="n">02</span><h3>Opening and serving</h3><i data-lucide="arrow-right" class="i"></i><p>Our team opens and hands out every coconut fresh.</p><img class="srow__thumb grade" src="assets/svc-serving.jpg" alt=""></div>
+        <div class="srow" tabindex="0"><span class="n">03</span><h3>Coconut cups</h3><i data-lucide="arrow-right" class="i"></i><p>Pre-opened and emptied for your signature drink, delivered locally.</p><img class="srow__thumb grade" src="assets/svc-cups.jpg" alt=""></div>
+        <div class="srow" tabindex="0"><span class="n">04</span><h3>Delivery and shipping</h3><i data-lucide="arrow-right" class="i"></i><p>Delivered in our markets, shipped in cases anywhere else.</p><img class="srow__thumb grade" src="assets/svc-delivery.jpg" alt=""></div>
+        <p class="svc__foot"><a class="tlink" href="#quote">Add services to a quote <i data-lucide="arrow-right" class="i i-16"></i></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 WHERE WE DELIVER -->
+<section class="section deliver" id="deliver" style="padding-top:0">
+  <div class="container" data-reveal>
+    <span class="label label--muted">Where we deliver</span>
+    <p class="cities"><a href="#quote">Miami &amp; South Florida</a> <span class="dot">·</span> <a href="#quote">Orlando</a> <span class="dot">·</span> <a href="#quote">Tampa</a> <span class="dot">·</span> <a href="#quote">Houston</a> <span class="dot">·</span> <a href="#quote"><em>The Bahamas</em></a></p>
+    <p class="small">Anywhere else in the US: nationwide shipping.</p>
+    <a class="tlink" href="#faq">See delivery details</a>
+  </div>
+</section>
+
+<!-- 10 REVIEWS -->
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="rv-wrap">
+      <div class="rv-score" data-reveal><span class="label label--muted">Google reviews</span><strong>4.9</strong><span>Average rating from 100+ clients</span></div>
+      <div class="rv-quotes" id="quotes">
+        <figure class="quote on"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here, chosen for detail about the wedding and what guests said.</blockquote><footer>[Name] · Wedding</footer></figure>
+        <figure class="quote"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here from a hotel or restaurant on recurring delivery.</blockquote><footer>[Name] · Hospitality</footer></figure>
+        <figure class="quote"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here from a brand activation or corporate event.</blockquote><footer>[Name] · Brand event</footer></figure>
+      </div>
+      <div class="rv-nav"><button type="button" id="rvPrev" aria-label="Previous review"><i data-lucide="arrow-left" class="i i-16"></i></button><button type="button" id="rvNext" aria-label="Next review"><i data-lucide="arrow-right" class="i i-16"></i></button><span id="rvCount">01 / 03</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 FAQ -->
+<section class="section faq" id="faq">
+  <div class="container grid">
+    <div class="faq__side" data-reveal><span class="label label--muted">FAQ</span><h2>Questions, <em>answered</em></h2><p class="lead">Something else? Ask us in the quote form.</p><a class="tlink" href="#quote" style="justify-self:start">Ask a question</a></div>
+    <div class="faq__list" data-reveal>
+      <details class="qa" open><summary>What is the minimum order? <i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add minimum order</span>Smaller orders can usually ship nationwide.</p></details>
+      <details class="qa"><summary>How far in advance should I order? <i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add lead time</span>For weddings and large events, reach out as soon as you have a date.</p></details>
+      <details class="qa"><summary>What logo file do you need? <i data-lucide="plus" class="i"></i></summary><p>A vector file: EPS, SVG or AI. Only have a PNG or JPG? Send it anyway and our design team will check it with you first.</p></details>
+      <details class="qa"><summary>Do you deliver to my area? <i data-lucide="plus" class="i"></i></summary><p>We deliver in Miami and South Florida, Orlando, Tampa, Houston and The Bahamas, and ship nationwide across the US.</p></details>
+      <details class="qa"><summary>Can your team serve at our event? <i data-lucide="plus" class="i"></i></summary><p>Yes. Add opening and serving, or a coconut cart, when you request a quote.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 12 QUOTE -->
+<section class="section quotes" id="quote" style="padding-top:0">
+  <div class="container grid">
+    <div class="q-side" data-reveal>
+      <span class="label label--muted">Get a quote</span>
+      <h2>Let us bring <em>the coconuts.</em></h2>
+      <p class="lead">Tell us about the occasion. Your request goes straight to the right team and market.</p>
+      <div class="contact"><span><i data-lucide="phone" class="i i-16"></i>[Phone number]</span><span><i data-lucide="mail" class="i i-16"></i>[Email address]</span></div>
+      <div class="frame" data-reveal="img"><img src="assets/gen/pool.jpg" alt="" data-speed="-0.05"></div>
+    </div>
+    <form class="form" id="quoteForm" novalidate data-reveal>
+      <div id="formBody" style="display:grid;gap:var(--s6)">
+        <div class="tabs" role="tablist" aria-label="What are you planning?">
+          <button type="button" role="tab" data-kind="event" aria-selected="true">An event</button>
+          <button type="button" role="tab" data-kind="hospitality" aria-selected="false">Hospitality supply</button>
+          <button type="button" role="tab" data-kind="other" aria-selected="false">Something else</button>
+        </div>
+        <div class="fields">
+          <div class="field"><label for="f-name">Name</label><input class="input" id="f-name" autocomplete="name"></div>
+          <div class="field"><label for="f-email">Email</label><input class="input" id="f-email" type="email" autocomplete="email"></div>
+          <div class="field" data-for="event"><label for="f-date">Event date</label><input class="input" id="f-date" type="date"></div>
+          <div class="field" data-for="event"><label for="f-qty">Coconuts needed</label><input class="input" id="f-qty" type="number" min="1" placeholder="150"></div>
+          <div class="field" data-for="event"><label for="f-loc">Event location</label><input class="input" id="f-loc" placeholder="City or venue"></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-venue">Venue name</label><input class="input" id="f-venue"></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-vtype">Venue type</label><select class="input" id="f-vtype"><option>Hotel</option><option>Restaurant</option><option>Beach or pool club</option><option>Nightclub</option><option>Other</option></select></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-weekly">Weekly volume</label><input class="input" id="f-weekly" type="number" min="1" placeholder="Coconuts per week"></div>
+          <div class="field" data-for="event hospitality"><label for="f-market">Market</label><select class="input" id="f-market"><option>Miami and South Florida</option><option>Orlando</option><option>Tampa</option><option>Houston</option><option>The Bahamas</option><option>Elsewhere in the US (shipping)</option></select></div>
+          <div class="field field--full" data-for="other" hidden><label for="f-msg">How can we help?</label><textarea class="input" id="f-msg" rows="3"></textarea></div>
+          <div class="field field--full" data-for="event hospitality"><label for="f-logo">Logo (optional)</label><label class="file" for="f-logo"><i data-lucide="paperclip" class="i i-16"></i><span id="f-logo-name">No file chosen</span></label><input class="sr" type="file" id="f-logo" accept="image/*,application/pdf,.ai,.eps,.svg"></div>
+        </div>
+        <button class="btn" type="submit">Send my request</button>
+        <p class="small" id="formNote"></p>
+      </div>
+      <div class="done" id="formDone" hidden><span class="label label--muted">Request ready</span><h3>Thank you.</h3><p class="lead" id="doneText"></p><button class="btn btn--ghost" type="button" id="formReset">Start another request</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- 13 FOOTER -->
+<footer class="ftr">
+  <div class="container">
+    <p class="ftr__big" aria-hidden="true">Brand in a nut.</p>
+    <div class="grid">
+      <div class="ftr__brand"><img src="assets/logo-icon.png" alt="Coconut Stock"><p>Custom branded coconuts for events, hotels and restaurants. Serving since 2015.</p></div>
+      <div class="ftr__col"><h4>Events</h4><ul><li><a href="#paths">Events overview</a></li><li><a href="#work">Weddings</a></li><li><a href="#work">Corporate and brand events</a></li><li><a href="#services">Private parties</a></li></ul></div>
+      <div class="ftr__col"><h4>Hospitality</h4><ul><li><a href="#paths">Hotels, restaurants and clubs</a></li><li><a href="#paths">Wholesale</a></li><li><a href="#how">How it works</a></li><li><a href="#work">Our work</a></li></ul></div>
+      <div class="ftr__col"><h4>Locations</h4><ul><li><a href="#deliver">Miami and South Florida</a></li><li><a href="#deliver">Orlando · Tampa</a></li><li><a href="#deliver">Houston · The Bahamas</a></li></ul></div>
+      <div class="ftr__col"><h4>About</h4><ul><li><a href="#top">Our story</a></li><li><a href="#faq">FAQ</a></li><li><a href="#top">Blog</a></li><li><a href="#top">Franchise</a></li><li><a href="#quote">Contact</a></li></ul></div>
+    </div>
+    <div class="ftr__bottom"><span>© 2026 Coconut Stock · Terms · Privacy</span><div class="soc"><a href="https://www.instagram.com/coconutstock/">Instagram</a><a href="https://www.facebook.com/coconutstock/">Facebook</a></div></div>
+  </div>
+</footer>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="app.js"></script>
+<script src="elegant.js"></script>

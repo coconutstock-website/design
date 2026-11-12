@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coconut Stock D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Pinyon+Script&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* D · FRIENDLY BOLD (layout modelled on phamilypharma.com, Coconut Stock content and photos)
+   Colour: cream #FBF8F1 page, deep green #002217 for panels and type, blush #FFDDE2 for highlighters and pink cards,
+           hot pink #FF3193 only for small accents (numbers, arrows, dots), lime #DDF985 for primary buttons.
+   Type: Anton (tall condensed, uppercase) for headlines; Poppins for everything else.
+   Space: 8-based (8/16/24/32/48/64/96). Cards 28px radius, panels 32px, buttons are pills. Icons are Lucide at 1.75 stroke. */
+:root{
+  color-scheme: light;
+  --bg:#FBF8F1; --card:#FFFFFF; --green:#002217; --green-2:#0C3527; --ink:#002217; --ink-2:rgba(0,34,23,.74); --ink-3:rgba(0,34,23,.5); --hair:rgba(0,34,23,.12);
+  --blush:#FFDDE2; --hot:#FF3193; --lime:#DDF985; --lime-2:#E7FDA3;
+  --f-head:"Anton", Impact, "Arial Narrow", sans-serif; --f-body:"Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --t-hero:clamp(40px, 7.6vw, 124px); --t-h2:clamp(44px, 5.4vw, 88px); --t-h3:clamp(24px, 2.2vw, 34px);
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px; --s8:96px; --gap:120px;
+  --maxw:1240px; --margin:56px; --gutter:24px; --r1:20px; --r2:28px; --r3:36px; --pill:999px;
+  --ease:cubic-bezier(.16,1,.3,1); --icon-stroke:1.75;
+  --shadow:0 20px 50px rgba(0,34,23,.08);
+  --coco-bg:#FFDDE2; --coco-disc:#FFF1F3; --coco-straw:#FF3193; --coco-script:"Pinyon Script", cursive; --coco-bold:"Anton", sans-serif;
+}
+@media (max-width:1023px){:root{--margin:32px;--gap:88px}}
+@media (max-width:599px){:root{--margin:16px;--gutter:16px;--gap:64px;--r2:22px;--r3:26px}}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2.5px solid var(--hot);outline-offset:3px;border-radius:8px}
+h1,h2,h3,h4,p,figure,blockquote{margin:0}
+.i{width:18px;height:18px;flex:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:calc(var(--maxw) + 2 * var(--margin));margin-inline:auto;padding-inline:var(--margin)}
+.sec{position:relative;padding-block:calc(var(--gap) / 2)}
+
+/* type */
+.head{font-family:var(--f-head);font-weight:400;text-transform:uppercase;line-height:.98;letter-spacing:.005em;color:var(--green)}
+.h2{font-size:var(--t-h2)}
+.eyebrow{font-weight:600;font-size:16px;color:var(--green)}
+.lead{font-size:clamp(16px,1.25vw,18px);color:var(--ink-2);max-width:48ch}
+/* highlighter: blush band that draws in behind the words */
+.hl{--hlc:var(--hot);display:inline;padding:0 .12em;color:var(--green);background:linear-gradient(var(--hlc),var(--hlc)) 0 92%/0% 88% no-repeat;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.1s var(--ease) .25s}
+.in .hl,.hl.in{background-size:100% 88%}
+.head:has(.hl){padding-bottom:.22em}
+.hl--lime{--hlc:var(--lime)}
+.on-green .hl{color:var(--green)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);height:52px;padding:0 26px;border:0;border-radius:var(--pill);background:var(--lime);color:var(--green);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap;cursor:pointer;transition:transform .45s var(--ease),background .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,34,23,.14)}
+.btn .i{width:18px;height:18px}
+.btn--pink{background:var(--blush)}
+.btn--green{background:var(--green);color:var(--lime)}
+.btn--white{background:#fff}
+.btn--sm{height:44px;padding:0 20px;font-size:14px}
+.circ{display:grid;place-items:center;width:52px;height:52px;border:0;border-radius:50%;background:var(--blush);color:var(--green);cursor:pointer;transition:transform .4s var(--ease),background .3s}
+.circ:hover{transform:scale(1.08);background:var(--lime)}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:var(--pill);font-size:13px;font-weight:600;background:var(--blush);color:var(--green)}
+.chip--dark{background:var(--green);color:#fff}
+.chip--line{background:#fff;box-shadow:inset 0 0 0 1px var(--hair)}
+.num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--blush);color:var(--hot);font-weight:600;font-size:15px;flex:none}
+
+/* coconut popping out of a hole (stands in for Phamily's hands) */
+.pop{position:absolute;width:var(--w,220px);pointer-events:none;z-index:2;rotate:var(--rot,0deg)}
+.pop__clip{position:relative;z-index:1;height:calc(var(--w,220px) * 1.1);clip-path:inset(-220% -160% 0 -160%)}
+.pop__body{position:absolute;left:8%;right:8%;bottom:-9%;transform:translateY(112%);transform-origin:50% 100%;will-change:transform}
+.pop__img{display:block;width:100%;height:auto;transform-origin:50% 100%}
+.pop.is-up .pop__img{animation:wig 3.4s ease-in-out 1.1s infinite alternate}
+@keyframes wig{0%{rotate:-4deg;translate:0 0}50%{rotate:3deg;translate:0 -6px}100%{rotate:-1deg;translate:0 -2px}}
+.pop__hole{position:relative;height:calc(var(--w,220px) * .2);margin-top:calc(var(--w,220px) * -.1);transform:scale(.18,.08);opacity:0;transition:transform .6s cubic-bezier(.3,1.55,.5,1),opacity .25s;border-radius:50%;background:radial-gradient(ellipse at 50% 40%,#000e09 30%,#001a12 70%);box-shadow:inset 0 6px 10px rgba(0,0,0,.6)}
+.pop__hole::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 2px 0 rgba(255,255,255,.08)}
+.pop.is-open .pop__hole{transform:none;opacity:1}
+/* tunnel effects: flag on a toothpick, dirt, dust, burrow trail */
+.pop__flag{position:absolute;left:55%;bottom:86%;width:5px;height:34%;border-radius:3px;background:#C9A574;transform-origin:50% 100%;rotate:9deg;scale:1 0;transition:scale .3s var(--ease)}
+.pop__flag b{position:absolute;left:100%;top:0;font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:clamp(13px,calc(var(--w,220px) * .085),20px);line-height:1;letter-spacing:.02em;white-space:nowrap;padding:.45em .75em .4em;border-radius:0 .5em .5em 0;background:var(--lime);color:var(--green);transform-origin:0 50%;scale:0 1;transition:scale .45s cubic-bezier(.3,1.6,.5,1) .18s}
+.pop__flag--pink b{background:var(--hot);color:#fff}
+.pop.is-flag .pop__flag,.pop.is-flag .pop__flag b{scale:1 1}
+.pop__fx{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;rotate:calc(var(--rot,0deg) * -1);z-index:3}
+.pop__fx i{position:absolute;left:0;top:0;border-radius:40%;will-change:transform,opacity}
+.pop__fx .pf{border-radius:50%}
+.pop__fx .rg{border-radius:50%;border:2px solid;background:none}
+.pop__fx .tr{border-radius:50%}
+.pop--map{--w:clamp(84px,9vw,124px);left:calc(34% - var(--w) / 2);bottom:calc(9% - var(--w) * .1);z-index:3}
+.on-bg .pop__hole{background:radial-gradient(ellipse at 50% 40%,#001a12 30%,#002217 75%)}
+
+/* ---------- header (floating green bar) ---------- */
+.hdr{position:fixed;inset:16px 16px auto;z-index:60;border-radius:var(--r1);color:#fff;transition:background .4s,box-shadow .4s}
+.hdr.is-solid{background:var(--green);box-shadow:0 14px 34px rgba(0,34,23,.24)}
+.hdr__in{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);height:68px;padding-inline:var(--s5)}
+.hdr__nav{display:flex;gap:var(--s5)}
+.hdr__nav a{font-weight:600;font-size:15px;text-decoration:none;opacity:.92;transition:opacity .3s}
+.hdr__nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:5px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:38px;height:38px;border-radius:50%;background:#fff}
+.brand b{font-family:var(--f-head);font-weight:400;font-size:30px;letter-spacing:.02em;line-height:1;text-transform:uppercase}
+.hdr__r{display:flex;align-items:center;justify-content:flex-end;gap:var(--s5)}
+.hdr__r a.tl{font-weight:600;font-size:15px;text-decoration:none}
+.burger{display:none;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;padding:0}
+.burger span{display:block;width:18px;height:2px;border-radius:2px;background:currentColor;margin:2.5px 0;transition:transform .4s var(--ease)}
+.nav-open .burger span:first-child{transform:translateY(4.5px) rotate(45deg)}.nav-open .burger span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:55;background:var(--green);color:#fff;padding:120px var(--margin) 40px;display:flex;flex-direction:column;justify-content:space-between;overflow:auto}
+.mnav nav{display:grid;gap:4px}
+.mnav a.m{font-family:var(--f-head);text-transform:uppercase;font-size:clamp(44px,10vw,72px);line-height:1.05;text-decoration:none}
+.mnav .foot{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+
+/* ---------- 01 hero ---------- */
+.hero{padding:16px}
+.hero__panel{position:relative;min-height:calc(100svh - 32px);max-height:960px;border-radius:var(--r3);background:var(--green);color:#fff;overflow:hidden;display:grid;place-items:center;padding:140px var(--s5) var(--s7)}
+.hero__panel::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 35%,rgba(221,249,133,.08),transparent 70%);pointer-events:none}
+.hero__body{position:relative;z-index:3;display:grid;justify-items:center;gap:var(--s4);text-align:center;max-width:900px}
+.hero__body .eyebrow{color:#fff}
+.hero__h1{font-size:var(--t-hero);color:#fff}
+.hero__h1 .hl{display:inline-block;color:var(--green);white-space:nowrap;line-height:1;padding:.07em .14em .03em;margin-top:.04em;background-position:0 0}
+.in .hero__h1 .hl,.hero__h1 .hl.in{background-size:100% 100%}
+.hero__body p{max-width:52ch;color:rgba(255,255,255,.86);font-size:clamp(15px,1.2vw,17px)}
+.toggle{display:inline-flex;gap:4px;padding:6px;border-radius:var(--pill);background:#fff}
+.toggle a{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--pill);font-weight:600;font-size:15px;color:var(--green);text-decoration:none;transition:background .35s}
+.toggle a.on{background:var(--lime)}
+.toggle a:not(.on):hover{background:var(--blush)}
+.hero__rate{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:rgba(255,255,255,.8)}
+.hero__rate .stars{display:flex;gap:2px;color:var(--hot)}
+.hero__rate .stars svg{width:14px;height:14px;fill:currentColor}
+.hero .pop--l{left:-20px;bottom:-30px;--w:clamp(180px,17vw,260px);--rot:16deg;--delay:.5s}
+.hero .pop--r{right:-30px;top:30%;--w:clamp(170px,15vw,230px);--rot:-62deg;--delay:.8s}
+.hero .pop--b{right:16%;bottom:-40px;--w:clamp(150px,12vw,190px);--rot:-8deg;--delay:1.1s}
+
+/* ---------- 02 clients ---------- */
+.clients{display:flex;align-items:center;gap:var(--s6);padding-block:var(--s6) var(--s4)}
+.clients__label{flex:none;font-weight:600;font-size:14px;color:var(--ink-3)}
+.clients__view{flex:1;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.clients__track{display:flex;align-items:center;gap:var(--s7);width:max-content;padding-right:var(--s7);animation:run 46s linear infinite}
+.clients img{height:30px;width:auto;max-width:140px;object-fit:contain;filter:grayscale(1) brightness(.25);opacity:.75}
+.clients img.tall{height:46px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* ---------- 03 mission: tilted cards stack as you scroll ---------- */
+.shead{display:grid;justify-items:center;text-align:center;gap:var(--s3);margin-bottom:var(--s7)}
+.stack{position:relative;display:grid;gap:var(--s6);max-width:860px;margin-inline:auto;padding-bottom:var(--s6)}
+.mcard{position:sticky;top:calc(130px + var(--i) * 28px);display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--s5);align-items:center;padding:var(--s6);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow);rotate:var(--tilt);transition:rotate .8s var(--ease)}
+.mcard:hover{rotate:0deg}
+.mcard h3{font-family:var(--f-body);font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.15;color:var(--green);margin-bottom:var(--s3)}
+.mcard p{color:var(--ink-2);max-width:34ch}
+.mcard img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--r1)}
+.mcard .chip{margin-bottom:var(--s3)}
+
+/* ---------- 04 how it works: sticky left, numbered cards right ---------- */
+.split{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.split__l{grid-column:1 / span 5;position:sticky;top:130px;display:grid;gap:var(--s4);justify-items:start;padding-bottom:var(--s5)}
+.split__l .pop{position:relative;--w:220px;--rot:0deg;margin-top:var(--s2);margin-left:auto;margin-right:var(--s6)}
+.split__r{grid-column:7 / span 6;display:grid;gap:var(--s4)}
+.ncard{display:grid;gap:var(--s3);padding:var(--s6);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow)}
+.stackcards{gap:var(--s5);padding-bottom:12vh}
+.stackcards .ncard{position:sticky;top:calc(120px + var(--i) * 26px);min-height:300px;align-content:start;transform-origin:50% 0;will-change:transform;box-shadow:0 -8px 30px rgba(0,34,23,.06),var(--shadow)}
+.ncard h3{font-weight:500;font-size:clamp(26px,2.4vw,36px);line-height:1.15;color:var(--green)}
+.ncard p{color:var(--ink-2)}
+.ncard b{color:var(--green);font-weight:600}
+
+/* ---------- 05 two ways (pink cards) ---------- */
+.ways__title{font-family:var(--f-body);font-weight:500;font-size:clamp(30px,3.2vw,48px);line-height:1.15;letter-spacing:-.02em;color:var(--green)}
+.way.way--lime{background:var(--lime-2)}
+.ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter);max-width:1000px;margin-inline:auto}
+.way{position:relative;display:grid;justify-items:center;align-content:end;gap:var(--s3);min-height:560px;padding:var(--s6) var(--s5);border-radius:var(--r2);background:var(--blush);text-align:center;overflow:hidden;text-decoration:none;transition:transform .6s var(--ease)}
+.way:hover{transform:translateY(-6px) rotate(-.6deg)}
+.way .pop{position:relative;--w:250px;--rot:0deg;margin-bottom:var(--s3)}
+.way .pop__hole{background:radial-gradient(ellipse at 50% 40%,#000e09 30%,#0a2a1e 72%)}
+.way .eyebrow{font-weight:600}
+.way .head{font-size:clamp(38px,3.8vw,58px);line-height:1.08}
+.way p{color:var(--ink-2);max-width:32ch}
+
+/* ---------- 06 our work (listing cards) ---------- */
+.rail{overflow-x:auto;scrollbar-width:none;padding:var(--s2) 0 var(--s5)}
+.rail::-webkit-scrollbar{display:none}
+.rail__track{display:flex;gap:var(--gutter);width:max-content;padding-inline:max(var(--margin),calc((100vw - var(--maxw)) / 2))}
+.wcard{flex:none;width:clamp(270px,26vw,340px);display:grid;gap:var(--s3);padding:var(--s3) var(--s3) var(--s4);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow);text-decoration:none;transition:transform .5s var(--ease)}
+.wcard:hover{transform:translateY(-6px)}
+.wcard img{width:100%;aspect-ratio:4/3.6;object-fit:cover;border-radius:var(--r1)}
+.wcard__tags{display:flex;flex-wrap:wrap;gap:6px}
+.wcard h3{font-weight:500;font-size:22px;line-height:1.2;color:var(--green);text-align:center;padding-inline:var(--s2)}
+.wcard .go{justify-self:center;font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:4px}
+.rail__nav{display:flex;justify-content:center;align-items:center;gap:var(--s3);margin-top:var(--s3)}
+
+/* ---------- 07 quick quote builder (search box) ---------- */
+.qb{padding:var(--s6);border-radius:var(--r3);background:var(--card);box-shadow:var(--shadow)}
+.qb__row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.field{display:grid;gap:var(--s2);min-width:0}
+.field label,.field .lbl{font-weight:600;font-size:14px;color:var(--green)}
+.input{width:100%;height:54px;padding:0 18px;border:1.5px solid var(--hair);border-radius:14px;background:#fff;font-size:16px;min-width:0;transition:border-color .3s}
+.input:focus{outline:none;border-color:var(--green)}
+select.input{appearance:none;background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='none' stroke='%23002217' stroke-width='1.75' stroke-linecap='round'><path d='M9 3v12M4 10l5 5 5-5'/></svg>") right 16px center no-repeat}
+textarea.input{height:auto;padding:14px 18px}
+.input[aria-invalid="true"]{border-color:#B3261E}
+.qty{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin-top:var(--s4)}
+.qty label{display:inline-flex;align-items:center;gap:10px;font-size:15px;cursor:pointer}
+.qty input{appearance:none;width:22px;height:22px;margin:0;border:1.5px solid var(--hair);border-radius:6px;background:#fff;display:grid;place-items:center;cursor:pointer}
+.qty input:checked{background:var(--green);border-color:var(--green)}
+.qty input:checked::after{content:"";width:10px;height:6px;border-left:2px solid var(--lime);border-bottom:2px solid var(--lime);rotate:-45deg;translate:0 -1px}
+.qb__panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter);margin-top:var(--s5)}
+.panel{display:grid;justify-items:center;align-content:center;gap:var(--s4);min-height:240px;padding:var(--s5);border-radius:var(--r2);text-align:center}
+.panel--green{background:var(--green);color:#fff}
+.panel--pink{background:var(--blush)}
+.panel h3{font-weight:500;font-size:clamp(22px,2vw,28px)}
+.pick{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2)}
+.pick button{height:40px;padding:0 18px;border:0;border-radius:var(--pill);background:#fff;color:var(--green);font-weight:600;font-size:14px;cursor:pointer;transition:background .3s,transform .3s var(--ease)}
+.pick button:hover{transform:translateY(-2px)}
+.pick button[aria-pressed="true"]{background:var(--lime);box-shadow:inset 0 0 0 2px var(--green)}
+.qb__foot{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s5)}
+.qb__note{font-size:14px;color:var(--ink-3);align-self:center}
+
+/* ---------- 08 logo tool ---------- */
+.tool{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.tool__stage{grid-column:1 / span 7;position:sticky;top:110px;aspect-ratio:1;border-radius:var(--r3);overflow:hidden;background:var(--green)}
+.tool__stage::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,rgba(255,221,226,.22),transparent 62%);pointer-events:none}
+#coco{display:block;width:100%;height:100%}
+.has3d #coco{visibility:hidden}
+#coco3d{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+#coco3d.dragging{cursor:grabbing}
+.tool__tag{position:absolute;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--pill);background:rgba(255,255,255,.12);color:#fff;font-size:13px;font-weight:500;backdrop-filter:blur(8px)}
+.tool__tag .i{width:14px;height:14px}
+#dim{left:20px;bottom:20px}
+.tool__hint{right:20px;bottom:20px}
+.tool__steps{grid-column:8 / span 5;display:grid;gap:var(--s4)}
+.step{display:grid;gap:var(--s3);padding:var(--s5);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow);min-width:0}
+.step__h{display:flex;align-items:center;gap:var(--s3)}
+.step__h h3{font-weight:500;font-size:22px;color:var(--green)}
+.samples{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.sample{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px 0 6px;border:0;border-radius:var(--pill);background:var(--bg);font-weight:600;font-size:14px;cursor:pointer}
+.sample i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff;overflow:hidden;font-style:normal}
+.sample i img{width:22px;height:22px;object-fit:contain}
+.sample i.t{font-family:"Pinyon Script",cursive;font-size:15px}
+.sample[aria-pressed="true"]{background:var(--lime)}
+.drop{display:flex;align-items:center;gap:var(--s3);padding:12px 16px;border:1.5px dashed rgba(0,34,23,.28);border-radius:16px;cursor:pointer;transition:background .3s}
+.drop:hover,.drop.is-over{background:var(--blush)}
+.drop b{display:block;font-size:15px}
+.drop small{font-size:13px;color:var(--ink-3)}
+.txtrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s2);align-items:center}
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:var(--pill);background:var(--bg)}
+.seg button{height:42px;padding:0 14px;border:0;border-radius:var(--pill);background:none;font-weight:600;font-size:13px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--green);color:var(--lime)}
+.range{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s3);align-items:center;font-size:13px;font-weight:600;color:var(--ink-3)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:var(--blush)}
+input[type=range]::-moz-range-track{height:6px;border-radius:6px;background:var(--blush)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--lime)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:var(--green)}
+.small{font-size:13px;color:var(--ink-3)}
+.textlink{border:0;background:none;padding:0;font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer;color:var(--green)}
+.next{display:grid;grid-template-columns:60px minmax(0,1fr);gap:var(--s3);align-items:center;font-size:14px;color:var(--ink-2)}
+.next img{width:60px;height:60px;border-radius:14px;object-fit:cover;background:var(--blush)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3)}
+.toast{font-size:14px;color:var(--green)}
+
+/* ---------- 09 services (resource cards + pink panel) ---------- */
+.svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gutter)}
+.scard{display:grid;grid-template-rows:auto 1fr;border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;transition:transform .5s var(--ease)}
+.scard:hover{transform:translateY(-6px)}
+.scard__img{position:relative;aspect-ratio:16/11;background:var(--green);overflow:hidden}
+.scard__img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.scard:hover .scard__img img{transform:scale(1.05)}
+.scard__body{display:grid;gap:var(--s2);align-content:start;padding:var(--s4) var(--s4) var(--s5)}
+.scard__tags{display:flex;gap:6px;flex-wrap:wrap}
+.scard h3{font-weight:500;font-size:24px;line-height:1.2;color:var(--green)}
+.scard p{color:var(--ink-2);font-size:15px}
+.scard .go{font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:4px;margin-top:var(--s2)}
+.themes{display:grid;justify-items:center;align-content:center;gap:var(--s4);padding:var(--s6) var(--s5);border-radius:var(--r2);background:var(--blush);text-align:center}
+.themes h3{font-weight:500;font-size:clamp(26px,2.4vw,34px);line-height:1.15;color:var(--green)}
+.themes .pick button{background:#fff}
+
+.menu{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:start}
+.menu__list{grid-column:1 / span 5;display:grid;gap:var(--s2);align-content:center;min-height:100%}
+.mrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:var(--s4);width:100%;padding:18px var(--s4);border:0;border-radius:var(--r2);background:transparent;text-align:left;cursor:pointer;transition:background .4s,box-shadow .4s,transform .5s var(--ease)}
+.mrow b{display:block;font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:clamp(26px,2.4vw,36px);line-height:1;color:var(--green)}
+.mrow small{display:block;margin-top:6px;font-size:14px;color:var(--ink-2)}
+.mrow .i{width:22px;height:22px;color:var(--green);opacity:0;transform:translate(-6px,6px);transition:opacity .3s,transform .4s var(--ease)}
+.mrow:hover,.mrow.on{background:var(--card);box-shadow:var(--shadow)}
+.mrow.on{transform:translateX(8px)}
+.mrow.on .i,.mrow:hover .i{opacity:1;transform:none}
+.mrow.on .num{background:var(--hot);color:#fff}
+.menu__pic{grid-column:6 / span 7;position:sticky;top:110px;aspect-ratio:4/4.4;border-radius:var(--r3);overflow:visible}
+.menu__pic>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:var(--r3);opacity:0;transform:scale(1.04);transition:opacity .7s,transform 1.2s var(--ease)}
+.menu__pic>img.on{opacity:1;transform:none}
+.menu__cap{position:absolute;left:var(--s4);right:var(--s4);bottom:var(--s4);z-index:2;display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);padding:var(--s4);border-radius:var(--r2);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);overflow:hidden}
+.menu__txt{display:grid;gap:6px;justify-items:start;min-width:0}
+.menu__txt b{font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:clamp(26px,2.4vw,36px);line-height:1;color:var(--green)}
+.menu__txt p{font-size:14px;color:var(--ink-2);max-width:36ch}
+.menu__cap.go{animation:capUp .8s var(--ease) both}
+@keyframes capUp{from{transform:translateY(calc(100% + 30px));opacity:0}to{transform:none;opacity:1}}
+.menu__pic{overflow:hidden}
+.menu__pic .pop{display:none}
+.menu__pic .pop{left:-70px;bottom:-40px;--w:170px;--rot:-14deg;z-index:3}
+
+/* ---------- 10 let the coconut shine (instagram) ---------- */
+.shine{overflow:hidden;padding-block:var(--s3)}
+.shine__track{display:flex;gap:var(--gutter);width:max-content;animation:run 64s linear infinite}
+.shine__track:hover{animation-play-state:paused}
+.shot{flex:none;width:clamp(220px,19vw,280px);aspect-ratio:3/4;border-radius:var(--r2);overflow:hidden;rotate:var(--t,0deg);box-shadow:var(--shadow)}
+.shot img{width:100%;height:100%;object-fit:cover}
+.shot--green{display:grid;place-items:center;align-content:center;gap:var(--s3);background:var(--green);color:#fff;text-align:center;padding:var(--s4)}
+.shot--green b{font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:44px;line-height:1}
+.shot--green .hl{color:var(--green)}
+
+/* ---------- 11 where we deliver (map + photo bubbles) ---------- */
+.deliver{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center}
+.deliver__l{grid-column:1 / span 5;display:grid;gap:var(--s4);justify-items:start}
+.markets{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.markets button{height:44px;padding:0 18px;border:0;border-radius:var(--pill);background:#fff;box-shadow:inset 0 0 0 1.5px var(--hair);font-weight:600;font-size:14px;color:var(--green);cursor:pointer;transition:background .3s}
+.markets button.on{background:var(--green);color:var(--lime);box-shadow:none}
+.mapcard{grid-column:6 / span 7;position:relative;aspect-ratio:1200/760;border-radius:var(--r3);background:var(--card);box-shadow:var(--shadow);overflow:visible}
+.mapcard__svg{position:absolute;inset:0;border-radius:var(--r3);overflow:hidden}
+.mapcard__svg svg{width:100%;height:100%}
+.mapcard .land{fill:#F3EFE4;stroke:rgba(0,34,23,.16);stroke-width:.8;vector-effect:non-scaling-stroke}
+.mapcard .land--mk{fill:var(--green)}
+.mpin{position:absolute;width:18px;height:18px;transform:translate(-50%,-50%);border:0;background:none;padding:0;cursor:pointer;z-index:2}
+.mpin__dot{display:block;width:18px;height:18px;border-radius:50%;background:var(--hot);box-shadow:0 0 0 4px #fff;transition:transform .4s var(--ease)}
+.mpin.on .mpin__dot{transform:scale(1.3);background:var(--lime);box-shadow:0 0 0 4px var(--green)}
+.mpin__lbl{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%);padding:4px 12px;border-radius:var(--pill);background:#fff;font-weight:600;font-size:13px;white-space:nowrap;box-shadow:0 6px 16px rgba(0,34,23,.12)}
+.mpin.on .mpin__lbl{background:var(--green);color:var(--lime)}
+.mpin--left .mpin__lbl{left:auto;right:calc(100% + 10px);bottom:auto;top:50%;transform:translateY(-50%)}
+.mpin--right .mpin__lbl{left:calc(100% + 10px);bottom:auto;top:50%;transform:translateY(-50%)}
+.bubble{position:absolute;width:var(--b,96px);aspect-ratio:1;border-radius:50%;overflow:hidden;border:5px solid #fff;box-shadow:0 14px 30px rgba(0,34,23,.18);animation:float 6s ease-in-out infinite alternate;z-index:3}
+.bubble img{width:100%;height:100%;object-fit:cover}
+@keyframes float{to{translate:0 -14px}}
+.squiggle{position:absolute;left:-2%;top:-6%;width:46%;height:auto;pointer-events:none;opacity:.9}
+
+/* ---------- 12 reviews ---------- */
+.rev{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:stretch}
+.rev__score{grid-column:1 / span 4;display:grid;align-content:space-between;gap:var(--s5);padding:var(--s6);border-radius:var(--r2);background:var(--green);color:#fff}
+.rev__score b{font-family:var(--f-head);font-weight:400;font-size:140px;line-height:.9;color:var(--lime)}
+.rev__score .stars{display:flex;gap:4px;color:var(--hot)}
+.rev__score .stars svg{width:22px;height:22px;fill:currentColor}
+.rev__quote{grid-column:5 / span 8;display:grid;align-content:space-between;gap:var(--s5);padding:var(--s6);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow)}
+.rev__slides{display:grid}
+.rev__slide{grid-area:1/1;display:grid;gap:var(--s4);opacity:0;transform:translateY(16px);transition:opacity .6s,transform .8s var(--ease);pointer-events:none}
+.rev__slide.on{opacity:1;transform:none;pointer-events:auto}
+.rev__slide blockquote{font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:clamp(32px,3.4vw,52px);line-height:1.02;color:var(--green)}
+.rev__who{display:flex;align-items:center;gap:var(--s3);font-weight:600}
+.rev__who span{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--blush);color:var(--hot);font-weight:600}
+.rev__who small{display:block;color:var(--ink-3);font-weight:400}
+.rev__nav{display:flex;align-items:center;justify-content:space-between;gap:var(--s3)}
+.rev__dots{display:flex;gap:8px}
+.rev__dots button{width:10px;height:10px;padding:0;border:0;border-radius:50%;background:var(--hair);cursor:pointer;transition:width .4s var(--ease),background .3s}
+.rev__dots button[aria-current="true"]{width:30px;border-radius:6px;background:var(--hot)}
+.todo{display:inline-block;justify-self:start;padding:2px 10px;border-radius:6px;border:1.5px dashed var(--hair);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ---------- 13 faq ---------- */
+.qa{display:grid;gap:var(--s3);padding:var(--s5) var(--s6);border-radius:var(--r2);background:var(--card);box-shadow:var(--shadow)}
+.qa summary{display:flex;align-items:center;gap:var(--s4);list-style:none;cursor:pointer}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary h3{flex:1;font-weight:500;font-size:clamp(22px,2vw,28px);line-height:1.2;color:var(--green)}
+.qa summary .i{width:22px;height:22px;transition:transform .5s var(--ease)}
+.qa[open] summary .i{transform:rotate(45deg)}
+.qa p{color:var(--ink-2);padding-left:calc(44px + var(--s4))}
+
+/* ---------- 14 quote ---------- */
+.quote{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:stretch}
+.quote__l{grid-column:1 / span 5;position:relative;display:grid;align-content:space-between;gap:var(--s6);padding:var(--s6);border-radius:var(--r3);background:var(--green);color:#fff;overflow:hidden}
+.quote__l .head{color:#fff;font-size:clamp(52px,5.4vw,84px)}
+.quote__l p{color:rgba(255,255,255,.82);max-width:34ch}
+.quote__l .pop{position:absolute;right:80px;bottom:-24px;--w:200px;--rot:-10deg}
+.contact{display:grid;gap:var(--s3)}
+.contact a,.contact span{display:flex;align-items:center;gap:var(--s3);text-decoration:none;font-weight:500}
+.contact .i{width:40px;height:40px;padding:10px;border-radius:50%;background:rgba(221,249,133,.14);color:var(--lime)}
+.quote__r{grid-column:6 / span 7;padding:var(--s6);border-radius:var(--r3);background:var(--card);box-shadow:var(--shadow)}
+.form{display:grid;gap:var(--s5)}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:5px;border-radius:var(--pill);background:var(--bg);justify-self:start}
+.tabs button{height:44px;padding:0 20px;border:0;border-radius:var(--pill);background:none;font-weight:600;font-size:14px;cursor:pointer;transition:background .3s}
+.tabs button[aria-selected="true"]{background:var(--lime)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.field--full{grid-column:1/-1}
+.file{display:flex;align-items:center;gap:var(--s3);height:54px;padding:0 var(--s3);border-radius:14px;border:1.5px dashed rgba(0,34,23,.28);cursor:pointer;font-size:15px;color:var(--ink-2);min-width:0}
+.file span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.form__foot{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);flex-wrap:wrap}
+.done{display:grid;gap:var(--s4);align-content:start}
+
+/* floating "let's talk" pill */
+.talk{position:fixed;left:50%;bottom:20px;z-index:50;display:flex;align-items:center;gap:var(--s3);padding:10px 10px 10px 18px;border-radius:var(--r1);background:var(--green);color:#fff;text-decoration:none;box-shadow:0 16px 40px rgba(0,34,23,.3);transform:translate(-50%,140%);transition:transform .6s var(--ease)}
+.talk.show{transform:translate(-50%,0)}
+.talk img{width:34px;height:auto}
+.talk small{display:block;font-size:12px;opacity:.8}
+.talk b{display:block;font-family:var(--f-head);font-weight:400;font-size:22px;text-transform:uppercase;line-height:1}
+.talk .circ{width:44px;height:44px;background:var(--blush)}
+
+/* ---------- footer ---------- */
+.ftr{padding-top:var(--s6);overflow:hidden}
+.ftr__cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gutter)}
+.fcard{display:grid;gap:var(--s3);justify-items:start;padding:var(--s6);border-radius:var(--r3);background:var(--green);color:#fff}
+.fcard .head{color:#fff;font-size:clamp(34px,3vw,46px)}
+.fcard p{color:rgba(255,255,255,.8);max-width:40ch}
+.news{display:flex;gap:var(--s2);width:100%;max-width:440px}
+.news input{flex:1;min-width:0;height:52px;padding:0 20px;border:0;border-radius:var(--pill);background:#fff;font-size:15px}
+.news input:focus{outline:2px solid var(--lime)}
+.ftr__links{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3) var(--s6);margin-top:var(--s7)}
+.ftr__links a{font-weight:600;color:var(--green);text-decoration:none}
+.ftr__links a:hover{text-decoration:underline;text-underline-offset:4px}
+.ftr__legal{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s6);margin-top:var(--s4);font-size:13px;color:var(--ink-3)}
+.ftr__legal a{color:inherit;text-decoration:none}
+.ftr__big{position:relative;margin-top:var(--s7);text-align:center;line-height:.8}
+.ftr__big b{display:block;font-family:var(--f-head);font-weight:400;text-transform:uppercase;font-size:clamp(84px,17.4vw,300px);letter-spacing:-.005em;color:var(--green);white-space:nowrap;transform:translateY(8%)}
+.ftr__dots{position:absolute;left:0;right:0;top:-6%;display:flex;justify-content:center;gap:clamp(30px,8.6vw,150px);pointer-events:none}
+.ftr__dots img{width:clamp(28px,3.4vw,58px);height:auto;animation:hop 2.4s ease-in-out infinite;animation-delay:calc(var(--i) * .25s)}
+@keyframes hop{50%{translate:0 -14px}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform 1.1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rm .rv{opacity:1;transform:none}
+.rm .hl{background-size:100% 88%}
+.rm .pop__body{transform:none}
+.rm *,.rm *::before,.rm *::after{animation:none!important;transition:none!important}
+.rm .stackcards .ncard,.rm .split__l,.rm .tool__stage,.rm .menu__pic{position:relative;top:0;transform:none!important}
+
+/* responsive */
+@media (max-width:1023px){
+  .hdr__nav,.hdr__r .btn{display:none}
+  .hdr__in{padding-inline:var(--s4)}
+  .burger{display:grid}
+  .stackcards .ncard{top:calc(90px + var(--i) * 18px);min-height:0}
+  .split__l,.split__r{grid-column:1/-1}
+  .split__l{position:relative;top:0}
+  .split__l .pop{display:none}
+  .ways{grid-template-columns:1fr}
+  .way{min-height:480px}
+  .qb__row,.qb__panels{grid-template-columns:1fr}
+  .tool__stage,.tool__steps{grid-column:1/-1}
+  .tool__stage{position:relative;top:0;max-width:600px}
+  .menu__list,.menu__pic{grid-column:1/-1}
+  .menu__pic{position:relative;top:0;order:-1;max-width:560px}
+  .menu__pic .pop{display:none}
+  .deliver__l,.mapcard{grid-column:1/-1}
+  .rev__score,.rev__quote{grid-column:1/-1}
+  .quote__l,.quote__r{grid-column:1/-1}
+  .ftr__cards{grid-template-columns:1fr}
+  .hero .pop--b{display:none}
+}
+@media (max-width:599px){
+  .hero{padding:10px}
+  .hdr{inset:10px 10px auto}
+  .hdr__in{height:60px;padding-inline:var(--s3)}
+  .brand b{font-size:24px}
+  .hero__panel{padding:110px var(--s4) 170px;min-height:calc(100svh - 20px)}
+  .hero__h1{font-size:10.2vw}
+  .toggle a{height:44px;padding:0 13px;font-size:13px;white-space:nowrap}
+  .hero .pop--l{--w:150px;left:-24px;bottom:-26px}
+  .hero .pop--r{--w:130px;right:-40px;top:auto;bottom:40px}
+  .mcard,.ncard,.qa,.qb,.quote__l,.quote__r,.fcard,.rev__quote,.rev__score{padding:var(--s4)}
+  .mrow{grid-template-columns:auto minmax(0,1fr);padding:14px 16px}
+  .mrow .i{display:none}
+  .menu__cap{flex-direction:column;align-items:flex-start;left:12px;right:12px;bottom:12px;padding:16px}
+  .fields{grid-template-columns:1fr}
+  .txtrow{grid-template-columns:1fr}
+  .qa p{padding-left:0}
+  .rev__score b{font-size:110px}
+  .bubble{--b:64px!important}
+  .talk{left:16px;right:16px;transform:translateY(140%)}
+  .talk.show{transform:none}
+  .mpin__lbl{font-size:11px;padding:3px 8px}
+  .mpin--right .mpin__lbl{left:50%;top:auto;bottom:calc(100% + 8px);transform:translateX(-40%)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><symbol id="star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></symbol></defs>
+</svg>
+
+<!-- HEADER -->
+<header class="hdr" id="top">
+  <div class="hdr__in">
+    <a class="brand" href="#top" aria-label="Coconut Stock, home"><img src="assets/logo-icon.png" alt=""><b>Coconut Stock</b></a>
+    <div class="hdr__r"><nav class="hdr__nav" aria-label="Primary"><a href="#ways">Hotels</a><a href="#ways">Events</a><a href="#top">Blog</a><a href="#deliver">Locations</a><a href="#about">About</a></nav><a class="btn btn--sm" href="#quote" data-tab="event">Get a quote</a>
+      <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span></button></div>
+  </div>
+</header>
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Main"><a class="m" href="#ways">Hotels</a><a class="m" href="#ways">Events</a><a class="m" href="#services">Services</a><a class="m" href="#work">Our work</a><a class="m" href="#top">Blog</a><a class="m" href="#deliver">Locations</a><a class="m" href="#faq">FAQ</a></nav>
+  <div class="foot"><a class="btn" href="#quote">Get a quote <i data-lucide="arrow-right" class="i"></i></a><a class="btn btn--pink" href="https://www.instagram.com/coconutstock/">@coconutstock</a></div>
+</div>
+
+<main>
+<!-- 01 HERO -->
+<section class="hero" aria-labelledby="h1">
+  <div class="hero__panel">
+    <div class="pop pop--l" aria-hidden="true"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    <div class="pop pop--r" aria-hidden="true"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    <div class="pop pop--b" aria-hidden="true" data-flag="Follow me"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    <div class="hero__body">
+      <p class="eyebrow rv">Fresh, branded, delivered since 2015</p>
+      <h1 class="head hero__h1 rv" id="h1">Custom branded coconuts<br><span class="hl">for hotels &amp; events</span></h1>
+      <div class="toggle rv" role="group" aria-label="What are you planning?"><a class="on" href="#quote" data-tab="event">I'm planning an event</a><a href="#quote" data-tab="hospitality">I run a venue</a></div>
+      <span class="hero__rate rv"><span class="stars" aria-hidden="true"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></span>4.9 on Google from couples, planners and venues</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 CLIENTS -->
+<section aria-label="Served at">
+  <div class="wrap clients">
+    <span class="clients__label">Served at</span>
+    <div class="clients__view"><div class="clients__track" data-marquee>
+      <img src="assets/logos/setai.png" alt="The Setai" class="tall"><img src="assets/logos/st_regis.png" alt="St. Regis"><img src="assets/logos/ritz.png" alt="The Ritz-Carlton"><img src="assets/logos/edition.png" alt="The Miami Beach Edition"><img src="assets/logos/mandarin.png" alt="Mandarin Oriental" class="tall"><img src="assets/logos/jw_marriot.png" alt="JW Marriott"><img src="assets/logos/hilton.png" alt="Hilton" class="tall"><img src="assets/logos/lowes.png" alt="Loews Hotels"><img src="assets/logos/sls.png" alt="SLS Hotels" class="tall"><img src="assets/logos/aqualine.png" alt="Acqualina"><img src="assets/logos/confidante.png" alt="The Confidante"><img src="assets/logos/hyde.png" alt="Hyde Beach" class="tall"><img src="assets/logos/strawberry.png" alt="Strawberry Moon">
+    </div></div>
+  </div>
+</section>
+
+<!-- 03 MISSION / ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="shead rv" style="margin-bottom:0"><p class="eyebrow">What is Coconut Stock?</p><h2 class="head h2">More than a coconut:<br><span class="hl hl--lime">it's wearing your name</span></h2><p class="lead">We take young Thai coconuts, trim each one by hand into its diamond shape and heat-brand it with your logo, monogram or names. A drink, a keepsake and a brand moment in one.</p></div>
+  </div>
+</section>
+
+<!-- 05 TWO WAYS -->
+<section class="sec" id="ways" style="padding-top:var(--s6)">
+  <div class="wrap">
+    <div class="shead rv"><h2 class="ways__title">Two ways to work with us</h2></div>
+    <div class="ways">
+      <a class="way rv" href="#quote" data-tab="event">
+        <div class="pop" aria-hidden="true" data-flag="This one?"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+        <h3 class="head">Planning<br>an <span class="hl hl--lime">event</span>?</h3><span class="btn btn--white btn--sm">Plan an event <i data-lucide="arrow-right" class="i"></i></span>
+      </a>
+      <a class="way way--lime rv" href="#quote" data-tab="hospitality">
+        <div class="pop" aria-hidden="true" data-flag="Or this?" data-pink="1"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+        <h3 class="head">Running<br>a <span class="hl">venue</span>?</h3><span class="btn btn--white btn--sm">Supply my venue <i data-lucide="arrow-right" class="i"></i></span>
+      </a>
+    </div>
+    <p class="small" style="text-align:center;margin-top:var(--s4)">Ordering by the pallet? <a class="textlink" href="#quote">Ask about wholesale</a></p>
+  </div>
+</section>
+
+<!-- 04 HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="wrap split">
+    <div class="split__l">
+      <p class="eyebrow rv">How it works</p>
+      <h2 class="head h2 rv">From the grove<br>to their hands.<br><span class="hl">No stress.</span></h2>
+      <a class="btn btn--pink rv" href="#quote">Start your order <i data-lucide="arrow-right" class="i"></i></a>
+      <div class="pop on-bg" aria-hidden="true" data-flag="Step by step"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    </div>
+    <div class="split__r stackcards" id="howStack">
+      <article class="ncard" style="--i:0"><span class="num">01</span><h3>Share your details and logo</h3><p>Tell us the date, the place and how many coconuts, and send your artwork. <b>Any file works to start</b>; we'll ask for a vector before we brand.</p></article>
+      <article class="ncard" style="--i:1"><span class="num">02</span><h3>Approve your preview</h3><p>Our design team fits your logo to the 3″ × 2.2″ brand area and sends a preview. <b>Nothing is branded until you say yes.</b></p></article>
+      <article class="ncard" style="--i:2"><span class="num">03</span><h3>We brand and prepare</h3><p>CNC machinery and a heat-burn method give a <b>clean, permanent mark</b> on every coconut, trimmed and chilled for the day.</p></article>
+      <article class="ncard" style="--i:3"><span class="num">04</span><h3>Delivered, opened and served</h3><p>Local delivery in our five markets or <b>nationwide shipping</b>. Add opening, serving or a coconut cart if you want the full show.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 06 OUR WORK -->
+<section class="sec" id="work">
+  <div class="wrap shead rv" style="margin-bottom:var(--s5)"><p class="eyebrow">Our favourites right now</p><h2 class="head h2">Every coconut <span class="hl hl--lime">tells a story</span></h2></div>
+  <div class="rail" id="workRail"><div class="rail__track">
+    <a class="wcard" href="#quote"><img src="assets/el-3.jpg" alt="Kaitlin and Joseph wedding coconut" loading="lazy"><div class="wcard__tags"><span class="chip chip--dark">Wedding</span><span class="chip chip--line">Miami</span></div><h3>Kaitlin &amp; Joseph</h3><span class="go">See the project</span></a>
+    <a class="wcard" href="#quote"><img src="assets/work-activation.jpg" alt="Malibu Rum Day branded coconuts on ice" loading="lazy"><div class="wcard__tags"><span class="chip">Brand activation</span><span class="chip chip--line">Miami</span></div><h3>Malibu Rum Day</h3><span class="go">See the project</span></a>
+    <a class="wcard" href="#quote"><img src="assets/path-hospitality.jpg" alt="Faena branded coconut by the hotel pool" loading="lazy"><div class="wcard__tags"><span class="chip chip--dark">Hotel</span><span class="chip chip--line">Miami Beach</span></div><h3>Faena</h3><span class="go">See the project</span></a>
+    <a class="wcard" href="#quote"><img src="assets/el-2.jpg" alt="Loews Hotels branded coconut" loading="lazy"><div class="wcard__tags"><span class="chip chip--dark">Hotel</span><span class="chip chip--line">Poolside</span></div><h3>Loews Hotels</h3><span class="go">See the project</span></a>
+    <a class="wcard" href="#quote"><img src="assets/sq-strawberry.jpg" alt="Strawberry Moon branded coconuts" loading="lazy"><div class="wcard__tags"><span class="chip">Club</span><span class="chip chip--line">Miami</span></div><h3>Strawberry Moon</h3><span class="go">See the project</span></a>
+    <a class="wcard" href="#quote"><img src="assets/events-wedding.jpg" alt="Jamie and James wedding coconuts" loading="lazy"><div class="wcard__tags"><span class="chip chip--dark">Wedding</span><span class="chip chip--line">Orlando</span></div><h3>Jamie &amp; James</h3><span class="go">See the project</span></a>
+  </div></div>
+  <div class="rail__nav"><button class="circ" type="button" id="workPrev" aria-label="Previous"><i data-lucide="arrow-left" class="i"></i></button><a class="btn btn--pink" href="#wild">See all our work</a><button class="circ" type="button" id="workNext" aria-label="Next"><i data-lucide="arrow-right" class="i"></i></button></div>
+</section>
+
+<!-- 08 LOGO PREVIEW -->
+<section class="sec" id="preview">
+  <div class="wrap">
+    <div class="shead rv"><p class="eyebrow">Logo preview</p><h2 class="head h2">Try your logo <span class="hl">on a coconut</span></h2><p class="lead">Pick a sample or upload your own, then drag the coconut to turn it. Nothing leaves your browser.</p></div>
+    <div class="tool">
+      <div class="tool__stage" id="toolStage">
+        <canvas id="coco" width="1000" height="1000" role="img" aria-label="Your logo previewed on a coconut"></canvas>
+        <canvas id="coco3d" aria-hidden="true"></canvas>
+        <span class="tool__tag" id="dim"></span>
+        <span class="tool__tag tool__hint"><i data-lucide="move-horizontal" class="i"></i>Drag to turn</span>
+      </div>
+      <div class="tool__steps">
+        <div class="step rv">
+          <div class="step__h"><span class="num">01</span><h3>Choose your artwork</h3></div>
+          <div class="samples">
+            <button class="sample" type="button" data-sample-src="assets/logos/setai.png" data-sample-name="The Setai (sample)" aria-pressed="false"><i><img src="assets/logos/setai.png" alt=""></i>Hotel logo</button>
+            <button class="sample" type="button" data-sample-src="assets/logos/ritz.png" data-sample-name="The Ritz-Carlton (sample)" aria-pressed="false"><i><img src="assets/logos/ritz.png" alt=""></i>Brand mark</button>
+            <button class="sample" type="button" data-sample-text="Sofia &amp; Marco" data-sample-style="script" aria-pressed="true"><i class="t">S&amp;M</i>Names</button>
+          </div>
+          <label class="drop" id="drop" for="logoFile"><i data-lucide="upload" class="i"></i><span><b data-drop-title>Upload your logo</b><small data-drop-hint>PNG, JPG, SVG or PDF</small></span></label>
+          <input class="sr" type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml,application/pdf">
+          <div class="field" id="txtMode"><label for="txtInput">Names or initials</label><div class="txtrow"><input class="input" id="txtInput" value="Sofia &amp; Marco" maxlength="28" autocomplete="off"><div class="seg" role="group" aria-label="Lettering style"><button type="button" data-style="script" aria-pressed="true">Script</button><button type="button" data-style="bold" aria-pressed="false">Block</button></div></div></div>
+          <button class="textlink sr" type="button" id="txtToggle">Type initials or names</button>
+        </div>
+        <div class="step rv">
+          <div class="step__h"><span class="num">02</span><h3>Size it just right</h3></div>
+          <div class="range"><span>Small</span><input type="range" id="sizeRange" min="40" max="100" step="1" value="80" aria-label="Logo size"><span>Large</span></div>
+          <p class="small">Fits the 3″ × 2.2″ brand area. Our design team reviews every logo. <button class="textlink" type="button" id="another">Try another file</button></p>
+        </div>
+        <div class="step rv">
+          <div class="step__h"><span class="num">03</span><h3>Send it with your quote</h3></div>
+          <div class="next"><img id="thumb" alt="Your coconut preview"><span>Your design travels with the quote form. Ordering needs a vector file (EPS, SVG, AI).</span></div>
+          <div class="row"><a class="btn btn--sm" href="#quote" id="useDesign">Quote with this design</a><button class="textlink" type="button" id="mailToggle">Email me this</button></div>
+          <form class="field" id="mailbox" hidden><label for="mailInput">Your email</label><input class="input" id="mailInput" type="email" placeholder="you@company.com" required><button class="btn btn--sm" type="submit" style="justify-self:start">Send preview</button></form>
+          <p class="toast" id="mailToast" hidden></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 SERVICES -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="shead rv"><p class="eyebrow">Event services</p><h2 class="head h2">Everything <span class="hl hl--lime">around the coconut</span></h2></div>
+    <div class="menu">
+      <div class="menu__list" id="svcMenu">
+        <button class="mrow on" type="button" data-i="0" data-tag="Every order" data-desc="Trimmed by hand, heat-branded with your logo, names or monogram."><span class="num">01</span><span class="mrow__t"><b>Custom-branded coconuts</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+        <button class="mrow" type="button" data-i="1" data-tag="Add-on" data-desc="A straw for every coconut, chosen to suit your event."><span class="num">02</span><span class="mrow__t"><b>Straws</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+        <button class="mrow" type="button" data-i="2" data-tag="On site" data-desc="Opened fresh, right before each coconut is served."><span class="num">03</span><span class="mrow__t"><b>Opening service</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+        <button class="mrow" type="button" data-i="3" data-tag="On site" data-desc="Staff who hand a coconut to every guest."><span class="num">04</span><span class="mrow__t"><b>Serving service</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+        <button class="mrow" type="button" data-i="4" data-tag="5 markets + US" data-desc="Local delivery in five markets, shipping everywhere else."><span class="num">05</span><span class="mrow__t"><b>Delivery</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+        <button class="mrow" type="button" data-i="5" data-tag="Add-on" data-desc="A styled coconut cart, set up and branded on site."><span class="num">06</span><span class="mrow__t"><b>Custom cart</b></span><i data-lucide="arrow-up-right" class="i"></i></button>
+      </div>
+      <div class="menu__pic rv">
+        <img class="on" src="assets/sq-overhead.jpg" alt="Branded wedding coconuts from above" loading="lazy">
+        <img class="" src="assets/wide-lifeguard.jpg" alt="A guest holding a branded coconut with a straw" loading="lazy">
+        <img class="" src="assets/svc-serving.jpg" alt="Our team opening a coconut on site" loading="lazy">
+        <img class="" src="assets/wide-booth.jpg" alt="A guest served a fresh coconut at the booth" loading="lazy">
+        <img class="" src="assets/svc-delivery.jpg" alt="Branded coconuts packed for delivery" loading="lazy">
+        <img class="" src="assets/svc-cart.jpg" alt="A styled coconut cart at an event" loading="lazy">
+        <div class="menu__cap go" id="svcCap"><div class="menu__txt"><span class="chip" id="svcTag">Every order</span><b id="svcName">Custom-branded coconuts</b><p id="svcDesc">Trimmed by hand, heat-branded with your logo, names or monogram.</p></div><a class="btn btn--sm" href="#quote">Add to my quote <i data-lucide="arrow-right" class="i"></i></a></div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 LET THE COCONUT SHINE (instagram) -->
+<section class="sec" id="wild">
+  <div class="wrap shead rv" style="margin-bottom:var(--s5)"><p class="eyebrow">Our community on Instagram</p><h2 class="head h2">Let the <span class="hl">coconut shine</span></h2></div>
+  <div class="shine"><div class="shine__track" data-marquee>
+    <figure class="shot" style="--t:-2deg"><img src="assets/hero-2.jpg" alt="Two friends on the beach with branded coconuts" loading="lazy"></figure>
+    <figure class="shot" style="--t:1.5deg"><img src="assets/hero-4.jpg" alt="A guest at a beach festival holding a coconut" loading="lazy"></figure>
+    <figure class="shot shot--green" style="--t:-1deg"><b>Brand in<br><span class="hl hl--lime">a nut.</span></b><span>@coconutstock</span></figure>
+    <figure class="shot" style="--t:2deg"><img src="assets/hero-5.jpg" alt="A guest in a cowboy hat with a coconut" loading="lazy"></figure>
+    <figure class="shot" style="--t:-1.5deg"><img src="assets/port-duo.jpg" alt="Two festival guests with coconuts" loading="lazy"></figure>
+    <figure class="shot" style="--t:1deg"><img src="assets/hero-1.jpg" alt="A guest at a lifeguard tower with a coconut" loading="lazy"></figure>
+  </div></div>
+  <div style="display:flex;justify-content:center;margin-top:var(--s5)"><a class="btn" href="https://www.instagram.com/coconutstock/" target="_blank" rel="noopener">Follow @coconutstock <i data-lucide="instagram" class="i"></i></a></div>
+</section>
+
+<!-- 11 WHERE WE DELIVER -->
+<section class="sec" id="deliver">
+  <div class="wrap deliver">
+    <div class="deliver__l rv">
+      <p class="eyebrow">Where we deliver</p>
+      <h2 class="head h2">From Miami to Houston,<br><span class="hl">we're close by.</span></h2>
+      <p class="lead">Local delivery in five markets, and nationwide shipping everywhere else in the US. Pick a market.</p>
+      <div class="markets" id="markets"><button type="button" class="on" data-m="miami">Miami</button><button type="button" data-m="orlando">Orlando</button><button type="button" data-m="tampa">Tampa</button><button type="button" data-m="houston">Houston</button><button type="button" data-m="nassau">The Bahamas</button></div>
+      <a class="btn btn--pink" href="#faq">Delivery details</a>
+    </div>
+    <div class="mapcard rv" id="mapcard">
+      <div class="mapcard__svg" id="mapSvg"></div>
+      <span class="bubble" style="--b:92px;left:-4%;top:58%" aria-hidden="true"><img src="assets/hero-4.jpg" alt=""></span>
+      <span class="bubble" style="--b:110px;right:-3%;top:-8%;animation-delay:-2s" aria-hidden="true"><img src="assets/port-duo.jpg" alt=""></span>
+      <span class="bubble" style="--b:80px;left:42%;bottom:-8%;animation-delay:-4s" aria-hidden="true"><img src="assets/el-2.jpg" alt=""></span>
+      <div class="pop pop--map" aria-hidden="true" data-flag="Hey, Miami" data-pink="1"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+      <button class="mpin" type="button" data-m="houston" style="left:10.32%;top:41.08%"><span class="mpin__dot"></span><span class="mpin__lbl">Houston</span></button>
+      <button class="mpin mpin--left" type="button" data-m="tampa" style="left:60.94%;top:54.6%"><span class="mpin__dot"></span><span class="mpin__lbl">Tampa</span></button>
+      <button class="mpin" type="button" data-m="orlando" style="left:65.18%;top:50.22%"><span class="mpin__dot"></span><span class="mpin__lbl">Orlando</span></button>
+      <button class="mpin mpin--left on" type="button" data-m="miami" style="left:69.84%;top:70.64%"><span class="mpin__dot"></span><span class="mpin__lbl">Miami</span></button>
+      <button class="mpin mpin--right" type="button" data-m="nassau" style="left:80.98%;top:75.71%"><span class="mpin__dot"></span><span class="mpin__lbl">The Bahamas</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- 12 REVIEWS -->
+<section class="sec" id="reviews">
+  <div class="wrap">
+    <div class="shead rv"><p class="eyebrow">Google reviews</p><h2 class="head h2">Real stories, <span class="hl hl--lime">happy hosts</span></h2></div>
+    <div class="rev">
+      <div class="rev__score rv"><div class="stars" aria-hidden="true"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div><div><b>4.9</b><p>Google rating from couples, planners and venues</p></div></div>
+      <div class="rev__quote rv">
+        <div class="rev__slides" id="revSlides">
+          <figure class="rev__slide on"><span class="todo">Placeholder</span><blockquote>“Paste the strongest Google review here.”</blockquote><figcaption class="rev__who"><span>W</span><div>[Name]<small>Wedding</small></div></figcaption></figure>
+          <figure class="rev__slide"><span class="todo">Placeholder</span><blockquote>“Paste a review from a hotel or restaurant.”</blockquote><figcaption class="rev__who"><span>H</span><div>[Name]<small>Hospitality</small></div></figcaption></figure>
+          <figure class="rev__slide"><span class="todo">Placeholder</span><blockquote>“Paste a review from a brand activation.”</blockquote><figcaption class="rev__who"><span>B</span><div>[Name]<small>Brand event</small></div></figcaption></figure>
+        </div>
+        <div class="rev__nav"><div class="rev__dots" id="revDots"></div><div class="row"><button class="circ" type="button" id="revPrev" aria-label="Previous review"><i data-lucide="arrow-left" class="i"></i></button><button class="circ" type="button" id="revNext" aria-label="Next review" style="background:var(--lime)"><i data-lucide="arrow-right" class="i"></i></button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap split">
+    <div class="split__l">
+      <p class="eyebrow rv">Your questions</p>
+      <h2 class="head h2 rv">Good to know:<br>the FAQ<br><span class="hl">by Coconut Stock</span></h2>
+      <a class="btn btn--pink rv" href="#quote">Ask us anything</a>
+      <div class="pop on-bg" aria-hidden="true" data-flag="Ask me"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    </div>
+    <div class="split__r">
+      <details class="qa rv" open><summary><span class="num">01</span><h3>What is the minimum order?</h3><i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add minimum order</span> Smaller orders can usually ship nationwide.</p></details>
+      <details class="qa rv"><summary><span class="num">02</span><h3>How far ahead should I order?</h3><i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add lead time</span> For weddings and large events, reach out as soon as you have a date.</p></details>
+      <details class="qa rv"><summary><span class="num">03</span><h3>What logo file do you need?</h3><i data-lucide="plus" class="i"></i></summary><p>A vector file: EPS, SVG or AI. Only have a PNG or JPG? Send it anyway and our design team will check it with you first.</p></details>
+      <details class="qa rv"><summary><span class="num">04</span><h3>Do you deliver to my area?</h3><i data-lucide="plus" class="i"></i></summary><p>We deliver in Miami and South Florida, Orlando, Tampa, Houston and The Bahamas, and ship nationwide across the US.</p></details>
+      <details class="qa rv"><summary><span class="num">05</span><h3>Can your team serve at our event?</h3><i data-lucide="plus" class="i"></i></summary><p>Yes. Add opening and serving, or a coconut cart, when you request a quote.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 14 QUOTE -->
+<section class="sec" id="quote">
+  <div class="wrap quote">
+    <div class="quote__l rv">
+      <div style="display:grid;gap:var(--s4)"><p class="eyebrow" style="color:var(--lime)">Let's talk</p><p class="head">So, about<br>your <span class="hl hl--lime">event?</span></p><p>Tell us about the occasion. Your request goes straight to the right team and market.</p></div>
+      <div class="contact" style="position:relative;z-index:3"><span><i data-lucide="phone" class="i"></i>[Phone number]</span><span><i data-lucide="mail" class="i"></i>[Email address]</span><a href="https://www.instagram.com/coconutstock/"><i data-lucide="instagram" class="i"></i>@coconutstock</a></div>
+      <div class="pop" aria-hidden="true" data-flag="Your turn" data-pink="1"><div class="pop__clip"><div class="pop__body"><img class="pop__img" src="assets/gen/coco-hero.png" alt=""></div></div><div class="pop__hole"></div></div>
+    </div>
+    <div class="quote__r rv">
+      <form class="form" id="quoteForm" novalidate>
+        <div id="formBody" style="display:grid;gap:var(--s5)">
+          <div class="tabs" role="tablist" aria-label="What are you planning?">
+            <button type="button" role="tab" data-kind="event" aria-selected="true">An event</button>
+            <button type="button" role="tab" data-kind="hospitality" aria-selected="false">Hospitality supply</button>
+            <button type="button" role="tab" data-kind="other" aria-selected="false">Something else</button>
+          </div>
+          <div class="fields">
+            <div class="field"><label for="f-name">Name</label><input class="input" id="f-name" autocomplete="name" placeholder="Your name"></div>
+            <div class="field"><label for="f-email">Email</label><input class="input" id="f-email" type="email" autocomplete="email" placeholder="you@company.com"></div>
+            <div class="field" data-for="event"><label for="f-date">Event date</label><input class="input" id="f-date" type="date"></div>
+            <div class="field" data-for="event"><label for="f-qty">Coconuts needed</label><input class="input" id="f-qty" type="number" min="1" placeholder="150"></div>
+            <div class="field" data-for="event"><label for="f-loc">Event location</label><input class="input" id="f-loc" placeholder="City or venue"></div>
+            <div class="field" data-for="hospitality" hidden><label for="f-venue">Venue name</label><input class="input" id="f-venue"></div>
+            <div class="field" data-for="hospitality" hidden><label for="f-vtype">Venue type</label><select class="input" id="f-vtype"><option>Hotel</option><option>Restaurant</option><option>Beach or pool club</option><option>Nightclub</option><option>Other</option></select></div>
+            <div class="field" data-for="hospitality" hidden><label for="f-weekly">Weekly volume</label><input class="input" id="f-weekly" type="number" min="1" placeholder="Coconuts per week"></div>
+            <div class="field" data-for="event hospitality"><label for="f-market">Market</label><select class="input" id="f-market"><option>Miami and South Florida</option><option>Orlando</option><option>Tampa</option><option>Houston</option><option>The Bahamas</option><option>Elsewhere in the US (shipping)</option></select></div>
+            <div class="field field--full" data-for="other" hidden><label for="f-msg">How can we help?</label><textarea class="input" id="f-msg" rows="3"></textarea></div>
+            <div class="field field--full" data-for="event hospitality"><label for="f-logo">Logo (optional)</label><label class="file" for="f-logo"><i data-lucide="paperclip" class="i"></i><span id="f-logo-name">Attach your logo</span></label><input class="sr" type="file" id="f-logo" accept="image/*,application/pdf,.ai,.eps,.svg"></div>
+          </div>
+          <div class="form__foot"><button class="btn" type="submit">Send my request <i data-lucide="arrow-right" class="i"></i></button><p class="small" id="formNote"></p></div>
+        </div>
+        <div class="done" id="formDone" hidden><span class="chip" style="justify-self:start">Request ready</span><p class="head" style="font-size:72px">Thank you!</p><p id="doneText" style="color:var(--ink-2)"></p><button class="btn btn--pink" type="button" id="formReset" style="justify-self:start">Start another request</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- floating "let's talk" -->
+<a class="talk" id="talk" href="#quote" aria-label="Let's talk about your event"><img src="assets/gen/coco-hero.png" alt=""><span><small>So, about your event...</small><b>Let's talk</b></span><span class="circ" aria-hidden="true"><i data-lucide="arrow-down" class="i"></i></span></a>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr__cards">
+      <div class="fcard rv"><h3 class="head">Join the coconut club</h3><p>Once a month: new work, seasonal ideas and early dates for the busy months.</p><form class="news" id="newsForm" novalidate><label class="sr" for="newsMail">Email</label><input id="newsMail" type="email" placeholder="Your email" autocomplete="email"><button class="btn btn--pink" type="submit">Sign up</button></form></div>
+      <div class="fcard rv"><h3 class="head">Talk to a real person</h3><p>Planning something big or need a standing supply? Our team is around seven days a week.</p><a class="btn" href="#quote">Talk to our team <i data-lucide="arrow-right" class="i"></i></a></div>
+    </div>
+    <nav class="ftr__links" aria-label="Footer"><a href="#about">About</a><a href="#how">How it works</a><a href="#ways">Events</a><a href="#ways">Hotels</a><a href="#services">Services</a><a href="#top">Blog</a><a href="#deliver">Locations</a><a href="#quote">Contact</a></nav>
+    <div class="ftr__legal"><span>© 2026 Coconut Stock</span><a href="#top">Terms</a><a href="#top">Privacy</a><a href="https://www.instagram.com/coconutstock/">Instagram</a><a href="https://www.facebook.com/coconutstock/">Facebook</a></div>
+  </div>
+  <div class="ftr__big" aria-hidden="true">
+    <b>Coconut Stock</b>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="app.js"></script>
+<script src="page.js"></script>
+</body>
+</html>

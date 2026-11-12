@@ -1,0 +1,587 @@
+<title>Coconut Stock C Bold</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Great+Vibes&display=swap">
+<style>
+/* Layout: 12-col grid, 1200px content, 24px gutters, but heroes and paths run full-bleed.
+   Section header pattern (left): eyebrow → 16 → H2 (uppercase, expanded) → 16 → lead; optional link right; 48 to content.
+   Hero: giant wordmark + photo that expands to full-bleed on scroll. Paths: two full-bleed 6+6 panels. Work: pinned horizontal track.
+   Tool 7+5. How: full-width rows 2/5/5. Services: oversized list with cursor-follow photo. FAQ 5+7. Quote 5+7.
+   Colour 60-30-10: deep green base, sand bands, lime as the one accent. One typeface (Archivo, variable width). Radius: sharp (0 / 2 / 4). */
+:root{
+  color-scheme: dark;
+  --base:#002217;        /* 60% */
+  --sand:#F4E4D8;        /* 30% */
+  --accent:#DDF985;      /* 10%: buttons, links, highlights */
+  --fg:#F4E4D8;          /* text on base */
+  --fg-2:rgba(244,228,216,.72);
+  --fg-3:rgba(244,228,216,.56);
+  --rule:rgba(244,228,216,.16);
+  --ink:#002217;         /* text on sand / lime */
+  --ink-2:rgba(0,34,23,.72);
+  --ink-3:rgba(0,34,23,.58);
+  --rule-ink:rgba(0,34,23,.16);
+  --f:"Archivo", "Arial Narrow", Arial, sans-serif;
+  --t-display:clamp(40px,11.5vw,192px); --t-h2:64px; --t-h3:28px; --t-lead:20px; --t-body:17px; --t-small:14px; --t-eyebrow:12px;
+  --s1:4px; --s2:8px; --s3:16px; --s4:24px; --s5:32px; --s6:48px; --s7:64px; --s8:96px; --s9:128px;
+  --maxw:1200px; --gutter:24px; --margin:64px;
+  --r1:0px; --r2:2px; --r3:4px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --icon-stroke:1.5;
+  --coco-bg:#002217; --coco-disc:#DDF985; --coco-straw:none; --coco-script:"Great Vibes", cursive; --coco-bold:"Archivo", sans-serif;
+}
+@media (max-width:1023px){:root{--t-h2:48px;--margin:40px;--s9:96px}}
+@media (max-width:599px){:root{--t-h2:36px;--t-h3:24px;--t-lead:18px;--t-body:16px;--margin:20px;--gutter:16px;--s9:64px;--s8:64px}}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--base);color:var(--fg);font-family:var(--f);font-size:var(--t-body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:80;background:var(--base)}
+body.nav-open{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.on-sand :focus-visible{outline-color:var(--ink)}
+h1,h2,h3,p{margin:0}
+.up{text-transform:uppercase;font-stretch:118%;font-weight:800;letter-spacing:-.01em}
+h1{font-size:var(--t-h3);line-height:1.2;font-weight:500}
+h2{font-size:var(--t-h2);line-height:1;text-wrap:balance}
+h3{font-size:var(--t-h3);line-height:1.2;font-weight:700}
+.lead{font-size:var(--t-lead);line-height:1.5;color:var(--fg-2);max-width:56ch}
+.small{font-size:var(--t-small);line-height:1.5;color:var(--fg-3)}
+.eyebrow{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-eyebrow);line-height:1.2;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2)}
+.eyebrow::before{content:"";width:8px;height:8px;background:var(--accent)}
+.on-sand{background:var(--sand);color:var(--ink)}
+.on-sand .lead{color:var(--ink-2)}.on-sand .small{color:var(--ink-3)}.on-sand .eyebrow{color:var(--ink-2)}.on-sand .eyebrow::before{background:var(--ink)}
+
+.container{max-width:calc(var(--maxw) + 2 * var(--margin));margin-inline:auto;padding-left:max(var(--margin), env(safe-area-inset-left,0px));padding-right:max(var(--margin), env(safe-area-inset-right,0px))}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s4) var(--gutter)}
+.c-2{grid-column:span 2}.c-3{grid-column:span 3}.c-4{grid-column:span 4}.c-5{grid-column:span 5}.c-6{grid-column:span 6}.c-7{grid-column:span 7}.c-12{grid-column:1/-1}
+.section{padding-block:var(--s9)}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--s4);margin-bottom:var(--s6)}
+.shead__text{display:grid;gap:var(--s3);max-width:840px}
+
+.i{width:20px;height:20px;flex:none}
+.i-16{width:16px;height:16px}
+.i-24{width:24px;height:24px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);height:48px;padding:0 var(--s4);border:0;border-radius:var(--r2);background:var(--accent);color:var(--ink);font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .2s var(--ease)}
+.btn .i{transition:transform .2s var(--ease)}
+.btn:hover .i{transform:translateX(4px)}
+.btn--ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--fg)}
+.on-sand .btn--ghost{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.on-sand .btn{background:var(--ink);color:var(--sand)}
+.btn--sm{height:40px;padding:0 var(--s3);font-size:13px}
+.link{display:inline-flex;align-items:center;gap:var(--s2);font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--accent);white-space:nowrap}
+.on-sand .link{color:var(--ink)}
+.link .i{width:16px;height:16px;transition:transform .2s var(--ease)}
+.link:hover .i{transform:translateX(4px)}
+
+/* 01 header + overlay menu */
+.hdr{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:70;transition:background .3s}
+.hdr.is-solid,.nav-open .hdr{background:var(--base)}
+.hdr__in{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);height:72px}
+.hdr__logo img{width:48px;height:48px;border-radius:50%}
+.hdr__r{display:flex;align-items:center;gap:var(--s2)}
+.menu-btn{display:inline-flex;align-items:center;gap:var(--s2);height:40px;padding:0 var(--s3);border:0;border-radius:var(--r2);background:transparent;box-shadow:inset 0 0 0 1.5px var(--fg);color:var(--fg);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.menu-btn .ic-x{display:none}
+.nav-open .menu-btn .ic-x{display:block}.nav-open .menu-btn .ic-menu{display:none}
+.overlay{position:fixed;inset:calc(72px + env(safe-area-inset-top,0px)) 0 0;z-index:69;background:var(--base);overflow:auto;padding-block:var(--s6) var(--s8)}
+.overlay__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s6) var(--gutter)}
+.overlay__main{grid-column:span 7;display:grid}
+.overlay__main a{display:flex;justify-content:space-between;align-items:center;padding:var(--s3) 0;border-bottom:1px solid var(--rule);font-size:clamp(36px,5vw,64px);line-height:1;text-transform:uppercase;font-stretch:118%;font-weight:800;text-decoration:none;transition:color .2s,padding .3s var(--ease)}
+.overlay__main a:hover{color:var(--accent);padding-left:var(--s3)}
+.overlay__main a .i{width:24px;height:24px}
+.overlay__sub{grid-column:9 / span 4;display:grid;gap:var(--s5);align-content:start}
+.overlay__sub h4{margin:0 0 var(--s2);font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.overlay__sub ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.overlay__sub a{text-decoration:none;font-size:16px}
+.overlay__sub a:hover{color:var(--accent)}
+
+/* 02 hero */
+.hero{padding-top:calc(72px + var(--s6))}
+.word{font-size:var(--t-display);line-height:.86;text-transform:uppercase;font-stretch:125%;font-weight:900;letter-spacing:-.03em;white-space:nowrap}
+.word span{display:block}
+.word .acc{color:var(--accent)}
+.word span{animation:wordIn 1s var(--ease) both}
+.word span:nth-child(2){animation-delay:.1s}
+@keyframes wordIn{from{transform:translateY(30%);opacity:0}to{transform:none;opacity:1}}
+.hero__row{margin-top:var(--s6);align-items:end}
+.hero__row h1{max-width:20ch}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:var(--s3);justify-content:flex-end}
+.hero__meta{display:flex;align-items:center;gap:var(--s2);margin-top:var(--s3);color:var(--fg-2);font-size:var(--t-small)}
+.hero__meta svg{fill:var(--accent);stroke:none}
+.expand{position:relative;height:220vh;margin-top:var(--s7)}
+.expand__sticky{position:sticky;top:0;height:100vh;overflow:hidden}
+.reel{position:absolute;inset:0}
+.reel__frame{position:absolute;inset:0;clip-path:inset(18% 30% 18% 30%)}
+.reel__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.reel__frame img.on{opacity:1}
+.reel__frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,34,23,.6))}
+.reel__bar{position:absolute;left:0;right:0;bottom:var(--s5);z-index:2;display:flex;justify-content:space-between;align-items:center}
+.cap{font-size:var(--t-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.iconbtn{display:inline-grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:var(--accent);color:var(--ink);cursor:pointer}
+.iconbtn .i{width:16px;height:16px}
+.reel .ic-play{display:none}.reel.paused .ic-play{display:block}.reel.paused .ic-pause{display:none}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .expand{view-timeline-name:--ex}
+    .reel__frame{animation:grow linear both;animation-timeline:--ex;animation-range:contain 0% contain 55%}
+    .reel__bar{animation:barIn linear both;animation-timeline:--ex;animation-range:contain 40% contain 55%}
+    @keyframes grow{from{clip-path:inset(18% 30% 18% 30%)}to{clip-path:inset(0 0 0 0)}}
+    @keyframes barIn{from{opacity:0}to{opacity:1}}
+  }
+}
+@supports not (animation-timeline: view()){ .expand{height:auto}.expand__sticky{position:relative;height:auto;aspect-ratio:16/9}.reel__frame{clip-path:none} }
+@media (prefers-reduced-motion: reduce){ .expand{height:auto}.expand__sticky{position:relative;height:auto;aspect-ratio:16/9}.reel__frame{clip-path:none} }
+
+/* 03 logos + proof */
+.strip{background:var(--sand);padding-block:var(--s5);overflow:hidden}
+.strip__track{display:flex;align-items:center;gap:var(--s8);width:max-content;animation:marq 50s linear infinite}
+.strip img{height:40px;width:auto;max-width:150px;object-fit:contain;filter:grayscale(1) brightness(.2)}
+.strip img.tall{height:56px}
+@keyframes marq{to{transform:translateX(-50%)}}
+.stat{display:grid;gap:var(--s2);padding-top:var(--s4);border-top:1px solid var(--rule)}
+.stat strong{font-size:var(--t-h2);line-height:1;font-stretch:125%;font-weight:900;color:var(--accent)}
+.facts{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin-top:var(--s6);font-size:var(--t-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg-2)}
+.facts span{display:inline-flex;align-items:center;gap:var(--s2)}
+.facts .i{width:16px;height:16px;color:var(--accent)}
+
+/* 04 paths: full-bleed panels */
+.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.panel{position:relative;display:block;aspect-ratio:4/5;max-height:900px;width:100%;overflow:hidden;text-decoration:none;color:var(--sand)}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.panel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,34,23,.1) 30%,rgba(0,34,23,.82))}
+.panel:hover img{transform:scale(1.05)}
+.panel__body{position:absolute;left:var(--s6);right:var(--s6);bottom:var(--s6);z-index:1;display:grid;gap:var(--s3)}
+.panel__body .big{font-size:clamp(28px,4.4vw,80px);line-height:.9;text-transform:uppercase;font-stretch:125%;font-weight:900;letter-spacing:-.02em;transition:transform .5s var(--ease)}
+.panel:hover .big{transform:translateX(var(--s3))}
+.panel__body p{color:var(--sand);opacity:.86}
+.panel__go{display:inline-flex;align-items:center;gap:var(--s2);font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.wholesale{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex-wrap:wrap;padding-block:var(--s4);border-bottom:1px solid var(--rule)}
+
+/* 05 work: pinned horizontal track */
+.hs{position:relative}
+.hs__sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:var(--s6);overflow:hidden;padding-top:72px}
+.hs__track{display:flex;gap:var(--gutter);padding-left:max(var(--margin), calc((100vw - var(--maxw)) / 2));padding-right:var(--margin);will-change:transform;width:max-content}
+.wcard{display:grid;gap:var(--s3);text-decoration:none;color:var(--ink);flex:none}
+.wcard__img{height:min(56vh,560px);overflow:hidden;background:#e9d6c8}
+.wcard__img img{height:100%;width:auto;max-width:none;object-fit:cover;transition:transform 1.2s var(--ease)}
+.wcard:hover .wcard__img img{transform:scale(1.04)}
+.wcard__cap{display:flex;justify-content:space-between;gap:var(--s4);font-size:var(--t-small)}
+.wcard__cap strong{font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.wcard--end{display:grid;place-items:center;align-content:center;gap:var(--s4);width:min(56vh,560px);height:min(56vh,560px);background:var(--ink);color:var(--sand);text-align:center;padding:var(--s5)}
+.wcard--end strong{font-size:var(--t-h3);font-stretch:125%;font-weight:900;text-transform:uppercase;line-height:1.1}
+
+/* 06 tool */
+.panel-card{background:rgba(244,228,216,.06);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4);min-width:0}
+.step{display:flex;align-items:center;gap:var(--s2);font-size:var(--t-eyebrow);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.stack{display:grid;gap:var(--gutter);align-content:start}
+.stage{position:relative}
+.stage canvas{display:block;width:100%;height:auto;aspect-ratio:1}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s3)}
+.dim{font-size:var(--t-small);font-weight:600;font-variant-numeric:tabular-nums;color:var(--fg-2)}
+.row{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.chipbtn{display:inline-flex;align-items:center;gap:var(--s1);height:40px;padding:0 var(--s3);border:0;border-radius:var(--r2);background:transparent;box-shadow:inset 0 0 0 1px var(--rule);color:var(--fg);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.chipbtn:hover{box-shadow:inset 0 0 0 1px var(--fg)}
+.chipbtn:disabled{opacity:.4;cursor:not-allowed}
+.drop{display:grid;place-items:center;text-align:center;min-height:200px;padding:var(--s4);border:1px dashed var(--fg-3);cursor:pointer;transition:background .2s}
+.drop:hover,.drop.is-over{background:rgba(221,249,133,.08)}
+.drop .i{width:24px;height:24px;margin:0 auto var(--s2);color:var(--accent)}
+.drop [data-drop-title]{display:block;font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.field{display:grid;gap:var(--s2);min-width:0}
+.field label{font-size:var(--t-small);font-weight:600}
+.input{width:100%;height:48px;padding:0 var(--s3);border:0;border-radius:var(--r2);box-shadow:inset 0 0 0 1px var(--rule);background:transparent;min-width:0;color:var(--fg)}
+.input:focus{outline:none;box-shadow:inset 0 0 0 2px var(--accent)}
+.on-sand .input{box-shadow:inset 0 0 0 1px rgba(0,34,23,.28);color:var(--ink);background:#fbf3ec}
+.on-sand .input:focus{box-shadow:inset 0 0 0 2px var(--ink)}
+textarea.input{height:auto;padding:var(--s3)}
+select.input option{color:#002217}
+.input[aria-invalid="true"]{box-shadow:inset 0 0 0 2px #B3261E}
+.toggle{display:inline-flex;box-shadow:inset 0 0 0 1px var(--rule);justify-self:start}
+.toggle button{height:40px;padding:0 var(--s3);border:0;background:none;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--fg)}
+.toggle button[aria-pressed="true"]{background:var(--accent);color:var(--ink)}
+.textlink{border:0;background:none;padding:0;font-weight:700;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.next{display:grid;grid-template-columns:64px minmax(0,1fr);gap:var(--s3);align-items:center}
+.next img{width:64px;height:64px;background:var(--base)}
+.toast{font-size:var(--t-small);color:var(--accent)}
+.stack .btn{width:100%}
+
+/* 07 how: rows */
+.hrow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--s4) var(--gutter);align-items:baseline;padding-block:var(--s5);border-top:1px solid var(--rule-ink);transition:background .3s}
+.hrow:last-child{border-bottom:1px solid var(--rule-ink)}
+.hrow__n{grid-column:span 2;font-size:var(--t-h2);line-height:1;font-stretch:125%;font-weight:900}
+.hrow h3{grid-column:span 5;font-size:clamp(24px,2.6vw,36px);text-transform:uppercase;font-stretch:118%;font-weight:800;line-height:1.1}
+.hrow p{grid-column:span 5;color:var(--ink-2)}
+
+/* 08 services: list + follow image */
+.list{position:relative;border-top:1px solid var(--rule)}
+.lrow{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gutter);align-items:center;padding-block:var(--s5);border-bottom:1px solid var(--rule);text-decoration:none;transition:color .2s}
+.lrow__n{grid-column:span 1;font-size:var(--t-small);font-weight:700;color:var(--fg-3)}
+.lrow h3{grid-column:span 6;font-size:clamp(28px,3.4vw,48px);line-height:1;text-transform:uppercase;font-stretch:118%;font-weight:800;transition:transform .4s var(--ease)}
+.lrow p{grid-column:span 4;color:var(--fg-2)}
+.lrow .i{grid-column:span 1;justify-self:end;width:24px;height:24px;transition:transform .3s var(--ease)}
+.lrow:hover{color:var(--accent)}
+.lrow:hover h3{transform:translateX(var(--s4))}
+.lrow:hover .i{transform:rotate(-45deg)}
+.lrow__thumb{display:none}
+.follow{position:absolute;left:0;top:0;width:240px;aspect-ratio:4/5;object-fit:cover;pointer-events:none;opacity:0;transform:translate(-50%,-50%);transition:opacity .25s;z-index:3}
+.list.is-hovering .follow{opacity:1}
+
+/* 09 deliver */
+.cities{display:flex;flex-wrap:wrap;gap:0 var(--s4);font-size:clamp(36px,6vw,96px);line-height:1.05;text-transform:uppercase;font-stretch:125%;font-weight:900;letter-spacing:-.02em}
+.cities a{text-decoration:none;transition:color .2s}
+.cities a:hover{color:var(--accent)}
+.cities span{color:var(--fg-3)}
+.deliver__note{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--rule)}
+
+/* 10 reviews */
+.review{display:grid;gap:var(--s4);align-content:space-between;padding:var(--s5);background:#fbf3ec;margin:0;min-height:280px}
+.review blockquote{margin:0;font-size:var(--t-lead);line-height:1.5;font-weight:500}
+.review .tag{justify-self:start;font-size:var(--t-eyebrow);font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:var(--s1) var(--s2);box-shadow:inset 0 0 0 1px var(--ink)}
+.review .stars{display:flex;gap:2px}
+.review .stars svg{fill:var(--ink);stroke:none}
+.review footer{font-size:var(--t-small);color:var(--ink-3)}
+.score{display:flex;align-items:baseline;gap:var(--s3)}
+.score strong{font-size:var(--t-h2);line-height:1;font-stretch:125%;font-weight:900}
+
+/* 11 faq */
+.faq-side{display:grid;gap:var(--s3);align-content:start}
+.faq-side .link{justify-self:start;margin-top:var(--s3)}
+.qa{border-bottom:1px solid var(--rule)}
+.qa:first-child{border-top:1px solid var(--rule)}
+.qa summary{display:flex;justify-content:space-between;align-items:center;gap:var(--s4);min-height:72px;padding:var(--s3) 0;list-style:none;cursor:pointer;font-size:20px;font-weight:600}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary .i{color:var(--accent);transition:transform .3s var(--ease)}
+.qa[open] summary .i{transform:rotate(45deg)}
+.qa summary:hover{color:var(--accent)}
+.qa p{padding-bottom:var(--s4);max-width:62ch;color:var(--fg-2)}
+.todo{font-size:var(--t-small);font-weight:700;color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);padding:2px var(--s2);margin-right:var(--s2)}
+
+/* 12 quote */
+.quote-side{display:grid;gap:var(--s3);align-content:start}
+.quote-side .big{font-size:clamp(34px,6.4vw,104px);line-height:.9;text-transform:uppercase;font-stretch:125%;font-weight:900;letter-spacing:-.02em}
+.contact{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.contact div{display:flex;align-items:center;gap:var(--s3)}
+.form{display:grid;gap:var(--s4)}
+.tabs{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.tabs button{height:44px;padding:0 var(--s4);border:0;border-radius:var(--r2);box-shadow:inset 0 0 0 1.5px var(--ink);background:transparent;color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--sand)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.field--full{grid-column:1/-1}
+.file{display:flex;align-items:center;gap:var(--s3);height:48px;padding:0 var(--s3);border:1px dashed rgba(0,34,23,.4);cursor:pointer;font-size:var(--t-small);min-width:0}
+.file span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.form .btn{width:100%}
+.done{display:grid;gap:var(--s3);justify-items:start}
+
+/* 13 footer */
+.ftr{padding-block:var(--s8) var(--s5)}
+.ftr h4{margin:0 0 var(--s3);font-size:var(--t-eyebrow);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.ftr ul a{font-size:var(--t-small);text-decoration:none}
+.ftr ul a:hover{color:var(--accent)}
+.ftr__brand{display:grid;gap:var(--s3);align-content:start}
+.ftr__brand img{width:64px;height:64px;border-radius:50%}
+.ftr__big{margin-top:var(--s8);font-size:clamp(28px,7.4vw,120px);line-height:.85;text-transform:uppercase;font-stretch:125%;font-weight:900;letter-spacing:-.03em;white-space:nowrap;color:var(--accent)}
+.ftr__bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--s3);margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--rule);font-size:var(--t-small);color:var(--fg-3)}
+.ftr__bottom .row a{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--rule);color:var(--fg)}
+.ftr__bottom .row a:hover{background:var(--accent);color:var(--ink)}
+
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+    @keyframes rv{from{opacity:.001;transform:translateY(24px)}to{opacity:1;transform:none}}
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .hs__sticky{position:relative;height:auto;padding-block:var(--s9);overflow-x:auto}
+}
+
+@media (max-width:1023px){
+  .grid,.overlay__grid{grid-template-columns:repeat(8,minmax(0,1fr))}
+  .c-2,.c-3{grid-column:span 4}.c-4,.c-5,.c-6,.c-7{grid-column:1/-1}
+  .overlay__main,.overlay__sub{grid-column:1/-1}
+  .hero__ctas{justify-content:flex-start}
+  .panels{grid-template-columns:1fr}
+  .panel{aspect-ratio:4/3}
+  .hrow__n{grid-column:span 2}.hrow h3,.hrow p{grid-column:span 10}
+  .lrow h3{grid-column:span 10}.lrow p{grid-column:2 / span 10}.lrow .i{display:none}
+}
+@media (max-width:899px){
+  .hs{height:auto!important}
+  .hs__sticky{position:relative;height:auto;padding-block:var(--s9);overflow-x:auto;scroll-snap-type:x mandatory}
+  .hs__track{transform:none!important;padding-left:max(var(--margin), env(safe-area-inset-left,0px))}
+  .wcard{scroll-snap-align:start}
+  .wcard__img{height:420px}
+  .wcard--end{width:320px;height:420px}
+}
+@media (max-width:599px){
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .c-2,.c-3{grid-column:span 2}
+  .expand{height:160vh}
+  .shead{display:grid;justify-content:start;gap:var(--s4)}
+  .score{flex-wrap:wrap}
+  .panel{aspect-ratio:4/5}
+  .panel__body{left:var(--s4);right:var(--s4);bottom:var(--s4)}
+  .hrow{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .hrow__n{grid-column:1/-1}.hrow h3,.hrow p{grid-column:1/-1}
+  .lrow{grid-template-columns:72px minmax(0,1fr);row-gap:var(--s2)}
+  .lrow__thumb{display:block;grid-row:span 2;width:72px;height:90px;object-fit:cover}
+  .lrow__n{display:none}
+  .lrow h3,.lrow p{grid-column:2}
+  .lrow h3{font-size:28px}
+  .follow{display:none}
+  .fields{grid-template-columns:1fr}
+  .panel-card{padding:var(--s4)}
+  .ftr .c-2{grid-column:span 2}
+}
+</style>
+
+<!-- 01 HEADER -->
+<header class="hdr" id="top">
+  <div class="container hdr__in">
+    <a class="hdr__logo" href="#top" aria-label="Coconut Stock home"><img src="assets/logo-icon.png" alt="Coconut Stock"></a>
+    <div class="hdr__r">
+      <a class="btn btn--sm" href="#quote">Get a quote</a>
+      <button class="menu-btn" id="burger" type="button" aria-expanded="false" aria-controls="mnav"><i data-lucide="menu" class="i i-16 ic-menu"></i><i data-lucide="x" class="i i-16 ic-x"></i>Menu</button>
+    </div>
+  </div>
+</header>
+<nav class="overlay" id="mnav" hidden aria-label="Main">
+  <div class="container overlay__grid">
+    <div class="overlay__main">
+      <a class="m" href="#paths">Events <i data-lucide="arrow-up-right" class="i"></i></a>
+      <a class="m" href="#paths">Hospitality <i data-lucide="arrow-up-right" class="i"></i></a>
+      <a class="m" href="#how">How it works <i data-lucide="arrow-up-right" class="i"></i></a>
+      <a class="m" href="#work">Our work <i data-lucide="arrow-up-right" class="i"></i></a>
+      <a class="m" href="#deliver">Locations <i data-lucide="arrow-up-right" class="i"></i></a>
+      <a class="m" href="#quote">Get a quote <i data-lucide="arrow-up-right" class="i"></i></a>
+    </div>
+    <div class="overlay__sub">
+      <div><h4>Events</h4><ul><li><a href="#work">Weddings</a></li><li><a href="#work">Corporate and brand events</a></li><li><a href="#services">Private parties</a></li></ul></div>
+      <div><h4>Hospitality</h4><ul><li><a href="#paths">Hotels, restaurants and clubs</a></li><li><a href="#paths">Wholesale</a></li></ul></div>
+      <div><h4>About</h4><ul><li><a href="#top">Our story</a></li><li><a href="#faq">FAQ</a></li><li><a href="#top">Blog</a></li><li><a href="#top">Franchise</a></li><li><a href="#quote">Contact</a></li></ul></div>
+    </div>
+  </div>
+</nav>
+
+<main>
+<!-- 02 HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="word" aria-hidden="true"><span>Brand in</span><span>a <span class="acc" style="display:inline">nut.</span></span></p>
+    <div class="grid hero__row">
+      <div class="c-7"><h1>Custom branded coconuts for events, hotels and restaurants. The original branded coconut company, serving since 2015.</h1>
+        <p class="hero__meta"><i data-lucide="star" class="i i-16"></i>4.9 Google rating · 100+ clients</p></div>
+      <div class="c-5 hero__ctas"><a class="btn" href="#quote" data-tab="event">Plan an event <i data-lucide="arrow-right" class="i i-16"></i></a><a class="btn btn--ghost" href="#quote" data-tab="hospitality">Supply my venue</a></div>
+    </div>
+  </div>
+  <div class="expand">
+    <div class="expand__sticky">
+      <div class="reel" id="reel" data-interval="4000">
+        <div class="reel__frame" role="img" aria-label="Branded coconuts at Miami beach festivals">
+          <img class="on" src="assets/wide-duo.jpg" alt="" data-cap="Beach festival · Miami">
+          <img src="assets/wide-night.jpg" alt="" data-cap="Night activation">
+          <img src="assets/wide-booth.jpg" alt="" data-cap="Brand booth">
+        </div>
+        <div class="reel__bar container"><span class="cap" data-reel-cap></span><button class="iconbtn" id="reelPause" type="button" aria-pressed="false" aria-label="Pause hero slideshow"><i data-lucide="pause" class="i ic-pause"></i><i data-lucide="play" class="i ic-play"></i></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 LOGOS + PROOF -->
+<div class="strip on-sand" aria-label="Client logos">
+  <div class="strip__track" data-marquee>
+    <img src="assets/logos/setai.png" alt="The Setai" class="tall"><img src="assets/logos/st_regis.png" alt="St. Regis"><img src="assets/logos/eau.png" alt="Eau Palm Beach" class="tall"><img src="assets/logos/confidante.png" alt="The Confidante"><img src="assets/logos/hilton.png" alt="Hilton" class="tall"><img src="assets/logos/edition.png" alt="The Miami Beach Edition"><img src="assets/logos/aqualine.png" alt="Acqualina"><img src="assets/logos/jw_marriot.png" alt="JW Marriott"><img src="assets/logos/carillone.png" alt="Carillon Miami"><img src="assets/logos/nusret.png" alt="Nusr-Et"><img src="assets/logos/sls.png" alt="SLS Hotels" class="tall"><img src="assets/logos/mandarin.png" alt="Mandarin Oriental" class="tall"><img src="assets/logos/ritz.png" alt="The Ritz-Carlton"><img src="assets/logos/hyde.png" alt="Hyde Beach" class="tall"><img src="assets/logos/strawberry.png" alt="Strawberry Moon"><img src="assets/logos/lowes.png" alt="Loews Hotels">
+  </div>
+</div>
+<section class="section" aria-label="By the numbers">
+  <div class="container">
+    <div class="grid">
+      <div class="c-3 stat rv"><strong>2015</strong><span class="small">Branding coconuts since</span></div>
+      <div class="c-3 stat rv"><strong>100+</strong><span class="small">Clients served</span></div>
+      <div class="c-3 stat rv"><strong>4.9</strong><span class="small">Google rating</span></div>
+      <div class="c-3 stat rv"><strong>5</strong><span class="small">Markets, plus nationwide shipping</span></div>
+    </div>
+    <div class="facts rv"><span><i data-lucide="check" class="i"></i>Only coconuts</span><span><i data-lucide="check" class="i"></i>Thai Nam Hom, diamond cut</span><span><i data-lucide="check" class="i"></i>Heat-branded, permanent finish</span></div>
+  </div>
+</section>
+
+<!-- 04 PATHS -->
+<section id="paths" aria-label="Choose your path">
+  <div class="container" style="padding-bottom:var(--s6)"><div class="shead rv"><div class="shead__text"><p class="eyebrow">Choose your path</p><h2 class="up">Two ways in</h2></div></div></div>
+  <div class="panels">
+    <a class="panel" href="#quote" data-tab="event"><img src="assets/port-festival.jpg" alt="Friends holding branded coconuts at a beach festival"><div class="panel__body"><span class="big">Events</span><p>Weddings · Corporate and brand events · Private parties</p><span class="panel__go">Explore events <i data-lucide="arrow-right" class="i i-16"></i></span></div></a>
+    <a class="panel" href="#quote" data-tab="hospitality"><img src="assets/el-2.jpg" alt="Loews Hotels branded coconut"><div class="panel__body"><span class="big">Hospitality</span><p>Recurring delivery for hotels, restaurants and clubs</p><span class="panel__go">See the program <i data-lucide="arrow-right" class="i i-16"></i></span></div></a>
+  </div>
+  <div class="container"><div class="wholesale"><span class="small">Ordering by the pallet?</span><a class="link" href="#quote">Wholesale <i data-lucide="arrow-right" class="i"></i></a></div></div>
+</section>
+
+<!-- 05 WORK -->
+<section class="hs on-sand" id="work" data-hscroll>
+  <div class="hs__sticky">
+    <div class="container"><div class="shead" style="margin-bottom:0"><div class="shead__text"><p class="eyebrow">Featured work</p><h2 class="up">Our work</h2></div><a class="link" href="#work">See our work <i data-lucide="arrow-right" class="i"></i></a></div></div>
+    <div class="hs__track" data-hscroll-track>
+      <a class="wcard" href="#work"><div class="wcard__img"><img src="assets/work-featured-45.jpg" alt="Rows of branded coconuts on a welcome table"></div><div class="wcard__cap"><strong>Welcome table</strong><span>Event</span></div></a>
+      <a class="wcard" href="#work"><div class="wcard__img"><img src="assets/el-3.jpg" alt="Coconut branded Kaitlin and Joseph"></div><div class="wcard__cap"><strong>Kaitlin &amp; Joseph</strong><span>Wedding</span></div></a>
+      <a class="wcard" href="#work"><div class="wcard__img"><img src="assets/work-pool.jpg" alt="W-branded coconut at a hotel pool"></div><div class="wcard__cap"><strong>Pool service</strong><span>Hotel pool</span></div></a>
+      <a class="wcard" href="#work"><div class="wcard__img"><img src="assets/sq-strawberry.jpg" alt="Close-up of Strawberry Moon branded coconuts"></div><div class="wcard__cap"><strong>Strawberry Moon</strong><span>Branding close-up</span></div></a>
+      <a class="wcard" href="#work"><div class="wcard__img"><img src="assets/work-activation.jpg" alt="Malibu Rum Day coconuts on ice"></div><div class="wcard__cap"><strong>Malibu Rum Day</strong><span>Brand activation</span></div></a>
+      <a class="wcard wcard--end" href="#work"><strong>See every project</strong><i data-lucide="arrow-right" class="i i-24"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- 06 LOGO PREVIEW -->
+<section class="section" id="preview">
+  <div class="container">
+    <div class="shead rv"><div class="shead__text"><p class="eyebrow">Logo preview</p><h2 class="up">See your logo on a coconut</h2><p class="lead">Upload your logo and see a preview in seconds. Nothing leaves your browser.</p></div></div>
+    <div class="grid">
+      <div class="c-7 panel-card rv">
+        <p class="step">02 · Preview</p>
+        <div class="stage"><canvas id="coco" width="900" height="900" role="img" aria-label="Preview of your logo on a coconut"></canvas></div>
+        <div class="toolbar"><span class="dim" id="dim"></span><div class="row"><button class="chipbtn" type="button" id="smaller"><i data-lucide="minus" class="i i-16"></i>Smaller</button><button class="chipbtn" type="button" id="larger"><i data-lucide="plus" class="i i-16"></i>Larger</button><button class="chipbtn" type="button" id="another"><i data-lucide="refresh-cw" class="i i-16"></i>Try another</button></div></div>
+        <p class="small">Preview only. Our design team reviews and approves every logo.</p>
+      </div>
+      <div class="c-5 stack">
+        <div class="panel-card rv">
+          <p class="step">01 · Upload</p>
+          <label class="drop" id="drop" for="logoFile"><span><i data-lucide="upload" class="i"></i><span data-drop-title>Drop your logo here</span><span class="small" data-drop-hint>or click to choose a file</span></span></label>
+          <input class="sr" type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml,application/pdf">
+          <p class="small">PNG, JPG, SVG or PDF. No logo? <button class="textlink" type="button" id="txtToggle">Try initials or names</button></p>
+          <div class="field" id="txtMode"><label for="txtInput">Names or initials</label><input class="input" id="txtInput" value="Sofia &amp; Marco" maxlength="28" autocomplete="off"><div class="toggle" role="group" aria-label="Lettering style"><button type="button" data-style="script" aria-pressed="true">Script</button><button type="button" data-style="bold" aria-pressed="false">Block</button></div></div>
+        </div>
+        <div class="panel-card rv">
+          <p class="step">03 · Next step</p>
+          <div class="next"><img id="thumb" alt="Your coconut preview"><span class="small">The quote form opens with this design attached. Ordering still needs a vector file (EPS, SVG, AI).</span></div>
+          <a class="btn" href="#quote" id="useDesign">Get a quote with this design</a>
+          <button class="btn btn--ghost" type="button" id="mailToggle">Email me this preview</button>
+          <form class="field" id="mailbox" hidden><label class="sr" for="mailInput">Your email</label><input class="input" id="mailInput" type="email" placeholder="you@company.com" required><button class="btn" type="submit">Send preview</button></form>
+          <p class="toast" id="mailToast" hidden></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 HOW IT WORKS -->
+<section class="section on-sand" id="how">
+  <div class="container">
+    <div class="shead rv"><div class="shead__text"><p class="eyebrow">How it works</p><h2 class="up">Logo to coconut</h2></div><a class="link" href="#how">How it works <i data-lucide="arrow-right" class="i"></i></a></div>
+    <div class="hrow rv"><span class="hrow__n">01</span><h3>Share your details and logo</h3><p>Tell us the date, location and quantity, and send your artwork.</p></div>
+    <div class="hrow rv"><span class="hrow__n">02</span><h3>We brand and prepare</h3><p>CNC machinery and a heat-burn method for a clean, permanent finish.</p></div>
+    <div class="hrow rv"><span class="hrow__n">03</span><h3>Delivered or shipped</h3><p>Local delivery in our five markets, or nationwide shipping across the US.</p></div>
+  </div>
+</section>
+
+<!-- 08 SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="shead rv"><div class="shead__text"><p class="eyebrow">Services</p><h2 class="up">Event services</h2></div><a class="link" href="#services">All event services <i data-lucide="arrow-right" class="i"></i></a></div>
+    <div class="list" data-follow>
+      <img class="follow" data-follow-img alt="">
+      <a class="lrow" href="#quote" data-img="assets/svc-cart.jpg" data-alt="Coconut display at a wedding"><img class="lrow__thumb" src="assets/svc-cart.jpg" alt=""><span class="lrow__n">01</span><h3>Coconut cart</h3><p>A styled coconut station, set up on site.</p><i data-lucide="arrow-right" class="i"></i></a>
+      <a class="lrow" href="#quote" data-img="assets/svc-serving.jpg" data-alt="Staff serving coconuts"><img class="lrow__thumb" src="assets/svc-serving.jpg" alt=""><span class="lrow__n">02</span><h3>Opening and serving</h3><p>Our team opens and hands out each coconut fresh.</p><i data-lucide="arrow-right" class="i"></i></a>
+      <a class="lrow" href="#quote" data-img="assets/svc-cups.jpg" data-alt="Coconut cocktail"><img class="lrow__thumb" src="assets/svc-cups.jpg" alt=""><span class="lrow__n">03</span><h3>Coconut cups</h3><p>Pre-opened and emptied for your signature drink · local delivery.</p><i data-lucide="arrow-right" class="i"></i></a>
+      <a class="lrow" href="#quote" data-img="assets/svc-delivery.jpg" data-alt="Coconuts ready to deliver"><img class="lrow__thumb" src="assets/svc-delivery.jpg" alt=""><span class="lrow__n">04</span><h3>Delivery and shipping</h3><p>Delivered in our markets, shipped anywhere else.</p><i data-lucide="arrow-right" class="i"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- 09 WHERE WE DELIVER -->
+<section class="section" id="deliver" style="padding-top:0">
+  <div class="container">
+    <div class="shead rv"><div class="shead__text"><p class="eyebrow">Where we deliver</p></div></div>
+    <p class="cities rv"><a href="#quote">Miami</a><span>/</span><a href="#quote">Orlando</a><span>/</span><a href="#quote">Tampa</a><span>/</span><a href="#quote">Houston</a><span>/</span><a href="#quote">The Bahamas</a></p>
+    <div class="deliver__note"><span class="small">Miami means Miami and South Florida. Anywhere else in the US: nationwide shipping.</span><a class="link" href="#faq">See delivery details <i data-lucide="arrow-right" class="i"></i></a></div>
+  </div>
+</section>
+
+<!-- 10 REVIEWS -->
+<section class="section on-sand" id="reviews">
+  <div class="container">
+    <div class="shead rv"><div class="shead__text"><p class="eyebrow">Google reviews</p><h2 class="up">What clients say</h2></div><div class="score"><strong>4.9</strong><span class="small">Google rating · 100+ clients</span></div></div>
+    <div class="grid">
+      <figure class="c-4 review rv"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here, chosen for detail about the event.</blockquote><footer>[Name] · Wedding · Google</footer></figure>
+      <figure class="c-4 review rv"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here from a hotel or restaurant client.</blockquote><footer>[Name] · Hospitality · Google</footer></figure>
+      <figure class="c-4 review rv"><span class="tag">Placeholder</span><blockquote>Paste a real Google review here from a brand activation.</blockquote><footer>[Name] · Brand event · Google</footer></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 11 FAQ -->
+<section class="section" id="faq">
+  <div class="container grid">
+    <div class="c-5 faq-side rv"><p class="eyebrow">FAQ</p><h2 class="up">Questions</h2><p class="lead">Something else? Ask in the quote form.</p><a class="link" href="#quote">Ask a question <i data-lucide="arrow-right" class="i"></i></a></div>
+    <div class="c-7 rv">
+      <details class="qa" open><summary>What is the minimum order? <i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add minimum order</span>Smaller orders can usually ship nationwide.</p></details>
+      <details class="qa"><summary>How far in advance should I order? <i data-lucide="plus" class="i"></i></summary><p><span class="todo">Add lead time</span>For weddings and large events, reach out as soon as you have a date.</p></details>
+      <details class="qa"><summary>What logo file do you need? <i data-lucide="plus" class="i"></i></summary><p>A vector file: EPS, SVG or AI. Only have a PNG or JPG? Send it anyway and our design team will check it with you first.</p></details>
+      <details class="qa"><summary>Do you deliver to my area? <i data-lucide="plus" class="i"></i></summary><p>We deliver in Miami and South Florida, Orlando, Tampa, Houston and The Bahamas, and ship nationwide across the US.</p></details>
+      <details class="qa"><summary>Can your team serve at our event? <i data-lucide="plus" class="i"></i></summary><p>Yes. Add opening and serving, or a coconut cart, when you request a quote.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 12 QUOTE -->
+<section class="section on-sand" id="quote">
+  <div class="container grid">
+    <div class="c-5 quote-side rv">
+      <p class="eyebrow">Get a quote</p>
+      <p class="big">Let’s talk coconuts.</p>
+      <p class="lead">Your request goes straight to the right team and market.</p>
+      <div class="contact"><div><i data-lucide="phone" class="i"></i><span>[Phone number]</span></div><div><i data-lucide="mail" class="i"></i><span>[Email address]</span></div></div>
+    </div>
+    <form class="c-7 form rv" id="quoteForm" novalidate>
+      <div id="formBody" style="display:grid;gap:var(--s4)">
+        <div class="tabs" role="tablist" aria-label="What are you planning?">
+          <button type="button" role="tab" data-kind="event" aria-selected="true">An event</button>
+          <button type="button" role="tab" data-kind="hospitality" aria-selected="false">Hospitality supply</button>
+          <button type="button" role="tab" data-kind="other" aria-selected="false">Something else</button>
+        </div>
+        <div class="fields">
+          <div class="field"><label for="f-name">Name</label><input class="input" id="f-name" autocomplete="name"></div>
+          <div class="field"><label for="f-email">Email</label><input class="input" id="f-email" type="email" autocomplete="email"></div>
+          <div class="field" data-for="event"><label for="f-date">Event date</label><input class="input" id="f-date" type="date"></div>
+          <div class="field" data-for="event"><label for="f-qty">Coconuts needed</label><input class="input" id="f-qty" type="number" min="1" placeholder="e.g. 150"></div>
+          <div class="field" data-for="event"><label for="f-loc">Event location</label><input class="input" id="f-loc" placeholder="City or venue"></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-venue">Venue name</label><input class="input" id="f-venue"></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-vtype">Venue type</label><select class="input" id="f-vtype"><option>Hotel</option><option>Restaurant</option><option>Beach or pool club</option><option>Nightclub</option><option>Other</option></select></div>
+          <div class="field" data-for="hospitality" hidden><label for="f-weekly">Weekly volume</label><input class="input" id="f-weekly" type="number" min="1" placeholder="Coconuts per week"></div>
+          <div class="field" data-for="event hospitality"><label for="f-market">Market</label><select class="input" id="f-market"><option>Miami and South Florida</option><option>Orlando</option><option>Tampa</option><option>Houston</option><option>The Bahamas</option><option>Elsewhere in the US (shipping)</option></select></div>
+          <div class="field field--full" data-for="other" hidden><label for="f-msg">How can we help?</label><textarea class="input" id="f-msg" rows="4"></textarea></div>
+          <div class="field field--full" data-for="event hospitality"><label for="f-logo">Logo (optional)</label><label class="file" for="f-logo"><i data-lucide="paperclip" class="i i-16"></i><span id="f-logo-name">No file chosen</span></label><input class="sr" type="file" id="f-logo" accept="image/*,application/pdf,.ai,.eps,.svg"></div>
+        </div>
+        <button class="btn" type="submit">Send my request <i data-lucide="arrow-right" class="i i-16"></i></button>
+        <p class="small" id="formNote"></p>
+      </div>
+      <div class="done" id="formDone" hidden><i data-lucide="circle-check" class="i i-24"></i><h3>Request ready</h3><p class="small" id="doneText"></p><button class="btn btn--ghost" type="button" id="formReset">Start another request</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- 13 FOOTER -->
+<footer class="ftr">
+  <div class="container">
+    <div class="grid">
+      <div class="c-4 ftr__brand"><img src="assets/logo-icon.png" alt="Coconut Stock"><p class="small">Custom branded coconuts for events, hotels and restaurants. Serving since 2015.</p></div>
+      <div class="c-2"><h4>Events</h4><ul><li><a href="#paths">Events overview</a></li><li><a href="#work">Weddings</a></li><li><a href="#work">Corporate and brand events</a></li><li><a href="#services">Private parties</a></li></ul></div>
+      <div class="c-2"><h4>Hospitality</h4><ul><li><a href="#paths">Hotels, restaurants and clubs</a></li><li><a href="#paths">Wholesale</a></li><li><a href="#how">How it works</a></li><li><a href="#work">Our work</a></li></ul></div>
+      <div class="c-2"><h4>Locations</h4><ul><li><a href="#deliver">Miami and South Florida</a></li><li><a href="#deliver">Orlando · Tampa</a></li><li><a href="#deliver">Houston · The Bahamas</a></li></ul></div>
+      <div class="c-2"><h4>About</h4><ul><li><a href="#top">Our story</a></li><li><a href="#faq">FAQ</a></li><li><a href="#top">Blog</a></li><li><a href="#top">Franchise</a></li><li><a href="#quote">Contact</a></li><li><a href="#top">Terms · Privacy</a></li></ul></div>
+    </div>
+    <p class="ftr__big" aria-hidden="true">Coconut Stock</p>
+    <div class="ftr__bottom"><span>© 2026 Coconut Stock</span><div class="row"><a href="https://www.instagram.com/coconutstock/" aria-label="Instagram"><i data-lucide="instagram" class="i"></i></a><a href="https://www.facebook.com/coconutstock/" aria-label="Facebook"><i data-lucide="facebook" class="i"></i></a></div></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="app.js"></script>
