@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 250">
+  <!-- popped lid -->
+  <g transform="rotate(-24 110 46)">
+    <path d="M110 6L150 46H70Z" fill="#FCF5E8"/>
+    <path d="M110 6L150 46H110Z" fill="#EFE2C8"/>
+    <path d="M70 46h80v8H70z" fill="#E7D3AE"/>
+  </g>
+  <!-- splash -->
+  <g fill="#A6F1FF"><path d="M120 80q-8 12 0 18q8-6 0-18z"/><path d="M144 68q-6 10 0 14q6-4 0-14z"/><path d="M96 70q-6 10 0 14q6-4 0-14z"/></g>
+  <g fill="#3BABE1"><circle cx="160" cy="92" r="4"/><circle cx="84" cy="96" r="3.5"/></g>
+  <!-- coconut body with an open top -->
+  <g transform="translate(30 92) scale(1.6 1.3)">
+    <path d="M8 22H92V96Q92 110 78 110H22Q8 110 8 96Z" fill="#F6EAD2"/>
+    <path d="M64 22H92V96Q92 110 78 110H64Z" fill="#E7D3AE"/>
+    <path d="M22 8H78L92 22H8Z" fill="#FCF5E8"/>
+    <ellipse cx="50" cy="9" rx="26" ry="4" fill="#fff"/>
+    <ellipse cx="50" cy="9" rx="19" ry="2.6" fill="#E6F7FB"/>
+  </g>
+  <circle cx="104" cy="196" r="26" fill="none" stroke="#7A4A2E" stroke-width="4" opacity=".85"/>
+  <!-- tool -->
+  <g transform="rotate(32 180 180)"><rect x="168" y="150" width="14" height="44" rx="6" fill="#4B2618"/><path d="M164 112h22v40h-22z" fill="#C9CED3"/><path d="M164 112h8v40h-8z" fill="#E8EBEE"/></g>
+</svg>

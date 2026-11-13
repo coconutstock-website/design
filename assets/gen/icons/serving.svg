@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 210">
+  <defs>
+    <g id="nut">
+      <path d="M8 40H92V104Q92 116 80 116H20Q8 116 8 104Z" fill="#F6EAD2"/>
+      <path d="M64 40H92V104Q92 116 80 116H64Z" fill="#E7D3AE"/>
+      <path d="M50 0L92 40H8Z" fill="#FCF5E8"/>
+      <path d="M50 0L92 40H50Z" fill="#EFE2C8"/>
+      <circle cx="44" cy="76" r="16" fill="none" stroke="#7A4A2E" stroke-width="3.5" opacity=".85"/>
+    </g>
+  </defs>
+  <!-- straws -->
+  <rect x="86" y="14" width="10" height="70" rx="5" fill="#FF3193" transform="rotate(-14 91 50)"/>
+  <rect x="160" y="26" width="10" height="64" rx="5" fill="#3BABE1" transform="rotate(16 165 58)"/>
+  <!-- coconuts -->
+  <use href="#nut" transform="translate(44 40) scale(.9)"/>
+  <use href="#nut" transform="translate(124 56) scale(.78)"/>
+  <!-- tray -->
+  <ellipse cx="125" cy="160" rx="118" ry="24" fill="#B9C0C6"/>
+  <ellipse cx="125" cy="152" rx="118" ry="24" fill="#E3E7EA"/>
+  <ellipse cx="125" cy="150" rx="100" ry="16" fill="#F2F4F5"/>
+  <path d="M40 146q30-10 70-12" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- hand -->
+  <path d="M96 178q8 20 28 26h46q10 0 10-10t-10-10h-6q10 0 10-9t-10-9H108q-8 0-12 12z" fill="#C98B5B"/>
+  <path d="M150 186h18M150 168h16" stroke="#A86F43" stroke-width="3" stroke-linecap="round"/>
+</svg>

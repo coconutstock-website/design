@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 230">
+  <defs>
+    <g id="nut">
+      <path d="M8 40H92V104Q92 116 80 116H20Q8 116 8 104Z" fill="#F6EAD2"/>
+      <path d="M64 40H92V104Q92 116 80 116H64Z" fill="#E7D3AE"/>
+      <path d="M50 0L92 40H8Z" fill="#FCF5E8"/>
+      <path d="M50 0L92 40H50Z" fill="#EFE2C8"/>
+      <circle cx="44" cy="76" r="16" fill="none" stroke="#7A4A2E" stroke-width="3.5" opacity=".85"/>
+    </g>
+  </defs>
+  <!-- poles -->
+  <rect x="34" y="50" width="10" height="80" rx="3" fill="#8B5A3C"/>
+  <rect x="196" y="50" width="10" height="80" rx="3" fill="#8B5A3C"/>
+  <!-- awning -->
+  <path d="M14 14h212v34H14z" fill="#fff"/>
+  <path d="M14 14h42v34H14zM98 14h44v34H98zM184 14h42v34h-42z" fill="#FF3193"/>
+  <path d="M14 48a21 21 0 0 0 42 0zM98 48a22 22 0 0 0 44 0zM184 48a21 21 0 0 0 42 0z" fill="#FF3193"/>
+  <path d="M56 48a21 21 0 0 0 42 0zM142 48a21 21 0 0 0 42 0z" fill="#fff"/>
+  <path d="M14 14h212v8H14z" fill="#E01F7E"/>
+  <!-- coconuts on the counter -->
+  <use href="#nut" transform="translate(58 92) scale(.42)"/>
+  <use href="#nut" transform="translate(98 84) scale(.5)"/>
+  <use href="#nut" transform="translate(144 92) scale(.42)"/>
+  <!-- counter -->
+  <rect x="20" y="138" width="200" height="62" rx="10" fill="#C98B5B"/>
+  <path d="M20 160h200M20 180h200" stroke="#B07446" stroke-width="3"/>
+  <rect x="14" y="130" width="212" height="14" rx="7" fill="#8B5A3C"/>
+  <rect x="78" y="152" width="84" height="36" rx="8" fill="#DDF985"/>
+  <circle cx="120" cy="170" r="11" fill="none" stroke="#4B2618" stroke-width="3"/>
+  <!-- wheels -->
+  <circle cx="62" cy="204" r="22" fill="#4B2618"/><circle cx="62" cy="204" r="9" fill="#F4E4D8"/>
+  <circle cx="178" cy="204" r="22" fill="#4B2618"/><circle cx="178" cy="204" r="9" fill="#F4E4D8"/>
+</svg>
